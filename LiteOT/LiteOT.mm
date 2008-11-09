@@ -20,7 +20,7 @@
 <icon BUILTIN="button_cancel"/>
 </node>
 </node>
-<node CREATED="1225749602859" FOLDED="true" ID="Freemind_Link_92320487" MODIFIED="1225751024109" POSITION="left" TEXT="Edit">
+<node CREATED="1225749602859" ID="Freemind_Link_92320487" MODIFIED="1225751024109" POSITION="left" TEXT="Edit">
 <icon BUILTIN="button_cancel"/>
 <node CREATED="1225749792109" ID="Freemind_Link_309887620" MODIFIED="1225751024109" TEXT="Notes">
 <icon BUILTIN="button_cancel"/>
@@ -35,7 +35,7 @@
 <icon BUILTIN="button_cancel"/>
 </node>
 </node>
-<node CREATED="1225750940250" FOLDED="true" ID="Freemind_Link_1388547770" MODIFIED="1225751024093" POSITION="right" TEXT="List">
+<node CREATED="1225750940250" ID="Freemind_Link_1388547770" MODIFIED="1225751024093" POSITION="right" TEXT="List">
 <icon BUILTIN="button_cancel"/>
 <node CREATED="1225750976750" ID="Freemind_Link_1564462608" MODIFIED="1225751024093" TEXT="DefectId">
 <icon BUILTIN="button_cancel"/>
