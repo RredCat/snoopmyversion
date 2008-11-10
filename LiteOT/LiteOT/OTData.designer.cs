@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AlternativeOT
+namespace LiteOT
 {
 	using System.Data.Linq;
 	using System.Data.Linq.Mapping;
@@ -36,10 +36,13 @@ namespace AlternativeOT
     partial void InsertDefect(Defect instance);
     partial void UpdateDefect(Defect instance);
     partial void DeleteDefect(Defect instance);
+    partial void InsertProject(Project instance);
+    partial void UpdateProject(Project instance);
+    partial void DeleteProject(Project instance);
     #endregion
 		
 		public OTDataDataContext() : 
-				base(global::AlternativeOT.Properties.Settings.Default.ontime_esConnectionString, mappingSource)
+				base(global::LiteOT.Properties.Settings.Default.ontime_esConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -81,6 +84,14 @@ namespace AlternativeOT
 			get
 			{
 				return this.GetTable<Defect>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Project> Projects
+		{
+			get
+			{
+				return this.GetTable<Project>();
 			}
 		}
 	}
@@ -125,6 +136,8 @@ namespace AlternativeOT
 		
 		private System.Nullable<System.DateTime> _LastLoginDateTime;
 		
+		private EntitySet<Defect> _Defects;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -167,6 +180,7 @@ namespace AlternativeOT
 		
 		public User()
 		{
+			this._Defects = new EntitySet<Defect>(new Action<Defect>(this.attach_Defects), new Action<Defect>(this.detach_Defects));
 			OnCreated();
 		}
 		
@@ -510,6 +524,19 @@ namespace AlternativeOT
 			}
 		}
 		
+		[Association(Name="User_Defect", Storage="_Defects", ThisKey="UserId", OtherKey="AssignedToId")]
+		public EntitySet<Defect> Defects
+		{
+			get
+			{
+				return this._Defects;
+			}
+			set
+			{
+				this._Defects.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -528,6 +555,18 @@ namespace AlternativeOT
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_Defects(Defect entity)
+		{
+			this.SendPropertyChanging();
+			entity.User = this;
+		}
+		
+		private void detach_Defects(Defect entity)
+		{
+			this.SendPropertyChanging();
+			entity.User = null;
 		}
 	}
 	
@@ -599,6 +638,10 @@ namespace AlternativeOT
 		
 		private System.DateTime _DueDate;
 		
+		private EntitySet<Project> _Projects;
+		
+		private EntityRef<User> _User;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -669,6 +712,8 @@ namespace AlternativeOT
 		
 		public Defect()
 		{
+			this._Projects = new EntitySet<Project>(new Action<Project>(this.attach_Projects), new Action<Project>(this.detach_Projects));
+			this._User = default(EntityRef<User>);
 			OnCreated();
 		}
 		
@@ -763,6 +808,10 @@ namespace AlternativeOT
 			{
 				if ((this._AssignedToId != value))
 				{
+					if (this._User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnAssignedToIdChanging(value);
 					this.SendPropertyChanging();
 					this._AssignedToId = value;
@@ -1288,6 +1337,336 @@ namespace AlternativeOT
 					this._DueDate = value;
 					this.SendPropertyChanged("DueDate");
 					this.OnDueDateChanged();
+				}
+			}
+		}
+		
+		[Association(Name="Defect_Project", Storage="_Projects", ThisKey="ProjectId", OtherKey="ProjectId")]
+		public EntitySet<Project> Projects
+		{
+			get
+			{
+				return this._Projects;
+			}
+			set
+			{
+				this._Projects.Assign(value);
+			}
+		}
+		
+		[Association(Name="User_Defect", Storage="_User", ThisKey="AssignedToId", OtherKey="UserId", IsForeignKey=true)]
+		public User User
+		{
+			get
+			{
+				return this._User.Entity;
+			}
+			set
+			{
+				User previousValue = this._User.Entity;
+				if (((previousValue != value) 
+							|| (this._User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._User.Entity = null;
+						previousValue.Defects.Remove(this);
+					}
+					this._User.Entity = value;
+					if ((value != null))
+					{
+						value.Defects.Add(this);
+						this._AssignedToId = value.UserId;
+					}
+					else
+					{
+						this._AssignedToId = default(int);
+					}
+					this.SendPropertyChanged("User");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Projects(Project entity)
+		{
+			this.SendPropertyChanging();
+			entity.Defect = this;
+		}
+		
+		private void detach_Projects(Project entity)
+		{
+			this.SendPropertyChanging();
+			entity.Defect = null;
+		}
+	}
+	
+	[Table(Name="dbo.Projects")]
+	public partial class Project : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ProjectId;
+		
+		private int _ParentId;
+		
+		private string _Name;
+		
+		private string _Description;
+		
+		private System.DateTime _StartDate;
+		
+		private System.DateTime _DueDate;
+		
+		private bool _IsActive;
+		
+		private string _Path;
+		
+		private EntityRef<Defect> _Defect;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnProjectIdChanging(int value);
+    partial void OnProjectIdChanged();
+    partial void OnParentIdChanging(int value);
+    partial void OnParentIdChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnDescriptionChanging(string value);
+    partial void OnDescriptionChanged();
+    partial void OnStartDateChanging(System.DateTime value);
+    partial void OnStartDateChanged();
+    partial void OnDueDateChanging(System.DateTime value);
+    partial void OnDueDateChanged();
+    partial void OnIsActiveChanging(bool value);
+    partial void OnIsActiveChanged();
+    partial void OnPathChanging(string value);
+    partial void OnPathChanged();
+    #endregion
+		
+		public Project()
+		{
+			this._Defect = default(EntityRef<Defect>);
+			OnCreated();
+		}
+		
+		[Column(Storage="_ProjectId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ProjectId
+		{
+			get
+			{
+				return this._ProjectId;
+			}
+			set
+			{
+				if ((this._ProjectId != value))
+				{
+					if (this._Defect.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnProjectIdChanging(value);
+					this.SendPropertyChanging();
+					this._ProjectId = value;
+					this.SendPropertyChanged("ProjectId");
+					this.OnProjectIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_ParentId", DbType="Int NOT NULL")]
+		public int ParentId
+		{
+			get
+			{
+				return this._ParentId;
+			}
+			set
+			{
+				if ((this._ParentId != value))
+				{
+					this.OnParentIdChanging(value);
+					this.SendPropertyChanging();
+					this._ParentId = value;
+					this.SendPropertyChanged("ParentId");
+					this.OnParentIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_Name", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_Description", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
+		public string Description
+		{
+			get
+			{
+				return this._Description;
+			}
+			set
+			{
+				if ((this._Description != value))
+				{
+					this.OnDescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._Description = value;
+					this.SendPropertyChanged("Description");
+					this.OnDescriptionChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_StartDate", DbType="DateTime NOT NULL")]
+		public System.DateTime StartDate
+		{
+			get
+			{
+				return this._StartDate;
+			}
+			set
+			{
+				if ((this._StartDate != value))
+				{
+					this.OnStartDateChanging(value);
+					this.SendPropertyChanging();
+					this._StartDate = value;
+					this.SendPropertyChanged("StartDate");
+					this.OnStartDateChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_DueDate", DbType="DateTime NOT NULL")]
+		public System.DateTime DueDate
+		{
+			get
+			{
+				return this._DueDate;
+			}
+			set
+			{
+				if ((this._DueDate != value))
+				{
+					this.OnDueDateChanging(value);
+					this.SendPropertyChanging();
+					this._DueDate = value;
+					this.SendPropertyChanged("DueDate");
+					this.OnDueDateChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_IsActive", DbType="Bit NOT NULL")]
+		public bool IsActive
+		{
+			get
+			{
+				return this._IsActive;
+			}
+			set
+			{
+				if ((this._IsActive != value))
+				{
+					this.OnIsActiveChanging(value);
+					this.SendPropertyChanging();
+					this._IsActive = value;
+					this.SendPropertyChanged("IsActive");
+					this.OnIsActiveChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_Path", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
+		public string Path
+		{
+			get
+			{
+				return this._Path;
+			}
+			set
+			{
+				if ((this._Path != value))
+				{
+					this.OnPathChanging(value);
+					this.SendPropertyChanging();
+					this._Path = value;
+					this.SendPropertyChanged("Path");
+					this.OnPathChanged();
+				}
+			}
+		}
+		
+		[Association(Name="Defect_Project", Storage="_Defect", ThisKey="ProjectId", OtherKey="ProjectId", IsForeignKey=true)]
+		public Defect Defect
+		{
+			get
+			{
+				return this._Defect.Entity;
+			}
+			set
+			{
+				Defect previousValue = this._Defect.Entity;
+				if (((previousValue != value) 
+							|| (this._Defect.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Defect.Entity = null;
+						previousValue.Projects.Remove(this);
+					}
+					this._Defect.Entity = value;
+					if ((value != null))
+					{
+						value.Projects.Add(this);
+						this._ProjectId = value.ProjectId;
+					}
+					else
+					{
+						this._ProjectId = default(int);
+					}
+					this.SendPropertyChanged("Defect");
 				}
 			}
 		}

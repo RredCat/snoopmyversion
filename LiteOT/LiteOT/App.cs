@@ -3,7 +3,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace AlternativeOT
+namespace LiteOT
 {
 	/// <summary>
 	/// Presents aplication.
@@ -31,51 +31,73 @@ namespace AlternativeOT
 			OTDataDataContext data = new OTDataDataContext( GetConnectString( m_ServerName, m_DBUserName, m_DBPassword ) );
 			bool isUnAauthorized = true;
 
-			while( isUnAauthorized )
-			{
-				AccessWindow dialogWin = new AccessWindow();
-				dialogWin.ShowDialog();
+			//while( isUnAauthorized )
+			//{
+			//    AccessWindow dialogWin = new AccessWindow();
+			//    dialogWin.ShowDialog();
 
-				if( true == dialogWin.DialogResult )
-				{
-					try
-					{
-						Int32 userId = GetUserId( data, m_LoginID, m_Password );
-						isUnAauthorized = false;
+			//    if( true == dialogWin.DialogResult )
+			//    {
+			//        try
+			//        {
+			Int32 userId = GetUserId( data, m_LoginID, m_Password );
+			isUnAauthorized = false;
 
-						MainWindow w = new MainWindow(data, userId );
-						w.ShowDialog();
-					}
-					catch( AccessDeniedException )
-					{
-					}
-				}
-				else
-					break;
-			}
+			MainWindow mainWindow = new MainWindow( data, userId );
+			mainWindow.ShowDialog();
+			//        }
+			//        catch( AccessDeniedException )
+			//        {
+			//        }
+			//    }
+			//    else
+			//        break;
+			//}
 		}
+		/// <summary>
+		/// Gets the user id.
+		/// </summary>
+		/// <param name="data">The data.</param>
+		/// <param name="loginID">The login ID.</param>
+		/// <param name="password">The password.</param>
+		/// <returns></returns>
 		private static Int32 GetUserId( OTDataDataContext data, String loginID, String password )
 		{
 			var result = from user in data.Users
-					where user.LoginId == loginID && user.Password == GetEncryptedPassword( password )
-					select user.UserId;
+						 where user.LoginId == loginID && user.Password == GetEncryptedPassword( password )
+						 select user.UserId;
+			int count = result.Count();
 
-			if( 1 == result.Count() )
+			if( 1 == count )
 			{
 				foreach( int userId in result )
 				{
 					return userId;
 				}
 			}
+			else if( 1 < count )
+			{
+				throw new ApplicationException( "Double row in data base" );
+			}
 
 			throw new AccessDeniedException( "Incorrect loggin or password" );
 		}
-
+		/// <summary>
+		/// Gets the connect string.
+		/// </summary>
+		/// <param name="serverName">Name of the server.</param>
+		/// <param name="dbUserId">The db user id.</param>
+		/// <param name="dbPassword">The db password.</param>
+		/// <returns></returns>
 		private static string GetConnectString( String serverName, String dbUserId, string dbPassword )
 		{
 			return string.Format( CONNECTION_PATH, serverName, dbUserId, dbPassword );
 		}
-
+		/// <summary>
+		/// Gets the encrypted password.
+		/// </summary>
+		/// <param name="password">The password.</param>
+		/// <returns></returns>
 		private static string GetEncryptedPassword( String password )
 		{
 			byte[] buffer;

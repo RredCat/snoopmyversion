@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AlternativeOT
+namespace LiteOT
 {
 	/// <summary>
 	/// Interaction logic for AccessWindow.xaml

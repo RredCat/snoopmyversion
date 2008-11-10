@@ -8,8 +8,8 @@
     <ProjectGuid>{CE9EB042-D963-48FC-AED9-B818684958BD}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AlternativeOT</RootNamespace>
-    <AssemblyName>AlternativeOT</AssemblyName>
+    <RootNamespace>LiteOT</RootNamespace>
+    <AssemblyName>LiteOT</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>

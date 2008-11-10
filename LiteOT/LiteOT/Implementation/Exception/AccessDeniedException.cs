@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AlternativeOT
+namespace LiteOT
 {
 	/// <summary>
 	/// Presents exseption that throw if loggin or password is incorrect.

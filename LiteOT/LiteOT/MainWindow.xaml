@@ -1,20 +1,34 @@
-﻿<Window x:Class="AlternativeOT.MainWindow"
+﻿<Window x:Class="LiteOT.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     Title="Window1" SizeToContent="WidthAndHeight"
 	WindowStartupLocation="CenterScreen"
 	>
-		<ListBox Name="DefectList"></ListBox>
-		<!--<ListView >
-			<ListView.View>
-				<GridView>
-					<GridViewColumn Header="First Name"
-									DisplayMemberBinding="{Binding XPath=FirstName}" />
-					<GridViewColumn Header="Last Name"
-									DisplayMemberBinding="{Binding XPath=LastName}" />
-					<GridViewColumn Header="Favorite City"
-									DisplayMemberBinding="{Binding XPath=FavoriteCity}"/>
-				</GridView>
-			</ListView.View>
-		</ListView>-->
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition />
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition />
+		</Grid.ColumnDefinitions>
+
+		<ComboBox Name="ProjectBox" />
+		<ListView Name="DefectList" 
+				  Grid.Row="1"
+				  >
+		<ListView.View>
+			<GridView>
+				<GridViewColumn Header="Id"
+								DisplayMemberBinding="{Binding Path=DefectId}" />
+				<GridViewColumn Header="Name"
+								DisplayMemberBinding="{Binding Path=Name}" />
+				<GridViewColumn Header="Priority"
+								DisplayMemberBinding="{Binding Path=PriorityTypeId}"/>
+				<GridViewColumn Header="Status"
+								DisplayMemberBinding="{Binding Path=StatusTypeId}"/>
+			</GridView>
+		</ListView.View>
+	</ListView>
+	</Grid>
 </Window>

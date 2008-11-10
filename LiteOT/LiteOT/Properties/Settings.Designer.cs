@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AlternativeOT.Properties {
+namespace LiteOT.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

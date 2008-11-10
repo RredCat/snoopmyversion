@@ -2,7 +2,7 @@
 <!-- To view this file, download free mind mapping software FreeMind from http://freemind.sourceforge.net -->
 <node CREATED="1225749504406" ID="Freemind_Link_1291210681" MODIFIED="1225751024109" TEXT="AlternativeOT">
 <icon BUILTIN="button_cancel"/>
-<node CREATED="1225749595453" ID="_" MODIFIED="1225751024109" POSITION="right" TEXT="View">
+<node CREATED="1225749595453" FOLDED="true" ID="_" MODIFIED="1226326583965" POSITION="right" TEXT="View" VSHIFT="-11">
 <icon BUILTIN="button_cancel"/>
 <node CREATED="1225749637156" ID="Freemind_Link_1221286275" MODIFIED="1225751024109" TEXT="Descriptions">
 <icon BUILTIN="button_cancel"/>
@@ -35,7 +35,7 @@
 <icon BUILTIN="button_cancel"/>
 </node>
 </node>
-<node CREATED="1225750940250" ID="Freemind_Link_1388547770" MODIFIED="1225751024093" POSITION="right" TEXT="List">
+<node CREATED="1225750940250" FOLDED="true" HGAP="26" ID="Freemind_Link_1388547770" MODIFIED="1226326581743" POSITION="right" TEXT="List" VSHIFT="24">
 <icon BUILTIN="button_cancel"/>
 <node CREATED="1225750976750" ID="Freemind_Link_1564462608" MODIFIED="1225751024093" TEXT="DefectId">
 <icon BUILTIN="button_cancel"/>

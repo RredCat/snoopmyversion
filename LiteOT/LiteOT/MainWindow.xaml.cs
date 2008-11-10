@@ -5,7 +5,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace AlternativeOT
+namespace LiteOT
 {
 	/// <summary>
 	/// Interaction logic for Window1.xaml
@@ -24,6 +24,7 @@ namespace AlternativeOT
 			m_UserId = userId;
 			InitializeComponent();
 			DefectList.ItemsSource = GetDefects(m_Data,  m_UserId);
+			ProjectBox.ItemsSource = GetProjects( m_Data, m_UserId );
 		}
 		#endregion
 
@@ -32,8 +33,23 @@ namespace AlternativeOT
 		{
 			return from defects in data.Defects
 			              where defects.AssignedToId == userId
-			              select defects.Name;
-					
+				   select new
+				   {
+					   defects.DefectId,
+					   defects.Name,
+					   defects.PriorityTypeId,
+					   defects.StatusTypeId,
+					   defects.ProjectId
+				   };
+
+		}
+		private static IEnumerable GetProjects( OTDataDataContext data, Int32 userId )
+		{
+			return ( from projects in data.Projects
+					 join defects in data.Defects
+					 on projects.ProjectId equals defects.ProjectId
+					 where defects.AssignedToId == userId
+					 select projects.Name ).Distinct();
 		}
 		#endregion
 	}
