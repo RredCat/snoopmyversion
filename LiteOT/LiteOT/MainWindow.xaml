@@ -17,7 +17,8 @@
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto" />
-			<RowDefinition />
+			<RowDefinition Height="*" />
+			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="Auto" />
@@ -33,7 +34,8 @@
 				  />
 		<ListView Name="DefectList" 
 				  Grid.Row="1" Grid.ColumnSpan="2"
-				  Style="{StaticResource ElementStyle}" 
+				  Style="{StaticResource ElementStyle}"
+				  SelectionChanged="OnSelected"
 				  >
 		<ListView.View>
 			<GridView>
@@ -50,5 +52,14 @@
 			</GridView>
 		</ListView.View>
 	</ListView>
+		<TabControl Name="TabInfo"
+			Grid.Row="2" Grid.ColumnSpan="2"
+			>
+			<TabItem Header="Descriptions" />
+			<TabItem Header="Notes" />
+			<TabItem Header="Replication Propcedures" />
+			<TabItem Header="Atachment" />
+			<TabItem Header="History" />
+		</TabControl>
 	</Grid>
 </Window>

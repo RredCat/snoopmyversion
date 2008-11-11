@@ -116,6 +116,11 @@ namespace LiteOT
 				DefectList.ItemsSource = GetDefects( m_Data, m_UserId, projectName );
 			}
 		}
+		private void OnSelected( Object sender, EventArgs args )
+		{
+			var item=DefectList.SelectedItem;
+		}
 		#endregion
+
 	}
 }
