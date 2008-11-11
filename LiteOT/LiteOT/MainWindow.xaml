@@ -24,12 +24,12 @@
 			<ColumnDefinition />
 		</Grid.ColumnDefinitions>
 
-		<CheckBox Name="SelectAllCheck" Content="Select All" Style="{StaticResource ElementStyle}" IsChecked="True" 
-				  Checked="OnSelectAllChecked" Unchecked="OnSelectAllUnchecked"
+		<CheckBox Name="ProjectCheck" Content="Select All" Style="{StaticResource ElementStyle}" IsChecked="True" 
+				  Checked="OnSelectAll" Unchecked="OnSelectCurrent"
 				  /> 
 		<ComboBox Name="ProjectBox" Grid.Column="1" Style="{StaticResource ElementStyle}" SelectedIndex="0"
-				  IsEnabled="{Binding Path=IsChecked, ElementName=SelectAllCheck, Converter={StaticResource RevertBoolean}}" 
-				  SelectionChanged="OnSelectionChanged"
+				  IsEnabled="{Binding Path=IsChecked, ElementName=ProjectCheck, Converter={StaticResource RevertBoolean}}" 
+				  SelectionChanged="OnSelectCurrent"
 				  />
 		<ListView Name="DefectList" 
 				  Grid.Row="1" Grid.ColumnSpan="2"
