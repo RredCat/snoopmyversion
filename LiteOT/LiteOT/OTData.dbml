@@ -57,6 +57,8 @@
       <Column Name="Archived" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="DueDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Association Name="Defect_Project" Member="Projects" ThisKey="ProjectId" OtherKey="ProjectId" Type="Project" />
+      <Association Name="Defect_PriorityType" Member="PriorityTypes" ThisKey="PriorityTypeId" OtherKey="PriorityTypeId" Type="PriorityType" />
+      <Association Name="Defect_StatusType" Member="StatusTypes" ThisKey="StatusTypeId" OtherKey="StatusTypeId" Type="StatusType" />
       <Association Name="User_Defect" Member="User" ThisKey="AssignedToId" OtherKey="UserId" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
@@ -71,6 +73,24 @@
       <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="Path" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
       <Association Name="Defect_Project" Member="Defect" ThisKey="ProjectId" OtherKey="ProjectId" Type="Defect" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PriorityTypes" Member="PriorityTypes">
+    <Type Name="PriorityType">
+      <Column Name="PriorityTypeId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(25) NOT NULL" CanBeNull="false" />
+      <Column Name="DisplayOrder" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DefaultColor" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Defect_PriorityType" Member="Defect" ThisKey="PriorityTypeId" OtherKey="PriorityTypeId" Type="Defect" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StatusTypes" Member="StatusTypes">
+    <Type Name="StatusType">
+      <Column Name="StatusTypeId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(25) NOT NULL" CanBeNull="false" />
+      <Column Name="DisplayOrder" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DefaultColor" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Defect_StatusType" Member="Defect" ThisKey="StatusTypeId" OtherKey="StatusTypeId" Type="Defect" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

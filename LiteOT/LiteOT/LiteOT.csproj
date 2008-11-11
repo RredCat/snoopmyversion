@@ -80,6 +80,7 @@
       <DependentUpon>AccessWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.cs" />
+    <Compile Include="Implementation\Converter\RevertBooleanConverter.cs" />
     <Compile Include="Implementation\Exception\AccessDeniedException.cs" />
     <Compile Include="OTData.designer.cs">
       <AutoGen>True</AutoGen>

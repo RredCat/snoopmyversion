@@ -39,6 +39,12 @@ namespace LiteOT
     partial void InsertProject(Project instance);
     partial void UpdateProject(Project instance);
     partial void DeleteProject(Project instance);
+    partial void InsertPriorityType(PriorityType instance);
+    partial void UpdatePriorityType(PriorityType instance);
+    partial void DeletePriorityType(PriorityType instance);
+    partial void InsertStatusType(StatusType instance);
+    partial void UpdateStatusType(StatusType instance);
+    partial void DeleteStatusType(StatusType instance);
     #endregion
 		
 		public OTDataDataContext() : 
@@ -92,6 +98,22 @@ namespace LiteOT
 			get
 			{
 				return this.GetTable<Project>();
+			}
+		}
+		
+		public System.Data.Linq.Table<PriorityType> PriorityTypes
+		{
+			get
+			{
+				return this.GetTable<PriorityType>();
+			}
+		}
+		
+		public System.Data.Linq.Table<StatusType> StatusTypes
+		{
+			get
+			{
+				return this.GetTable<StatusType>();
 			}
 		}
 	}
@@ -640,6 +662,10 @@ namespace LiteOT
 		
 		private EntitySet<Project> _Projects;
 		
+		private EntitySet<PriorityType> _PriorityTypes;
+		
+		private EntitySet<StatusType> _StatusTypes;
+		
 		private EntityRef<User> _User;
 		
     #region Extensibility Method Definitions
@@ -713,6 +739,8 @@ namespace LiteOT
 		public Defect()
 		{
 			this._Projects = new EntitySet<Project>(new Action<Project>(this.attach_Projects), new Action<Project>(this.detach_Projects));
+			this._PriorityTypes = new EntitySet<PriorityType>(new Action<PriorityType>(this.attach_PriorityTypes), new Action<PriorityType>(this.detach_PriorityTypes));
+			this._StatusTypes = new EntitySet<StatusType>(new Action<StatusType>(this.attach_StatusTypes), new Action<StatusType>(this.detach_StatusTypes));
 			this._User = default(EntityRef<User>);
 			OnCreated();
 		}
@@ -1354,6 +1382,32 @@ namespace LiteOT
 			}
 		}
 		
+		[Association(Name="Defect_PriorityType", Storage="_PriorityTypes", ThisKey="PriorityTypeId", OtherKey="PriorityTypeId")]
+		public EntitySet<PriorityType> PriorityTypes
+		{
+			get
+			{
+				return this._PriorityTypes;
+			}
+			set
+			{
+				this._PriorityTypes.Assign(value);
+			}
+		}
+		
+		[Association(Name="Defect_StatusType", Storage="_StatusTypes", ThisKey="StatusTypeId", OtherKey="StatusTypeId")]
+		public EntitySet<StatusType> StatusTypes
+		{
+			get
+			{
+				return this._StatusTypes;
+			}
+			set
+			{
+				this._StatusTypes.Assign(value);
+			}
+		}
+		
 		[Association(Name="User_Defect", Storage="_User", ThisKey="AssignedToId", OtherKey="UserId", IsForeignKey=true)]
 		public User User
 		{
@@ -1415,6 +1469,30 @@ namespace LiteOT
 		}
 		
 		private void detach_Projects(Project entity)
+		{
+			this.SendPropertyChanging();
+			entity.Defect = null;
+		}
+		
+		private void attach_PriorityTypes(PriorityType entity)
+		{
+			this.SendPropertyChanging();
+			entity.Defect = this;
+		}
+		
+		private void detach_PriorityTypes(PriorityType entity)
+		{
+			this.SendPropertyChanging();
+			entity.Defect = null;
+		}
+		
+		private void attach_StatusTypes(StatusType entity)
+		{
+			this.SendPropertyChanging();
+			entity.Defect = this;
+		}
+		
+		private void detach_StatusTypes(StatusType entity)
 		{
 			this.SendPropertyChanging();
 			entity.Defect = null;
@@ -1665,6 +1743,356 @@ namespace LiteOT
 					else
 					{
 						this._ProjectId = default(int);
+					}
+					this.SendPropertyChanged("Defect");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[Table(Name="dbo.PriorityTypes")]
+	public partial class PriorityType : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _PriorityTypeId;
+		
+		private string _Name;
+		
+		private int _DisplayOrder;
+		
+		private System.Nullable<int> _DefaultColor;
+		
+		private EntityRef<Defect> _Defect;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnPriorityTypeIdChanging(int value);
+    partial void OnPriorityTypeIdChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnDisplayOrderChanging(int value);
+    partial void OnDisplayOrderChanged();
+    partial void OnDefaultColorChanging(System.Nullable<int> value);
+    partial void OnDefaultColorChanged();
+    #endregion
+		
+		public PriorityType()
+		{
+			this._Defect = default(EntityRef<Defect>);
+			OnCreated();
+		}
+		
+		[Column(Storage="_PriorityTypeId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int PriorityTypeId
+		{
+			get
+			{
+				return this._PriorityTypeId;
+			}
+			set
+			{
+				if ((this._PriorityTypeId != value))
+				{
+					if (this._Defect.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnPriorityTypeIdChanging(value);
+					this.SendPropertyChanging();
+					this._PriorityTypeId = value;
+					this.SendPropertyChanged("PriorityTypeId");
+					this.OnPriorityTypeIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_Name", DbType="NVarChar(25) NOT NULL", CanBeNull=false)]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_DisplayOrder", DbType="Int NOT NULL")]
+		public int DisplayOrder
+		{
+			get
+			{
+				return this._DisplayOrder;
+			}
+			set
+			{
+				if ((this._DisplayOrder != value))
+				{
+					this.OnDisplayOrderChanging(value);
+					this.SendPropertyChanging();
+					this._DisplayOrder = value;
+					this.SendPropertyChanged("DisplayOrder");
+					this.OnDisplayOrderChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_DefaultColor", DbType="Int")]
+		public System.Nullable<int> DefaultColor
+		{
+			get
+			{
+				return this._DefaultColor;
+			}
+			set
+			{
+				if ((this._DefaultColor != value))
+				{
+					this.OnDefaultColorChanging(value);
+					this.SendPropertyChanging();
+					this._DefaultColor = value;
+					this.SendPropertyChanged("DefaultColor");
+					this.OnDefaultColorChanged();
+				}
+			}
+		}
+		
+		[Association(Name="Defect_PriorityType", Storage="_Defect", ThisKey="PriorityTypeId", OtherKey="PriorityTypeId", IsForeignKey=true)]
+		public Defect Defect
+		{
+			get
+			{
+				return this._Defect.Entity;
+			}
+			set
+			{
+				Defect previousValue = this._Defect.Entity;
+				if (((previousValue != value) 
+							|| (this._Defect.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Defect.Entity = null;
+						previousValue.PriorityTypes.Remove(this);
+					}
+					this._Defect.Entity = value;
+					if ((value != null))
+					{
+						value.PriorityTypes.Add(this);
+						this._PriorityTypeId = value.PriorityTypeId;
+					}
+					else
+					{
+						this._PriorityTypeId = default(int);
+					}
+					this.SendPropertyChanged("Defect");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[Table(Name="dbo.StatusTypes")]
+	public partial class StatusType : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _StatusTypeId;
+		
+		private string _Name;
+		
+		private int _DisplayOrder;
+		
+		private System.Nullable<int> _DefaultColor;
+		
+		private EntityRef<Defect> _Defect;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnStatusTypeIdChanging(int value);
+    partial void OnStatusTypeIdChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnDisplayOrderChanging(int value);
+    partial void OnDisplayOrderChanged();
+    partial void OnDefaultColorChanging(System.Nullable<int> value);
+    partial void OnDefaultColorChanged();
+    #endregion
+		
+		public StatusType()
+		{
+			this._Defect = default(EntityRef<Defect>);
+			OnCreated();
+		}
+		
+		[Column(Storage="_StatusTypeId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int StatusTypeId
+		{
+			get
+			{
+				return this._StatusTypeId;
+			}
+			set
+			{
+				if ((this._StatusTypeId != value))
+				{
+					if (this._Defect.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnStatusTypeIdChanging(value);
+					this.SendPropertyChanging();
+					this._StatusTypeId = value;
+					this.SendPropertyChanged("StatusTypeId");
+					this.OnStatusTypeIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_Name", DbType="NVarChar(25) NOT NULL", CanBeNull=false)]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_DisplayOrder", DbType="Int NOT NULL")]
+		public int DisplayOrder
+		{
+			get
+			{
+				return this._DisplayOrder;
+			}
+			set
+			{
+				if ((this._DisplayOrder != value))
+				{
+					this.OnDisplayOrderChanging(value);
+					this.SendPropertyChanging();
+					this._DisplayOrder = value;
+					this.SendPropertyChanged("DisplayOrder");
+					this.OnDisplayOrderChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_DefaultColor", DbType="Int")]
+		public System.Nullable<int> DefaultColor
+		{
+			get
+			{
+				return this._DefaultColor;
+			}
+			set
+			{
+				if ((this._DefaultColor != value))
+				{
+					this.OnDefaultColorChanging(value);
+					this.SendPropertyChanging();
+					this._DefaultColor = value;
+					this.SendPropertyChanged("DefaultColor");
+					this.OnDefaultColorChanged();
+				}
+			}
+		}
+		
+		[Association(Name="Defect_StatusType", Storage="_Defect", ThisKey="StatusTypeId", OtherKey="StatusTypeId", IsForeignKey=true)]
+		public Defect Defect
+		{
+			get
+			{
+				return this._Defect.Entity;
+			}
+			set
+			{
+				Defect previousValue = this._Defect.Entity;
+				if (((previousValue != value) 
+							|| (this._Defect.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Defect.Entity = null;
+						previousValue.StatusTypes.Remove(this);
+					}
+					this._Defect.Entity = value;
+					if ((value != null))
+					{
+						value.StatusTypes.Add(this);
+						this._StatusTypeId = value.StatusTypeId;
+					}
+					else
+					{
+						this._StatusTypeId = default(int);
 					}
 					this.SendPropertyChanged("Defect");
 				}
