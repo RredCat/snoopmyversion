@@ -45,6 +45,12 @@ namespace LiteOT
     partial void InsertStatusType(StatusType instance);
     partial void UpdateStatusType(StatusType instance);
     partial void DeleteStatusType(StatusType instance);
+    partial void InsertAttachment(Attachment instance);
+    partial void UpdateAttachment(Attachment instance);
+    partial void DeleteAttachment(Attachment instance);
+    partial void InsertFeature(Feature instance);
+    partial void UpdateFeature(Feature instance);
+    partial void DeleteFeature(Feature instance);
     #endregion
 		
 		public OTDataDataContext() : 
@@ -114,6 +120,22 @@ namespace LiteOT
 			get
 			{
 				return this.GetTable<StatusType>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Attachment> Attachments
+		{
+			get
+			{
+				return this.GetTable<Attachment>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Feature> Features
+		{
+			get
+			{
+				return this.GetTable<Feature>();
 			}
 		}
 	}
@@ -2095,6 +2117,970 @@ namespace LiteOT
 						this._StatusTypeId = default(int);
 					}
 					this.SendPropertyChanged("Defect");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[Table(Name="dbo.Attachments")]
+	public partial class Attachment : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _AttachmentId;
+		
+		private int _SourceType;
+		
+		private int _SourceId;
+		
+		private int _CreatedById;
+		
+		private string _FileName;
+		
+		private System.DateTime _AttachDate;
+		
+		private string _Description;
+		
+		private bool _StoreInDB;
+		
+		private string _FullPath;
+		
+		private System.Data.Linq.Binary _FileData;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnAttachmentIdChanging(int value);
+    partial void OnAttachmentIdChanged();
+    partial void OnSourceTypeChanging(int value);
+    partial void OnSourceTypeChanged();
+    partial void OnSourceIdChanging(int value);
+    partial void OnSourceIdChanged();
+    partial void OnCreatedByIdChanging(int value);
+    partial void OnCreatedByIdChanged();
+    partial void OnFileNameChanging(string value);
+    partial void OnFileNameChanged();
+    partial void OnAttachDateChanging(System.DateTime value);
+    partial void OnAttachDateChanged();
+    partial void OnDescriptionChanging(string value);
+    partial void OnDescriptionChanged();
+    partial void OnStoreInDBChanging(bool value);
+    partial void OnStoreInDBChanged();
+    partial void OnFullPathChanging(string value);
+    partial void OnFullPathChanged();
+    partial void OnFileDataChanging(System.Data.Linq.Binary value);
+    partial void OnFileDataChanged();
+    #endregion
+		
+		public Attachment()
+		{
+			OnCreated();
+		}
+		
+		[Column(Storage="_AttachmentId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int AttachmentId
+		{
+			get
+			{
+				return this._AttachmentId;
+			}
+			set
+			{
+				if ((this._AttachmentId != value))
+				{
+					this.OnAttachmentIdChanging(value);
+					this.SendPropertyChanging();
+					this._AttachmentId = value;
+					this.SendPropertyChanged("AttachmentId");
+					this.OnAttachmentIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_SourceType", DbType="Int NOT NULL")]
+		public int SourceType
+		{
+			get
+			{
+				return this._SourceType;
+			}
+			set
+			{
+				if ((this._SourceType != value))
+				{
+					this.OnSourceTypeChanging(value);
+					this.SendPropertyChanging();
+					this._SourceType = value;
+					this.SendPropertyChanged("SourceType");
+					this.OnSourceTypeChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_SourceId", DbType="Int NOT NULL")]
+		public int SourceId
+		{
+			get
+			{
+				return this._SourceId;
+			}
+			set
+			{
+				if ((this._SourceId != value))
+				{
+					this.OnSourceIdChanging(value);
+					this.SendPropertyChanging();
+					this._SourceId = value;
+					this.SendPropertyChanged("SourceId");
+					this.OnSourceIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_CreatedById", DbType="Int NOT NULL")]
+		public int CreatedById
+		{
+			get
+			{
+				return this._CreatedById;
+			}
+			set
+			{
+				if ((this._CreatedById != value))
+				{
+					this.OnCreatedByIdChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedById = value;
+					this.SendPropertyChanged("CreatedById");
+					this.OnCreatedByIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_FileName", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
+		public string FileName
+		{
+			get
+			{
+				return this._FileName;
+			}
+			set
+			{
+				if ((this._FileName != value))
+				{
+					this.OnFileNameChanging(value);
+					this.SendPropertyChanging();
+					this._FileName = value;
+					this.SendPropertyChanged("FileName");
+					this.OnFileNameChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_AttachDate", DbType="DateTime NOT NULL")]
+		public System.DateTime AttachDate
+		{
+			get
+			{
+				return this._AttachDate;
+			}
+			set
+			{
+				if ((this._AttachDate != value))
+				{
+					this.OnAttachDateChanging(value);
+					this.SendPropertyChanging();
+					this._AttachDate = value;
+					this.SendPropertyChanged("AttachDate");
+					this.OnAttachDateChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_Description", DbType="NVarChar(500) NOT NULL", CanBeNull=false)]
+		public string Description
+		{
+			get
+			{
+				return this._Description;
+			}
+			set
+			{
+				if ((this._Description != value))
+				{
+					this.OnDescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._Description = value;
+					this.SendPropertyChanged("Description");
+					this.OnDescriptionChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_StoreInDB", DbType="Bit NOT NULL")]
+		public bool StoreInDB
+		{
+			get
+			{
+				return this._StoreInDB;
+			}
+			set
+			{
+				if ((this._StoreInDB != value))
+				{
+					this.OnStoreInDBChanging(value);
+					this.SendPropertyChanging();
+					this._StoreInDB = value;
+					this.SendPropertyChanged("StoreInDB");
+					this.OnStoreInDBChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_FullPath", DbType="NVarChar(256)")]
+		public string FullPath
+		{
+			get
+			{
+				return this._FullPath;
+			}
+			set
+			{
+				if ((this._FullPath != value))
+				{
+					this.OnFullPathChanging(value);
+					this.SendPropertyChanging();
+					this._FullPath = value;
+					this.SendPropertyChanged("FullPath");
+					this.OnFullPathChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_FileData", DbType="Image", UpdateCheck=UpdateCheck.Never)]
+		public System.Data.Linq.Binary FileData
+		{
+			get
+			{
+				return this._FileData;
+			}
+			set
+			{
+				if ((this._FileData != value))
+				{
+					this.OnFileDataChanging(value);
+					this.SendPropertyChanging();
+					this._FileData = value;
+					this.SendPropertyChanged("FileData");
+					this.OnFileDataChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[Table(Name="dbo.Features")]
+	public partial class Feature : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _FeatureId;
+		
+		private int _ProjectId;
+		
+		private int _CreatorId;
+		
+		private string _PlannedBuildNumber;
+		
+		private int _AssignedToId;
+		
+		private int _RequestedById;
+		
+		private string _Name;
+		
+		private float _EstimatedDuration;
+		
+		private int _DurationUnitTypeId;
+		
+		private float _ActualDuration;
+		
+		private int _ActualUnitTypeId;
+		
+		private System.DateTime _CompletionDate;
+		
+		private int _PriorityTypeId;
+		
+		private int _StatusTypeId;
+		
+		private byte _PercentComplete;
+		
+		private System.DateTime _StartDate;
+		
+		private System.DateTime _DueDate;
+		
+		private System.Data.Linq.Binary _LastUpdated;
+		
+		private int _WorkflowStepId;
+		
+		private int _LastUpdatedById;
+		
+		private System.DateTime _LastUpdatedDateTime;
+		
+		private System.DateTime _CreatedDateTime;
+		
+		private bool _PubliclyViewable;
+		
+		private int _RequestedByCustomerContactId;
+		
+		private string _Description;
+		
+		private string _Notes;
+		
+		private bool _Archived;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnFeatureIdChanging(int value);
+    partial void OnFeatureIdChanged();
+    partial void OnProjectIdChanging(int value);
+    partial void OnProjectIdChanged();
+    partial void OnCreatorIdChanging(int value);
+    partial void OnCreatorIdChanged();
+    partial void OnPlannedBuildNumberChanging(string value);
+    partial void OnPlannedBuildNumberChanged();
+    partial void OnAssignedToIdChanging(int value);
+    partial void OnAssignedToIdChanged();
+    partial void OnRequestedByIdChanging(int value);
+    partial void OnRequestedByIdChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnEstimatedDurationChanging(float value);
+    partial void OnEstimatedDurationChanged();
+    partial void OnDurationUnitTypeIdChanging(int value);
+    partial void OnDurationUnitTypeIdChanged();
+    partial void OnActualDurationChanging(float value);
+    partial void OnActualDurationChanged();
+    partial void OnActualUnitTypeIdChanging(int value);
+    partial void OnActualUnitTypeIdChanged();
+    partial void OnCompletionDateChanging(System.DateTime value);
+    partial void OnCompletionDateChanged();
+    partial void OnPriorityTypeIdChanging(int value);
+    partial void OnPriorityTypeIdChanged();
+    partial void OnStatusTypeIdChanging(int value);
+    partial void OnStatusTypeIdChanged();
+    partial void OnPercentCompleteChanging(byte value);
+    partial void OnPercentCompleteChanged();
+    partial void OnStartDateChanging(System.DateTime value);
+    partial void OnStartDateChanged();
+    partial void OnDueDateChanging(System.DateTime value);
+    partial void OnDueDateChanged();
+    partial void OnLastUpdatedChanging(System.Data.Linq.Binary value);
+    partial void OnLastUpdatedChanged();
+    partial void OnWorkflowStepIdChanging(int value);
+    partial void OnWorkflowStepIdChanged();
+    partial void OnLastUpdatedByIdChanging(int value);
+    partial void OnLastUpdatedByIdChanged();
+    partial void OnLastUpdatedDateTimeChanging(System.DateTime value);
+    partial void OnLastUpdatedDateTimeChanged();
+    partial void OnCreatedDateTimeChanging(System.DateTime value);
+    partial void OnCreatedDateTimeChanged();
+    partial void OnPubliclyViewableChanging(bool value);
+    partial void OnPubliclyViewableChanged();
+    partial void OnRequestedByCustomerContactIdChanging(int value);
+    partial void OnRequestedByCustomerContactIdChanged();
+    partial void OnDescriptionChanging(string value);
+    partial void OnDescriptionChanged();
+    partial void OnNotesChanging(string value);
+    partial void OnNotesChanged();
+    partial void OnArchivedChanging(bool value);
+    partial void OnArchivedChanged();
+    #endregion
+		
+		public Feature()
+		{
+			OnCreated();
+		}
+		
+		[Column(Storage="_FeatureId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
+		public int FeatureId
+		{
+			get
+			{
+				return this._FeatureId;
+			}
+			set
+			{
+				if ((this._FeatureId != value))
+				{
+					this.OnFeatureIdChanging(value);
+					this.SendPropertyChanging();
+					this._FeatureId = value;
+					this.SendPropertyChanged("FeatureId");
+					this.OnFeatureIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_ProjectId", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public int ProjectId
+		{
+			get
+			{
+				return this._ProjectId;
+			}
+			set
+			{
+				if ((this._ProjectId != value))
+				{
+					this.OnProjectIdChanging(value);
+					this.SendPropertyChanging();
+					this._ProjectId = value;
+					this.SendPropertyChanged("ProjectId");
+					this.OnProjectIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_CreatorId", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public int CreatorId
+		{
+			get
+			{
+				return this._CreatorId;
+			}
+			set
+			{
+				if ((this._CreatorId != value))
+				{
+					this.OnCreatorIdChanging(value);
+					this.SendPropertyChanging();
+					this._CreatorId = value;
+					this.SendPropertyChanged("CreatorId");
+					this.OnCreatorIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_PlannedBuildNumber", DbType="NVarChar(50) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		public string PlannedBuildNumber
+		{
+			get
+			{
+				return this._PlannedBuildNumber;
+			}
+			set
+			{
+				if ((this._PlannedBuildNumber != value))
+				{
+					this.OnPlannedBuildNumberChanging(value);
+					this.SendPropertyChanging();
+					this._PlannedBuildNumber = value;
+					this.SendPropertyChanged("PlannedBuildNumber");
+					this.OnPlannedBuildNumberChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_AssignedToId", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public int AssignedToId
+		{
+			get
+			{
+				return this._AssignedToId;
+			}
+			set
+			{
+				if ((this._AssignedToId != value))
+				{
+					this.OnAssignedToIdChanging(value);
+					this.SendPropertyChanging();
+					this._AssignedToId = value;
+					this.SendPropertyChanged("AssignedToId");
+					this.OnAssignedToIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_RequestedById", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public int RequestedById
+		{
+			get
+			{
+				return this._RequestedById;
+			}
+			set
+			{
+				if ((this._RequestedById != value))
+				{
+					this.OnRequestedByIdChanging(value);
+					this.SendPropertyChanging();
+					this._RequestedById = value;
+					this.SendPropertyChanged("RequestedById");
+					this.OnRequestedByIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_Name", DbType="NVarChar(150) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_EstimatedDuration", DbType="Real NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public float EstimatedDuration
+		{
+			get
+			{
+				return this._EstimatedDuration;
+			}
+			set
+			{
+				if ((this._EstimatedDuration != value))
+				{
+					this.OnEstimatedDurationChanging(value);
+					this.SendPropertyChanging();
+					this._EstimatedDuration = value;
+					this.SendPropertyChanged("EstimatedDuration");
+					this.OnEstimatedDurationChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_DurationUnitTypeId", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public int DurationUnitTypeId
+		{
+			get
+			{
+				return this._DurationUnitTypeId;
+			}
+			set
+			{
+				if ((this._DurationUnitTypeId != value))
+				{
+					this.OnDurationUnitTypeIdChanging(value);
+					this.SendPropertyChanging();
+					this._DurationUnitTypeId = value;
+					this.SendPropertyChanged("DurationUnitTypeId");
+					this.OnDurationUnitTypeIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_ActualDuration", DbType="Real NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public float ActualDuration
+		{
+			get
+			{
+				return this._ActualDuration;
+			}
+			set
+			{
+				if ((this._ActualDuration != value))
+				{
+					this.OnActualDurationChanging(value);
+					this.SendPropertyChanging();
+					this._ActualDuration = value;
+					this.SendPropertyChanged("ActualDuration");
+					this.OnActualDurationChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_ActualUnitTypeId", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public int ActualUnitTypeId
+		{
+			get
+			{
+				return this._ActualUnitTypeId;
+			}
+			set
+			{
+				if ((this._ActualUnitTypeId != value))
+				{
+					this.OnActualUnitTypeIdChanging(value);
+					this.SendPropertyChanging();
+					this._ActualUnitTypeId = value;
+					this.SendPropertyChanged("ActualUnitTypeId");
+					this.OnActualUnitTypeIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_CompletionDate", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public System.DateTime CompletionDate
+		{
+			get
+			{
+				return this._CompletionDate;
+			}
+			set
+			{
+				if ((this._CompletionDate != value))
+				{
+					this.OnCompletionDateChanging(value);
+					this.SendPropertyChanging();
+					this._CompletionDate = value;
+					this.SendPropertyChanged("CompletionDate");
+					this.OnCompletionDateChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_PriorityTypeId", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public int PriorityTypeId
+		{
+			get
+			{
+				return this._PriorityTypeId;
+			}
+			set
+			{
+				if ((this._PriorityTypeId != value))
+				{
+					this.OnPriorityTypeIdChanging(value);
+					this.SendPropertyChanging();
+					this._PriorityTypeId = value;
+					this.SendPropertyChanged("PriorityTypeId");
+					this.OnPriorityTypeIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_StatusTypeId", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public int StatusTypeId
+		{
+			get
+			{
+				return this._StatusTypeId;
+			}
+			set
+			{
+				if ((this._StatusTypeId != value))
+				{
+					this.OnStatusTypeIdChanging(value);
+					this.SendPropertyChanging();
+					this._StatusTypeId = value;
+					this.SendPropertyChanged("StatusTypeId");
+					this.OnStatusTypeIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_PercentComplete", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public byte PercentComplete
+		{
+			get
+			{
+				return this._PercentComplete;
+			}
+			set
+			{
+				if ((this._PercentComplete != value))
+				{
+					this.OnPercentCompleteChanging(value);
+					this.SendPropertyChanging();
+					this._PercentComplete = value;
+					this.SendPropertyChanged("PercentComplete");
+					this.OnPercentCompleteChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_StartDate", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public System.DateTime StartDate
+		{
+			get
+			{
+				return this._StartDate;
+			}
+			set
+			{
+				if ((this._StartDate != value))
+				{
+					this.OnStartDateChanging(value);
+					this.SendPropertyChanging();
+					this._StartDate = value;
+					this.SendPropertyChanged("StartDate");
+					this.OnStartDateChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_DueDate", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public System.DateTime DueDate
+		{
+			get
+			{
+				return this._DueDate;
+			}
+			set
+			{
+				if ((this._DueDate != value))
+				{
+					this.OnDueDateChanging(value);
+					this.SendPropertyChanging();
+					this._DueDate = value;
+					this.SendPropertyChanged("DueDate");
+					this.OnDueDateChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_LastUpdated", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		public System.Data.Linq.Binary LastUpdated
+		{
+			get
+			{
+				return this._LastUpdated;
+			}
+			set
+			{
+				if ((this._LastUpdated != value))
+				{
+					this.OnLastUpdatedChanging(value);
+					this.SendPropertyChanging();
+					this._LastUpdated = value;
+					this.SendPropertyChanged("LastUpdated");
+					this.OnLastUpdatedChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_WorkflowStepId", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public int WorkflowStepId
+		{
+			get
+			{
+				return this._WorkflowStepId;
+			}
+			set
+			{
+				if ((this._WorkflowStepId != value))
+				{
+					this.OnWorkflowStepIdChanging(value);
+					this.SendPropertyChanging();
+					this._WorkflowStepId = value;
+					this.SendPropertyChanged("WorkflowStepId");
+					this.OnWorkflowStepIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_LastUpdatedById", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public int LastUpdatedById
+		{
+			get
+			{
+				return this._LastUpdatedById;
+			}
+			set
+			{
+				if ((this._LastUpdatedById != value))
+				{
+					this.OnLastUpdatedByIdChanging(value);
+					this.SendPropertyChanging();
+					this._LastUpdatedById = value;
+					this.SendPropertyChanged("LastUpdatedById");
+					this.OnLastUpdatedByIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_LastUpdatedDateTime", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public System.DateTime LastUpdatedDateTime
+		{
+			get
+			{
+				return this._LastUpdatedDateTime;
+			}
+			set
+			{
+				if ((this._LastUpdatedDateTime != value))
+				{
+					this.OnLastUpdatedDateTimeChanging(value);
+					this.SendPropertyChanging();
+					this._LastUpdatedDateTime = value;
+					this.SendPropertyChanged("LastUpdatedDateTime");
+					this.OnLastUpdatedDateTimeChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_CreatedDateTime", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public System.DateTime CreatedDateTime
+		{
+			get
+			{
+				return this._CreatedDateTime;
+			}
+			set
+			{
+				if ((this._CreatedDateTime != value))
+				{
+					this.OnCreatedDateTimeChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedDateTime = value;
+					this.SendPropertyChanged("CreatedDateTime");
+					this.OnCreatedDateTimeChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_PubliclyViewable", DbType="Bit NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public bool PubliclyViewable
+		{
+			get
+			{
+				return this._PubliclyViewable;
+			}
+			set
+			{
+				if ((this._PubliclyViewable != value))
+				{
+					this.OnPubliclyViewableChanging(value);
+					this.SendPropertyChanging();
+					this._PubliclyViewable = value;
+					this.SendPropertyChanged("PubliclyViewable");
+					this.OnPubliclyViewableChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_RequestedByCustomerContactId", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public int RequestedByCustomerContactId
+		{
+			get
+			{
+				return this._RequestedByCustomerContactId;
+			}
+			set
+			{
+				if ((this._RequestedByCustomerContactId != value))
+				{
+					this.OnRequestedByCustomerContactIdChanging(value);
+					this.SendPropertyChanging();
+					this._RequestedByCustomerContactId = value;
+					this.SendPropertyChanged("RequestedByCustomerContactId");
+					this.OnRequestedByCustomerContactIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_Description", DbType="NText NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		public string Description
+		{
+			get
+			{
+				return this._Description;
+			}
+			set
+			{
+				if ((this._Description != value))
+				{
+					this.OnDescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._Description = value;
+					this.SendPropertyChanged("Description");
+					this.OnDescriptionChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_Notes", DbType="NText NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		public string Notes
+		{
+			get
+			{
+				return this._Notes;
+			}
+			set
+			{
+				if ((this._Notes != value))
+				{
+					this.OnNotesChanging(value);
+					this.SendPropertyChanging();
+					this._Notes = value;
+					this.SendPropertyChanged("Notes");
+					this.OnNotesChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_Archived", DbType="Bit NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public bool Archived
+		{
+			get
+			{
+				return this._Archived;
+			}
+			set
+			{
+				if ((this._Archived != value))
+				{
+					this.OnArchivedChanging(value);
+					this.SendPropertyChanging();
+					this._Archived = value;
+					this.SendPropertyChanged("Archived");
+					this.OnArchivedChanged();
 				}
 			}
 		}
