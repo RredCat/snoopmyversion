@@ -12,6 +12,8 @@ namespace LiteOT
 	{
 		#region Constants
 		private const string CONNECTION_PATH = @"Data Source={0};Persist Security Info=True;User ID={1};Password={2}";
+		//  connectionString="Data Source=www3.syncfusion.com,8754;
+		//Initial Catalog=ontime_es;Persist Security Info=True;User ID=ontime_es_user"
 		#endregion
 
 		#region Implementation
