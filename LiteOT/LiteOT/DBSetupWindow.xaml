@@ -1,7 +1,10 @@
 ﻿<Window x:Class="LiteOT.DBSetupWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title="DB Setup" WindowStaruplocation="CenterScreen" SizeToContent="HeightAndWidth"
+    Title="DB Setup" 
+		WindowStartupLocation="CenterScreen" 
+		SizeToContent="HeightAndWidth"
+		Icon="Resources\bug.ico"
 	>
 	<Window.Resources>
 		<Style x:Key="ElementStyleKey" TargetType="{x:Type FrameworkElement}" >
@@ -26,7 +29,7 @@
 		<PasswordBox Name="PasswordBox" Grid.Row="1" Grid.Column="1" Style="{StaticResource ElementStyleKey}" />
 		<TextBlock Text="Save password?" Grid.Row="2" Grid.Column="0" Style="{StaticResource ElementStyleKey}" />
 		<CheckBox IsChecked ="True" Grid.Row="2" Grid.Column="1" Style="{StaticResource ElementStyleKey}" />
-		<Button Content="Ok" Click="OnClickOk" Grid.Row="3" Grid.Column="0" Style="{StaticResource ElementStyleKey}" />
-		<Button Content="Cansel" Click="OnClickCansel" Grid.Row="3" Grid.Column="1" Style="{StaticResource ElementStyleKey}" />
+		<Button Content="Ok" Grid.Row="3" Grid.Column="0" Style="{StaticResource ElementStyleKey}" />
+		<Button Content="Cansel" Grid.Row="3" Grid.Column="1" Style="{StaticResource ElementStyleKey}" />
 	</Grid>
 </Window>
