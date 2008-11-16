@@ -89,6 +89,9 @@
     </Compile>
     <Compile Include="Implementation\Converter\RevertBooleanConverter.cs" />
     <Compile Include="Implementation\Exception\AccessDeniedException.cs" />
+    <Compile Include="Implementation\PersistState\DBData.cs" />
+    <Compile Include="Implementation\PersistState\UserData.cs" />
+    <Compile Include="Implementation\Tools\Utility.cs" />
     <Compile Include="OTData.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -132,6 +135,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\lock.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\bug.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

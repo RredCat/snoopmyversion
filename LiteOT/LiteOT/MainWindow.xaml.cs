@@ -130,7 +130,7 @@ namespace LiteOT
 
 			if (null != selectedItem)
 			{
-				var item = Cast(selectedItem, new
+				var item = Utility.Cast(selectedItem, new
               	{
               		DefectId = 0,
               		Name = "",
@@ -192,17 +192,6 @@ namespace LiteOT
 				default:
 					throw new NotImplementedException();
 			}
-		}
-		/// <summary>
-		/// Casts the specified obj.
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="obj">The obj.</param>
-		/// <param name="type">The type.</param>
-		/// <returns></returns>
-		private static T Cast<T>( object obj, T type )
-		{
-			return (T)obj;
 		}
 		#endregion
 	}

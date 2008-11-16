@@ -1,9 +1,9 @@
 ﻿<Window x:Class="LiteOT.AccessWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title="Log in" SizeToContent="WidthAndHeight"
+    Title="Log in" SizeToContent="Height" Width="275"
 	WindowStartupLocation="CenterScreen"
-	Icon="Resource\lock.ico"
+	Icon="Resources\lock.ico"
 		>
 	<Window.Resources>
 		<Style x:Key="ElementStyleKey" TargetType="{x:Type FrameworkElement}" >
@@ -15,6 +15,7 @@
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="*" />
 			<ColumnDefinition Width="*" />
+			<ColumnDefinition Width="*" />
 		</Grid.ColumnDefinitions>
 		<Grid.RowDefinitions>
 			<RowDefinition />
@@ -23,12 +24,13 @@
 			<RowDefinition />
 		</Grid.RowDefinitions>
 		<TextBlock Text="Login"	Grid.Row="0" Grid.Column="0" MinWidth="50" Style="{StaticResource ElementStyleKey}" />
-		<TextBox Name="LoginBox" Grid.Row="0" Grid.Column="1" Style="{StaticResource ElementStyleKey}" />
+		<TextBox Name="LoginBox" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Style="{StaticResource ElementStyleKey}" />
 		<TextBlock Text="Password" Grid.Row="1" Grid.Column="0" Style="{StaticResource ElementStyleKey}" />
-		<PasswordBox Name="PasswordBox" Grid.Row="1" Grid.Column="1" Style="{StaticResource ElementStyleKey}" />
+		<PasswordBox Name="PasswordBox" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Style="{StaticResource ElementStyleKey}" />
 		<TextBlock Text="Save password?" Grid.Row="2" Grid.Column="0" Style="{StaticResource ElementStyleKey}" />
-		<CheckBox IsChecked ="True" Grid.Row="2" Grid.Column="1" Style="{StaticResource ElementStyleKey}" />
-		<Button Content="Ok" Click="OnClickOk" Grid.Row="3" Grid.Column="0" Style="{StaticResource ElementStyleKey}" />
+		<CheckBox Name="SavePassCheck" IsChecked ="False" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Style="{StaticResource ElementStyleKey}" />
+		<Button Name="OkButton" Content="Ok" Click="OnClickOk" Grid.Row="3" Grid.Column="0" Style="{StaticResource ElementStyleKey}" />
 		<Button Content="Cansel" Click="OnClickCansel" Grid.Row="3" Grid.Column="1" Style="{StaticResource ElementStyleKey}" />
+		<Button Content="DB Info" Click="OnSetDBInfo" Grid.Row="3" Grid.Column="2" Style="{StaticResource ElementStyleKey}" />
 	</Grid>
 </Window>

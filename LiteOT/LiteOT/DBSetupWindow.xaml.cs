@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Windows;
 
 namespace LiteOT
 {
@@ -18,41 +20,80 @@ namespace LiteOT
 		#endregion
 
 		#region Properties
-		/// <summary>
-		/// Gets or sets the name of the server.
-		/// </summary>
-		/// <value>The name of the server.</value>
-		internal String ServerName
+		public String ServerName
 		{
-			get;
-			set;
+			get
+			{
+				return ServerNameBox.Text;
+			}
+		}
+		public String DatabaseName
+		{
+			get
+			{
+				return DatabaseNameBox.Text;
+			}
+		}
+		public String UserName
+		{
+			get
+			{
+				return UserNameBox.Text;
+			}
+		}
+		public String Password
+		{
+			get
+			{
+				return PasswordBox.Password;
+			}
+		}
+		#endregion
+
+		#region Implementation
+		/// <summary>
+		/// Called when [click ok].
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="args">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		private void OnClickOk( object sender, EventArgs args )
+		{
+			DialogResult = true;
 		}
 		/// <summary>
-		/// Gets or sets the name of the DB user.
+		/// Called when [click cansel].
 		/// </summary>
-		/// <value>The name of the DB user.</value>
-		internal String DBUserName
+		/// <param name="sender">The sender.</param>
+		/// <param name="args">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		private void OnClickCansel( object sender, EventArgs args )
 		{
-			get;
-			set;
+			DialogResult = false;
 		}
-		/// <summary>
-		/// Gets or sets the DB password.
-		/// </summary>
-		/// <value>The DB password.</value>
-		internal String DBPassword
+		private void OnTestConnenct( object sender, EventArgs args )
 		{
-			get;
-			set;
-		}
-		/// <summary>
-		/// Gets or sets the initial catalog.
-		/// </summary>
-		/// <value>The initial catalog.</value>
-		internal String InitialCatalog
-		{
-			get;
-			set;
+			String connenctString = string.Format(AccessWindow.CONNECTION_PATH, ServerNameBox.Text, DatabaseNameBox.Text,
+			                                      UserNameBox.Text, PasswordBox.Password);
+			Boolean isCorrect;
+
+			try
+			{
+				OTDataDataContext data = new OTDataDataContext( connenctString );
+				var result = ( from user in data.Users
+							   select user.UserId ).Take( 1 );
+
+				isCorrect = 1 == result.Count();
+			}
+			catch( Exception )
+			{
+				isCorrect = false;
+			}
+
+			if( isCorrect )
+			{
+				MessageBox.Show( "Yes!", "We do it!", MessageBoxButton.OK, MessageBoxImage.Information );
+			}
+			else
+				MessageBox.Show( "Incorrect data!", "):", MessageBoxButton.OK, MessageBoxImage.Error );
 		}
 		#endregion
 	}
