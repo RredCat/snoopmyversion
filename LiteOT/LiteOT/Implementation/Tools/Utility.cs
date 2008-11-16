@@ -4,6 +4,9 @@ using System.Text;
 
 namespace LiteOT
 {
+	/// <summary>
+	/// Presents helper class.
+	/// </summary>
 	public static class Utility
 	{
 		#region Helper methods

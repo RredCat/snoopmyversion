@@ -7,10 +7,6 @@ namespace LiteOT
 	/// Presents DB data for save.
 	/// </summary>
 	[Serializable]
-	//[SoapInclude( typeof( DBData ) )]
-	//[XmlInclude( typeof( DBData ) )]
-	//[SoapInclude( typeof( DBData ) )]
-	//[XmlInclude( typeof( DBData ) )]
 	public class DBData : ISerializable
 	{
 		#region Properties
@@ -63,10 +59,10 @@ namespace LiteOT
 		/// </exception>
 		public void GetObjectData( SerializationInfo info, StreamingContext context )
 		{
-			info.AddValue( "SQLServerName", SQLServerName );
-			info.AddValue( "UserName", UserName );
-			info.AddValue( "Password", Password );
-			info.AddValue( "DatabaseName", DatabaseName );
+			//info.AddValue( "SQLServerName", SQLServerName );
+			//info.AddValue( "UserName", UserName );
+			//info.AddValue( "Password", Password );
+			//info.AddValue( "DatabaseName", DatabaseName );
 		}
 		#endregion
 	}

@@ -18,21 +18,45 @@ namespace LiteOT
 	public partial class AccessWindow
 	{
 		#region Constants
+		/// <summary>
+		/// Presents connection path.
+		/// </summary>
 		internal const string CONNECTION_PATH = @"Data Source={0};Initial Catalog={1};Persist Security Info=True;User ID={2};Password={3}";
 		#endregion
 
 		#region Private members
 		/// <summary>
-		/// Presents store file name.
+		/// Presents store file name for db data.
 		/// </summary>
 		private readonly string m_StoreFileName = AppDomain.CurrentDomain.FriendlyName + ".dat";
+		/// <summary>
+		/// Presents store file name for user data.
+		/// </summary>
 		private readonly string m_StoreUserFileName = AppDomain.CurrentDomain.FriendlyName + "User.dat";
 
+		/// <summary>
+		/// Presents Sql server name.
+		/// </summary>
 		private String m_SQLServerName = String.Empty;
+		/// <summary>
+		/// Presents user name.
+		/// </summary>
 		private String m_UserName = String.Empty;
+		/// <summary>
+		/// Presents password.
+		/// </summary>
 		private String m_Password = String.Empty;
+		/// <summary>
+		/// Presents database name.
+		/// </summary>
 		private String m_DatabaseName = String.Empty;
+		/// <summary>
+		/// Presents indicator or loaded db data.
+		/// </summary>
 		private Boolean m_IsDBDataLoaded = false;
+		/// <summary>
+		/// Presents indicator or loaded user data.
+		/// </summary>
 		private Boolean m_IsUserDataLoaded = false;
 		#endregion
 
@@ -47,6 +71,10 @@ namespace LiteOT
 		#endregion
 
 		#region Properties
+		/// <summary>
+		/// Gets the login.
+		/// </summary>
+		/// <value>The login.</value>
 		public String Login
 		{
 			get
@@ -54,6 +82,10 @@ namespace LiteOT
 				return LoginBox.Text;
 			}
 		}
+		/// <summary>
+		/// Gets the password.
+		/// </summary>
+		/// <value>The password.</value>
 		public String Password
 		{
 			get
@@ -64,6 +96,10 @@ namespace LiteOT
 		#endregion
 
 		#region Public methods
+		/// <summary>
+		/// Gets the connect string.
+		/// </summary>
+		/// <returns></returns>
 		public string GetConnectString()
 		{
 			return string.Format( CONNECTION_PATH, m_SQLServerName, m_DatabaseName, m_UserName, m_Password );
@@ -123,6 +159,9 @@ namespace LiteOT
 		{
 			SetDBInfo();
 		}
+		/// <summary>
+		/// Sets the DB info.
+		/// </summary>
 		private void SetDBInfo()
 		{
 			DBSetupWindow window = new DBSetupWindow();
@@ -150,6 +189,9 @@ namespace LiteOT
 			SavePassCheck.IsEnabled = isEnabled;
 			OkButton.IsEnabled = isEnabled;
 		}
+		/// <summary>
+		/// Loads the DB data.
+		/// </summary>
 		private void LoadDBData()
 		{
 			IsolatedStorageFile isoStorage = IsolatedStorageFile.GetStore( IsolatedStorageScope.User
@@ -157,6 +199,11 @@ namespace LiteOT
 
 			LoadDBData( isoStorage, m_StoreFileName );
 		}
+		/// <summary>
+		/// Loads the DB data.
+		/// </summary>
+		/// <param name="isoStorage">The iso storage.</param>
+		/// <param name="storeFileName">Name of the store file.</param>
 		private void LoadDBData( IsolatedStorageFile isoStorage, string storeFileName )
 		{
 			if( null != isoStorage && !string.IsNullOrEmpty( storeFileName )
@@ -175,6 +222,10 @@ namespace LiteOT
 				}
 			}
 		}
+		/// <summary>
+		/// Loads the DB data.
+		/// </summary>
+		/// <param name="reader">The reader.</param>
 		private void LoadDBData( XmlReader reader )
 		{
 			XmlSerializer serializer = new XmlSerializer( typeof( DBData ) );
@@ -203,6 +254,9 @@ namespace LiteOT
 			else
 				Debug.Print( "XmlReader can't deserialize." );
 		}
+		/// <summary>
+		/// Saves the DB data.
+		/// </summary>
 		private void SaveDBData()
 		{
 			IsolatedStorageFile isoStorage = IsolatedStorageFile.GetStore( IsolatedStorageScope.User
@@ -210,6 +264,10 @@ namespace LiteOT
 
 			SaveDBData( isoStorage );
 		}
+		/// <summary>
+		/// Saves the DB data.
+		/// </summary>
+		/// <param name="isoStorage">The iso storage.</param>
 		private void SaveDBData( IsolatedStorageFile isoStorage )
 		{
 			if( null != isoStorage && !string.IsNullOrEmpty( m_StoreFileName ) )
@@ -227,6 +285,10 @@ namespace LiteOT
 				}
 			}
 		}
+		/// <summary>
+		/// Writes the DB data to writer.
+		/// </summary>
+		/// <param name="writer">The writer.</param>
 		private void WriteDBDataToWriter( XmlWriter writer )
 		{
 			DBData dbParam = new DBData
@@ -240,6 +302,9 @@ namespace LiteOT
 			XmlSerializer serializer = new XmlSerializer( typeof( DBData ) );
 			serializer.Serialize( writer, dbParam );
 		}
+		/// <summary>
+		/// Loads the user data.
+		/// </summary>
 		private void LoadUserData()
 		{
 			IsolatedStorageFile isoStorage = IsolatedStorageFile.GetStore( IsolatedStorageScope.User
@@ -247,6 +312,11 @@ namespace LiteOT
 
 			LoadUserData( isoStorage, m_StoreUserFileName );
 		}
+		/// <summary>
+		/// Loads the user data.
+		/// </summary>
+		/// <param name="isoStorage">The iso storage.</param>
+		/// <param name="storeFileName">Name of the store file.</param>
 		private void LoadUserData( IsolatedStorageFile isoStorage, string storeFileName )
 		{
 			if( null != isoStorage && !string.IsNullOrEmpty( storeFileName )
@@ -265,6 +335,10 @@ namespace LiteOT
 				}
 			}
 		}
+		/// <summary>
+		/// Loads the user data.
+		/// </summary>
+		/// <param name="reader">The reader.</param>
 		private void LoadUserData( XmlReader reader )
 		{
 			XmlSerializer serializer = new XmlSerializer( typeof( UserData ) );
@@ -296,6 +370,9 @@ namespace LiteOT
 			else
 				Debug.Print( "XmlReader can't deserialize." );
 		}
+		/// <summary>
+		/// Saves the user data.
+		/// </summary>
 		private void SaveUserData()
 		{
 			IsolatedStorageFile isoStorage = IsolatedStorageFile.GetStore( IsolatedStorageScope.User
@@ -303,6 +380,10 @@ namespace LiteOT
 
 			SaveUserData( isoStorage );
 		}
+		/// <summary>
+		/// Saves the user data.
+		/// </summary>
+		/// <param name="isoStorage">The iso storage.</param>
 		private void SaveUserData( IsolatedStorageFile isoStorage )
 		{
 			if( null != isoStorage && !string.IsNullOrEmpty( m_StoreFileName ) )
@@ -320,25 +401,40 @@ namespace LiteOT
 				}
 			}
 		}
+		/// <summary>
+		/// Writes the user data to writer.
+		/// </summary>
+		/// <param name="writer">The writer.</param>
 		private void WriteUserDataToWriter( XmlWriter writer )
 		{
 			UserData dbParam = new UserData
 			{
 				UserName = GetLogin(),
-				Password = GetPAssword(),
+				Password = GetPassword(),
 				IsSaved = SavePassCheck.IsChecked.Value
 			};
 			XmlSerializer serializer = new XmlSerializer( typeof( UserData ) );
 			serializer.Serialize( writer, dbParam );
 		}
-		private string GetPAssword()
+		/// <summary>
+		/// Gets the password.
+		/// </summary>
+		/// <returns></returns>
+		private string GetPassword()
 		{
 			return SavePassCheck.IsChecked.Value ? PasswordBox.Password : String.Empty;
 		}
+		/// <summary>
+		/// Gets the login.
+		/// </summary>
+		/// <returns></returns>
 		private string GetLogin()
 		{
 			return SavePassCheck.IsChecked.Value ? LoginBox.Text : String.Empty;
 		}
+		/// <summary>
+		/// Loads the dispather loaded.
+		/// </summary>
 		private void LoadDispatherLoaded()
 		{
 			RoutedEventArgs args = new RoutedEventArgs( Button.ClickEvent );

@@ -20,6 +20,10 @@ namespace LiteOT
 		#endregion
 
 		#region Properties
+		/// <summary>
+		/// Gets the name of the server.
+		/// </summary>
+		/// <value>The name of the server.</value>
 		public String ServerName
 		{
 			get
@@ -27,6 +31,10 @@ namespace LiteOT
 				return ServerNameBox.Text;
 			}
 		}
+		/// <summary>
+		/// Gets the name of the database.
+		/// </summary>
+		/// <value>The name of the database.</value>
 		public String DatabaseName
 		{
 			get
@@ -34,6 +42,10 @@ namespace LiteOT
 				return DatabaseNameBox.Text;
 			}
 		}
+		/// <summary>
+		/// Gets the name of the user.
+		/// </summary>
+		/// <value>The name of the user.</value>
 		public String UserName
 		{
 			get
@@ -41,6 +53,10 @@ namespace LiteOT
 				return UserNameBox.Text;
 			}
 		}
+		/// <summary>
+		/// Gets the password.
+		/// </summary>
+		/// <value>The password.</value>
 		public String Password
 		{
 			get
@@ -69,6 +85,11 @@ namespace LiteOT
 		{
 			DialogResult = false;
 		}
+		/// <summary>
+		/// Called when [test connenct].
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="args">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		private void OnTestConnenct( object sender, EventArgs args )
 		{
 			String connenctString = string.Format(AccessWindow.CONNECTION_PATH, ServerNameBox.Text, DatabaseNameBox.Text,
