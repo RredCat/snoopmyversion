@@ -72,13 +72,13 @@
 						SelectionChanged="OnInfoTabChanged"
 			>
 			<TabItem Header="Descriptions" Tag="Descriptions" >
-				<TextBox Name="DescriptionInfo" VerticalScrollBarVisibility="Auto" />
+				<RichTextBox Name="DescriptionInfo" VerticalScrollBarVisibility="Auto" />
 			</TabItem>
 			<TabItem Header="Notes" Tag="Notes" >
-				<TextBox Name="NotesInfo" VerticalScrollBarVisibility="Auto" />
+				<RichTextBox Name="NotesInfo" VerticalScrollBarVisibility="Auto" />
 			</TabItem>
 			<TabItem Header="Replication Propcedures" Tag="RepPropcedures" >
-				<TextBox Name="RepPropceduresInfo" VerticalScrollBarVisibility="Auto" />
+				<RichTextBox Name="RepPropceduresInfo" VerticalScrollBarVisibility="Auto" />
 			</TabItem>
 			<TabItem Header="Atachments" Tag="Atachments" >
 				<ListView Name="AttachmentList"

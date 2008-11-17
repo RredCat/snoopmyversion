@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Controls;
 using System.Collections.Generic;
+using System.Windows.Documents;
 
 namespace LiteOT
 {
@@ -53,13 +54,13 @@ namespace LiteOT
 			switch( tag )
 			{
 				case DESCRIPTIONS_NAME:
-					DescriptionInfo.Text = info.ToString();
+					DescriptionInfo.Document = GetTextInfo( info );
 					break;
 				case NOTES_NAME:
-					NotesInfo.Text = info.ToString();
+					NotesInfo.Document = GetTextInfo( info );
 					break;
 				case REPLICATION_PROPCEDURES_NAME:
-					RepPropceduresInfo.Text = info.ToString();
+					RepPropceduresInfo.Document = GetTextInfo( info );
 					break;
 				case ATACHMENTS_NAME:
 					AttachmentList.ItemsSource = GetAttachments( info );
@@ -147,6 +148,19 @@ namespace LiteOT
 						 on projects.ProjectId equals defects.ProjectId
 					 where defects.AssignedToId == userId
 					 select projects.Name ).Distinct();
+		}
+		/// <summary>
+		/// Gets the text info.
+		/// </summary>
+		/// <param name="text">The text.</param>
+		/// <returns></returns>
+		private static FlowDocument GetTextInfo( Object text )
+		{
+			Paragraph paragraph = new Paragraph();
+			paragraph.Inlines.Add( new Run( text.ToString() ) );
+			FlowDocument document = new FlowDocument();
+			document.Blocks.Add( paragraph );
+			return document;
 		}
 		#endregion
 
