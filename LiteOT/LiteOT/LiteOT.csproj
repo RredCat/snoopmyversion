@@ -92,6 +92,7 @@
     <Compile Include="Implementation\PersistState\DBData.cs" />
     <Compile Include="Implementation\PersistState\UserData.cs" />
     <Compile Include="Implementation\Tools\Utility.cs" />
+    <Compile Include="Implementation\_enums.cs" />
     <Compile Include="OTData.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

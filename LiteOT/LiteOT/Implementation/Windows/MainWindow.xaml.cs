@@ -2,11 +2,8 @@
 using System.Collections;
 using System.Linq;
 using System.Windows;
-using System.Windows.Data;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Windows.Controls;
-using System.Collections.Generic;
+using System.Windows.Documents;
+using LiteOT.Implementation.Tools;
 
 namespace LiteOT
 {
@@ -18,17 +15,12 @@ namespace LiteOT
 		#region Constants
 		private const String DESCRIPTIONS_NAME = "Descriptions";
 		private const String NOTES_NAME = "Notes";
-		private const String REPLICATION_PROPCEDURES_NAME = "RepPropcedures";
-		private const String ATACHMENTS_NAME = "Atachments";
-		private const String DEFECT_TAG = "Defect";
-		private const String FEATURE_TAG = "Feature";
+        private const String REPLICATION_PROPCEDURES_NAME ="RepPropcedures";
 		#endregion
 
 		#region Private members
 		private readonly OTDataDataContext m_Data = null;
 		private readonly Int32 m_UserId;
-
-		private IssueType m_IssueType = IssueType.Defect;
 		#endregion
 
 		#region Initialization
@@ -37,7 +29,7 @@ namespace LiteOT
 		/// </summary>
 		/// <param name="data">The data.</param>
 		/// <param name="userId">The user id.</param>
-		public MainWindow( OTDataDataContext data, Int32 userId )
+		public MainWindow(OTDataDataContext data, Int32 userId )
 		{
 			m_Data = data;
 			m_UserId = userId;
@@ -48,41 +40,6 @@ namespace LiteOT
 		#endregion
 
 		#region Implementation
-		private void SetInfo( Object info, String tag )
-		{
-			switch( tag )
-			{
-				case DESCRIPTIONS_NAME:
-					DescriptionInfo.Text = info.ToString();
-					break;
-				case NOTES_NAME:
-					NotesInfo.Text = info.ToString();
-					break;
-				case REPLICATION_PROPCEDURES_NAME:
-					RepPropceduresInfo.Text = info.ToString();
-					break;
-				case ATACHMENTS_NAME:
-					AttachmentList.ItemsSource = GetAttachments( info );
-					break;
-				default:
-					throw new NotImplementedException();
-			}
-		}
-		private IEnumerable GetAttachments( Object defectID )
-		{
-			Int32 id = Int32.Parse( defectID.ToString() );
-
-			return from attachments in m_Data.Attachments
-				   where ( attachments.SourceType == (int)m_IssueType && attachments.SourceId == id )
-				   select new
-				   {
-					   attachments.AttachmentId,
-					   attachments.FileName,
-					   attachments.AttachDate,
-					   attachments.Description
-				   };
-		}
-
 		/// <summary>
 		/// Gets the defects.
 		/// </summary>
@@ -91,22 +48,22 @@ namespace LiteOT
 		/// <returns></returns>
 		private static IEnumerable GetDefects( OTDataDataContext data, Int32 userId )
 		{
-			return ( from defects in data.Defects
-					 join projects in data.Projects
-						 on defects.ProjectId equals projects.ProjectId
-					 join priorities in data.PriorityTypes
-						 on defects.PriorityTypeId equals priorities.PriorityTypeId
-					 join statuses in data.StatusTypes
-						 on defects.StatusTypeId equals statuses.StatusTypeId
-					 where defects.AssignedToId == userId
-					 select new
-							 {
-								 defects.DefectId,
-								 defects.Name,
-								 Priority = priorities.Name,
-								 Status = statuses.Name,
-								 ProjectName = projects.Name
-							 } );
+			return (from defects in data.Defects
+			        join projects in data.Projects
+			        	on defects.ProjectId equals projects.ProjectId
+			        join priorities in data.PriorityTypes
+			        	on defects.PriorityTypeId equals priorities.PriorityTypeId
+			        join statuses in data.StatusTypes
+			        	on defects.StatusTypeId equals statuses.StatusTypeId
+			        where defects.AssignedToId == userId
+			        select new
+			               	{
+			               		defects.DefectId,
+			               		defects.Name,
+			               		Priority = priorities.Name,
+			               		Status = statuses.Name,
+			               		ProjectName = projects.Name
+			               	});
 		}
 		/// <summary>
 		/// Gets the defects.
@@ -115,7 +72,7 @@ namespace LiteOT
 		/// <param name="userId">The user id.</param>
 		/// <param name="projectName"></param>
 		/// <returns></returns>
-		private static IEnumerable GetDefects( OTDataDataContext data, Int32 userId, String projectName )
+		private static IEnumerable GetDefects( OTDataDataContext data, Int32 userId , String projectName)
 		{
 			return ( from defects in data.Defects
 					 join projects in data.Projects
@@ -142,23 +99,23 @@ namespace LiteOT
 		/// <returns></returns>
 		private static IEnumerable GetProjects( OTDataDataContext data, Int32 userId )
 		{
-			return ( from projects in data.Projects
-					 join defects in data.Defects
-						 on projects.ProjectId equals defects.ProjectId
-					 where defects.AssignedToId == userId
-					 select projects.Name ).Distinct();
+			return (from projects in data.Projects
+			        join defects in data.Defects
+			        	on projects.ProjectId equals defects.ProjectId
+			        where defects.AssignedToId == userId
+			        select projects.Name).Distinct();
 		}
 		#endregion
 
 		#region Event handlers
-		private void OnSelectAll( Object sender, EventArgs args )
+		private void OnSelectAll(Object sender, EventArgs args)
 		{
 			if( null != DefectList )
 			{
 				DefectList.ItemsSource = GetDefects( m_Data, m_UserId );
 			}
 		}
-		private void OnSelectCurrent( Object sender, EventArgs args )
+		private void OnSelectCurrent(Object sender, EventArgs args)
 		{
 			if( false == ProjectCheck.IsChecked )
 			{
@@ -170,29 +127,32 @@ namespace LiteOT
 		{
 			Object selectedItem = DefectList.SelectedItem;
 
-			if( null != selectedItem )
+			if (null != selectedItem)
 			{
-				var item = Utility.Cast( selectedItem, new
-				{
-					DefectId = 0,
-					Name = "",
-					Priority = "",
-					Status = "",
-					ProjectName = ""
-				} );
+				var item = Utility.Cast(selectedItem, new
+              	{
+              		DefectId = 0,
+              		Name = "",
+              		Priority = "",
+              		Status = "",
+              		ProjectName = ""
+              	});
 
 				Int32 id = item.DefectId;
-				String tag = ( (FrameworkElement)TabInfo.SelectedItem ).Tag.ToString();
+				var tag = ( (FrameworkElement)TabInfo.SelectedItem ).Tag.ToString();
+
 				var result = from defects in m_Data.Defects
-							 where defects.DefectId == id
+				         where defects.DefectId == id
 							 select Description( defects, tag );
 
 				int count = result.Count();
 
 				if( 1 == count )
 				{
-					List<Object> res = result.ToList();
-					SetInfo( res[ 0 ], tag );
+					foreach( String info in result )
+					{
+						SetInfo(info,tag);
+					}
 				}
 				else if( 1 < count )
 				{
@@ -200,29 +160,28 @@ namespace LiteOT
 				}
 			}
 		}
-		private void OnIssueTypeChecked( Object sender, EventArgs args )
+		private void SetInfo(string info, String tag)
 		{
-			RadioButton radio = (RadioButton)sender;
+			FlowDocument myFlowDoc = new FlowDocument();
+			myFlowDoc.Blocks.Add( new Paragraph( new Run( info ) ) );
 
-			if( radio.IsInitialized )
+			switch( tag )
 			{
-				String tag = radio.Tag.ToString();
-
-				switch( tag )
-				{
-					case DEFECT_TAG:
-						m_IssueType = IssueType.Defect;
-						break;
-					case FEATURE_TAG:
-						m_IssueType = IssueType.Feature;
-						break;
-					default:
-						throw new NotImplementedException();
-				}
+				case DESCRIPTIONS_NAME:
+					DescriptionInfo.Document = myFlowDoc;
+					break;
+				case NOTES_NAME:
+					NotesInfo.Document = myFlowDoc;
+					break;
+				case REPLICATION_PROPCEDURES_NAME:
+					RepPropceduresInfo.Document = myFlowDoc;
+					break;
+				default:
+					throw new NotImplementedException();
 			}
 		}
 
-		private static Object Description( Defect defects, String tag )
+		private static string Description( Defect defects, String tag )
 		{
 			switch( tag )
 			{
@@ -232,8 +191,6 @@ namespace LiteOT
 					return defects.Notes;
 				case REPLICATION_PROPCEDURES_NAME:
 					return defects.ReplicationProcedures;
-				case ATACHMENTS_NAME:
-					return defects.DefectId;
 				default:
 					throw new NotImplementedException();
 			}
