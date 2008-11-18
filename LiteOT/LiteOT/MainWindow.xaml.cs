@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Windows.Controls;
 using System.Collections.Generic;
 using System.Windows.Documents;
+using System.Windows.Input;
 
 namespace LiteOT
 {
@@ -162,6 +163,28 @@ namespace LiteOT
 			document.Blocks.Add( paragraph );
 			return document;
 		}
+		/// <summary>
+		/// Descriptions the specified defects.
+		/// </summary>
+		/// <param name="defects">The defects.</param>
+		/// <param name="tag">The tag.</param>
+		/// <returns></returns>
+		private static Object Description(Defect defects, String tag)
+		{
+			switch (tag)
+			{
+				case DESCRIPTIONS_NAME:
+					return defects.Description;
+				case NOTES_NAME:
+					return defects.Notes;
+				case REPLICATION_PROPCEDURES_NAME:
+					return defects.ReplicationProcedures;
+				case ATACHMENTS_NAME:
+					return defects.DefectId;
+				default:
+					throw new NotImplementedException();
+			}
+		}
 		#endregion
 
 		#region Event handlers
@@ -189,10 +212,10 @@ namespace LiteOT
 				var item = Utility.Cast( selectedItem, new
 				{
 					DefectId = 0,
-					Name = "",
-					Priority = "",
-					Status = "",
-					ProjectName = ""
+					Name = String.Empty,
+					Priority = String.Empty,
+					Status = String.Empty,
+					ProjectName = String.Empty
 				} );
 
 				Int32 id = item.DefectId;
@@ -235,21 +258,21 @@ namespace LiteOT
 				}
 			}
 		}
-
-		private static Object Description( Defect defects, String tag )
+		private void OnGetAttachment(Object sender, MouseButtonEventArgs arg)
 		{
-			switch( tag )
+			Object selectedItem = AttachmentList.SelectedItem;
+
+			if (null != AttachmentList.SelectedItem)
 			{
-				case DESCRIPTIONS_NAME:
-					return defects.Description;
-				case NOTES_NAME:
-					return defects.Notes;
-				case REPLICATION_PROPCEDURES_NAME:
-					return defects.ReplicationProcedures;
-				case ATACHMENTS_NAME:
-					return defects.DefectId;
-				default:
-					throw new NotImplementedException();
+				var item = Utility.Cast(selectedItem, new
+				{
+					AttachmentId = 0,
+					FileName = String.Empty,
+					AttachDate = DateTime.Now,
+					Description = String.Empty
+				});
+
+				Int32 id = item.AttachmentId;
 			}
 		}
 		#endregion

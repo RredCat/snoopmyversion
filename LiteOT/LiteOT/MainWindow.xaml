@@ -2,8 +2,9 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:self="clr-namespace:LiteOT"
-    Title="Window1" WindowState="Maximized"
-		Height="500" Width="750"
+    Title="Light OnTime window Client" WindowState="Maximized"
+	Height="500" Width="750"
+	Icon="Resources\bug.ico"
 	WindowStartupLocation="CenterScreen"
 	>
 	<Window.Resources>
@@ -82,6 +83,7 @@
 			</TabItem>
 			<TabItem Header="Atachments" Tag="Atachments" >
 				<ListView Name="AttachmentList"
+					  MouseDoubleClick="OnGetAttachment"
 					  Style="{StaticResource ElementStyle}"
 				  >
 					<ListView.View>
