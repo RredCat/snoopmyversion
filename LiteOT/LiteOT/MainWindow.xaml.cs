@@ -2,13 +2,12 @@
 using System.Collections;
 using System.Linq;
 using System.Windows;
-using System.Windows.Data;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Controls;
 using System.Collections.Generic;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Data.Linq;
 
 namespace LiteOT
 {
@@ -273,6 +272,27 @@ namespace LiteOT
 				});
 
 				Int32 id = item.AttachmentId;
+
+				var result = from attachments in m_Data.Attachments
+				             where attachments.AttachmentId == id
+				             select new
+				             {
+								attachments.FileData,
+				                attachments.FileName
+				             };
+
+				int count = result.Count();
+
+				if( 1 == count )
+				{
+					var res = result.ToList();
+					Binary binary = res[0].FileData;
+					String fileName = res[0].FileName;
+				}
+				else if( 1 < count )
+				{
+					throw new ApplicationException( "Double row in data base" );
+				}
 			}
 		}
 		#endregion

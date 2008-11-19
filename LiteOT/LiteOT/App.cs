@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Windows;
@@ -63,10 +64,8 @@ namespace LiteOT
 
 			if( 1 == count )
 			{
-				foreach( int userId in result )
-				{
-					return userId;
-				}
+				List<Int32> userIds = result.ToList();
+				return userIds[ 0 ];
 			}
 			else if( 1 < count )
 			{
