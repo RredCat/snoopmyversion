@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Data.Linq;
+using System.IO;
+using Microsoft.Win32;
 
 namespace LiteOT
 {
@@ -288,6 +290,32 @@ namespace LiteOT
 					var res = result.ToList();
 					Binary binary = res[0].FileData;
 					String fileName = res[0].FileName;
+					SaveFileDialog saveFileDialog = new SaveFileDialog
+					{
+						Filter = "All files (*.*)|*.*",
+						RestoreDirectory = true,
+						FileName = fileName
+					};
+
+					if (true == saveFileDialog.ShowDialog())
+					{
+						Stream stream;
+
+						if ((stream = saveFileDialog.OpenFile()) != null)
+						{
+							BinaryWriter binaryWriter = new BinaryWriter(stream);
+							byte[] b = binary.ToArray();
+
+							for (int i = 0, cnt = b.Count(); i < cnt; ++i)
+							{
+								binaryWriter.Write(b[ i ]);
+							}
+
+							binaryWriter.Close();
+							stream.Close();
+						}
+					}
+
 				}
 				else if( 1 < count )
 				{
