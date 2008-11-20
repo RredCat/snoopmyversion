@@ -2,10 +2,8 @@
 using System.Collections;
 using System.Linq;
 using System.Windows;
-using System.Diagnostics;
 using System.Windows.Controls;
 using System.Collections.Generic;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Data.Linq;
 using System.IO;
@@ -25,6 +23,9 @@ namespace LiteOT
 		private const String ATACHMENTS_NAME = "Atachments";
 		private const String DEFECT_TAG = "Defect";
 		private const String FEATURE_TAG = "Feature";
+		private const String HTML_FORMAT = "<html><body>{0}</body></html>";
+		private const String TEMP_FILE = "temp.html";
+		private const String SEPARATOR = @"\";
 		#endregion
 
 		#region Private members
@@ -56,13 +57,13 @@ namespace LiteOT
 			switch( tag )
 			{
 				case DESCRIPTIONS_NAME:
-					DescriptionInfo.Document = GetTextInfo( info );
+					DescriptionInfo.Source = GetNewUri( info );
 					break;
 				case NOTES_NAME:
-					NotesInfo.Document = GetTextInfo( info );
+					NotesInfo.Source = GetNewUri( info );
 					break;
 				case REPLICATION_PROPCEDURES_NAME:
-					RepPropceduresInfo.Document = GetTextInfo( info );
+					RepPropceduresInfo.Source = GetNewUri( info );
 					break;
 				case ATACHMENTS_NAME:
 					AttachmentList.ItemsSource = GetAttachments( info );
@@ -156,13 +157,12 @@ namespace LiteOT
 		/// </summary>
 		/// <param name="text">The text.</param>
 		/// <returns></returns>
-		private static FlowDocument GetTextInfo( Object text )
+		private static Uri GetNewUri( Object text )
 		{
-			Paragraph paragraph = new Paragraph();
-			paragraph.Inlines.Add( new Run( text.ToString() ) );
-			FlowDocument document = new FlowDocument();
-			document.Blocks.Add( paragraph );
-			return document;
+			String str = String.Format( HTML_FORMAT, text );
+			const String path = TEMP_FILE;
+			File.WriteAllText( path, str );
+			return new Uri( Directory.GetCurrentDirectory() + SEPARATOR + path );
 		}
 		/// <summary>
 		/// Descriptions the specified defects.
@@ -204,8 +204,13 @@ namespace LiteOT
 				DefectList.ItemsSource = GetDefects( m_Data, m_UserId, projectName );
 			}
 		}
-		private void OnInfoTabChanged( Object sender, EventArgs args )
+		private void OnInfoTabChanged( Object sender, SelectionChangedEventArgs args )
 		{
+			ListView lv = args.Source as ListView;
+
+			if( null != lv && "AttachmentList" == lv.Name )
+				return;
+
 			Object selectedItem = DefectList.SelectedItem;
 
 			if( null != selectedItem )
