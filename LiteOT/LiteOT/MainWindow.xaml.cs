@@ -31,6 +31,7 @@ namespace LiteOT
 		#region Private members
 		private readonly OTDataDataContext m_Data = null;
 		private readonly Int32 m_UserId;
+		private readonly String m_CurrentDirrectory = Directory.GetCurrentDirectory();
 
 		private IssueType m_IssueType = IssueType.Defect;
 		#endregion
@@ -57,13 +58,13 @@ namespace LiteOT
 			switch( tag )
 			{
 				case DESCRIPTIONS_NAME:
-					DescriptionInfo.Source = GetNewUri( info );
+					UpdateTextFrame( DescriptionInfo, info );
 					break;
 				case NOTES_NAME:
-					NotesInfo.Source = GetNewUri( info );
+					UpdateTextFrame( NotesInfo, info );
 					break;
 				case REPLICATION_PROPCEDURES_NAME:
-					RepPropceduresInfo.Source = GetNewUri( info );
+					UpdateTextFrame( RepPropceduresInfo, info );
 					break;
 				case ATACHMENTS_NAME:
 					AttachmentList.ItemsSource = GetAttachments( info );
@@ -85,6 +86,23 @@ namespace LiteOT
 					   attachments.AttachDate,
 					   attachments.Description
 				   };
+		}
+		/// <summary>
+		/// Gets the text info.
+		/// </summary>
+		/// <param name="textFrame">The text frame.</param>
+		/// <param name="text">The text.</param>
+		private void UpdateTextFrame(Frame textFrame, Object text )
+		{
+			//if( File.Exists( TEMP_FILE ) )
+			//{
+			//    File.Delete( TEMP_FILE );
+			//}
+
+			String str = String.Format( HTML_FORMAT, text );
+			File.WriteAllText( TEMP_FILE, str );
+			textFrame.Source = new Uri( m_CurrentDirrectory + SEPARATOR + TEMP_FILE );
+			textFrame.Refresh();
 		}
 
 		/// <summary>
@@ -151,18 +169,6 @@ namespace LiteOT
 						 on projects.ProjectId equals defects.ProjectId
 					 where defects.AssignedToId == userId
 					 select projects.Name ).Distinct();
-		}
-		/// <summary>
-		/// Gets the text info.
-		/// </summary>
-		/// <param name="text">The text.</param>
-		/// <returns></returns>
-		private static Uri GetNewUri( Object text )
-		{
-			String str = String.Format( HTML_FORMAT, text );
-			const String path = TEMP_FILE;
-			File.WriteAllText( path, str );
-			return new Uri( Directory.GetCurrentDirectory() + SEPARATOR + path );
 		}
 		/// <summary>
 		/// Descriptions the specified defects.
