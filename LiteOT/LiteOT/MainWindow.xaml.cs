@@ -94,11 +94,6 @@ namespace LiteOT
 		/// <param name="text">The text.</param>
 		private void UpdateTextFrame(Frame textFrame, Object text )
 		{
-			//if( File.Exists( TEMP_FILE ) )
-			//{
-			//    File.Delete( TEMP_FILE );
-			//}
-
 			String str = String.Format( HTML_FORMAT, text );
 			File.WriteAllText( TEMP_FILE, str );
 			textFrame.Source = new Uri( m_CurrentDirrectory + SEPARATOR + TEMP_FILE );

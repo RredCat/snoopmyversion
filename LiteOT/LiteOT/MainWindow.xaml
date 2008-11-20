@@ -21,6 +21,7 @@
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
 		<Grid.ColumnDefinitions>
@@ -29,22 +30,59 @@
 			<ColumnDefinition Width="*" />
 			<ColumnDefinition Width="*" />
 		</Grid.ColumnDefinitions>
+		<ToolBarTray Background="White" Grid.ColumnSpan="4" >
+			<ToolBar>
+				<Button>
+					cut
+				</Button>
+				<Button>
+					copy
+				</Button>
+				<Button>
+					paste
+				</Button>
+			</ToolBar>
+			<ToolBar>
+				<Button>
+					undo
+				</Button>
+				<Button>
+					redo
+				</Button>
+			</ToolBar>
+			<ToolBar>
+				<Button>
+					paint
+				</Button>
+				<Button>
+					spell
+				</Button>
+				<Separator/>
+				<Button>
+					save
+				</Button>
+				<Button>
+					open
+				</Button>
+			</ToolBar>
+		</ToolBarTray>
 
-		<CheckBox Name="ProjectCheck" Content="Select All" Style="{StaticResource ElementStyle}" IsChecked="True"
+		<CheckBox Name="ProjectCheck" Grid.Row="1"
+				  Content="Select All" Style="{StaticResource ElementStyle}" IsChecked="True"
 				  Checked="OnSelectAll" Unchecked="OnSelectCurrent"
 				  />
-		<ComboBox Name="ProjectBox" Grid.Column="1" Style="{StaticResource ElementStyle}" SelectedIndex="0"
+		<ComboBox Name="ProjectBox" Grid.Row="1" Grid.Column="1" Style="{StaticResource ElementStyle}" SelectedIndex="0"
 				  IsEnabled="{Binding Path=IsChecked, ElementName=ProjectCheck, Converter={StaticResource RevertBoolean}}"
 				  SelectionChanged="OnSelectCurrent"
 				  />
-		<RadioButton GroupName="IssueType" Grid.Column="2" IsChecked="True" 
+		<RadioButton GroupName="IssueType" Grid.Row="1" Grid.Column="2" IsChecked="True" 
 					 Content="Defect" Checked="OnIssueTypeChecked" Tag="Defect"
 					 Style="{StaticResource ElementStyle}" />
-		<RadioButton GroupName="IssueType" Grid.Column="3" IsEnabled="False" 
+		<RadioButton GroupName="IssueType" Grid.Row="1" Grid.Column="3" IsEnabled="False" 
 					 Content="Feature" Checked="OnIssueTypeChecked"	Tag="Feature"
 					 Style="{StaticResource ElementStyle}" />
 		<ListView Name="DefectList"
-				  Grid.Row="1" Grid.ColumnSpan="4"
+				  Grid.Row="2" Grid.ColumnSpan="4"
 				  Style="{StaticResource ElementStyle}"
 				  SelectionChanged="OnInfoTabChanged"
 				  >
@@ -63,13 +101,13 @@
 				</GridView>
 			</ListView.View>
 		</ListView>
-		<GridSplitter Grid.Row="2" Grid.ColumnSpan="4" 
+		<GridSplitter Grid.Row="3" Grid.ColumnSpan="4" 
 					  HorizontalAlignment="Stretch"
 					  ShowsPreview="True"
 					  Height="3"
 					  />
 		<TabControl Name="TabInfo"
-						Grid.Row="3" Grid.ColumnSpan="4	"
+						Grid.Row="4" Grid.ColumnSpan="4"
 						SelectionChanged="OnInfoTabChanged"
 			>
 			<TabItem Header="Descriptions" Tag="Descriptions" >
@@ -98,7 +136,7 @@
 					</ListView.View>
 				</ListView>
 			</TabItem>
-			<TabItem Header="History" Tag="History" ></TabItem>
+			<!--<TabItem Header="History" Tag="History" ></TabItem>-->
 		</TabControl>
 	</Grid>
 </Window>
