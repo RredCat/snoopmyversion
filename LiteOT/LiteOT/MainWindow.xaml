@@ -32,9 +32,7 @@
 		</Grid.ColumnDefinitions>
 		<ToolBarTray Background="White" Grid.ColumnSpan="4" >
 			<ToolBar>
-				<Button>
-					cut
-				</Button>
+				<Button Content="Refresh" Click="OnRefreshIssueList" />
 				<Button>
 					copy
 				</Button>

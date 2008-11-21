@@ -47,7 +47,7 @@ namespace LiteOT
 			m_Data = data;
 			m_UserId = userId;
 			InitializeComponent();
-			DefectList.ItemsSource = GetDefects( m_Data, m_UserId );
+			RefreshIssueList();
 			ProjectBox.ItemsSource = GetProjects( m_Data, m_UserId );
 		}
 		#endregion
@@ -98,6 +98,18 @@ namespace LiteOT
 			File.WriteAllText( TEMP_FILE, str );
 			textFrame.Source = new Uri( m_CurrentDirrectory + SEPARATOR + TEMP_FILE );
 			textFrame.Refresh();
+		}
+		private void RefreshIssueList()
+		{
+			DefectList.ItemsSource = GetDefects(m_Data, m_UserId);
+		}
+		private void SelectCurrent()
+		{
+			if (false == ProjectCheck.IsChecked)
+			{
+				String projectName = ProjectBox.SelectedItem.ToString();
+				DefectList.ItemsSource = GetDefects(m_Data, m_UserId, projectName);
+			}
 		}
 
 		/// <summary>
@@ -199,11 +211,7 @@ namespace LiteOT
 		}
 		private void OnSelectCurrent( Object sender, EventArgs args )
 		{
-			if( false == ProjectCheck.IsChecked )
-			{
-				String projectName = ProjectBox.SelectedItem.ToString();
-				DefectList.ItemsSource = GetDefects( m_Data, m_UserId, projectName );
-			}
+			SelectCurrent();
 		}
 		private void OnInfoTabChanged( Object sender, SelectionChangedEventArgs args )
 		{
@@ -328,6 +336,10 @@ namespace LiteOT
 					throw new ApplicationException( "Double row in data base" );
 				}
 			}
+		}
+		private void OnRefreshIssueList(Object sender, EventArgs args)
+		{
+			SelectCurrent();
 		}
 		#endregion
 	}
