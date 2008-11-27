@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Windows;
+using System.Net.Mail;
 
 namespace LiteOT
 {
@@ -18,34 +19,43 @@ namespace LiteOT
 		[STAThread]
 		public static void Main()
 		{
-			bool isUnAauthorized = true;
-
-			while( isUnAauthorized )
+			try
 			{
-				AccessWindow window = new AccessWindow();
-				window.ShowDialog();
+				bool isUnAauthorized = true;
 
-				if( true == window.DialogResult )
+				while (isUnAauthorized)
 				{
-					try
-					{
-						OTDataDataContext data = new OTDataDataContext(window.GetConnectString() );
-						Int32 userId = GetUserId( data, window.Login, window.Password);
-						isUnAauthorized = false;
+					AccessWindow window = new AccessWindow();
+					window.ShowDialog();
 
-						MainWindow mainWindow = new MainWindow( data, userId );
-						mainWindow.ShowDialog();
-					}
-					catch( AccessDeniedException )
+					if (true == window.DialogResult)
 					{
+						try
+						{
+							OTDataDataContext data = new OTDataDataContext( window.GetConnectString() );
+							Int32 userId = GetUserId( data, window.Login, window.Password );
+							isUnAauthorized = false;
+
+							MainWindow mainWindow = new MainWindow( data, userId );
+							mainWindow.ShowDialog();
+						}
+						catch (AccessDeniedException)
+						{
+						}
+						catch (SqlException)
+						{
+							MessageBox.Show( "SQL exception, try later", "):" );
+						}
 					}
-					catch( SqlException )
-					{
-						MessageBox.Show("SQL exception, try later", "):");
-					}
+					else
+						break;
 				}
-				else
-					break;
+			}
+			catch (Exception ex)
+			{
+			}
+			catch
+			{
 			}
 		}
 		/// <summary>
@@ -62,17 +72,36 @@ namespace LiteOT
 						 select user.UserId;
 			int count = result.Count();
 
-			if( 1 == count )
+			if (1 == count)
 			{
 				List<Int32> userIds = result.ToList();
 				return userIds[ 0 ];
 			}
-			else if( 1 < count )
+			else if (1 < count)
 			{
 				throw new ApplicationException( "Double row in data base" );
 			}
 
 			throw new AccessDeniedException( "Incorrect loggin or password" );
+		}
+		/// <summary>
+		/// Sends the mail.
+		/// </summary>
+		/// <param name="body">The body of mail.</param>
+		private static void SendMail( String body )
+		{
+			MailAddress toAddress = new MailAddress( "rredcat@gmail.com" );
+			MailAddress fromAddress = new MailAddress( "bug.informer@rredcat.org" );
+			MailAddress senderAddress = new MailAddress( "bug.informers@rredcat.org" );
+
+			MailMessage mail = new MailMessage();
+			mail.To.Add( toAddress );
+			mail.From = fromAddress;
+			mail.IsBodyHtml = false;
+			mail.Priority = MailPriority.Low;
+			mail.Sender = senderAddress;
+			mail.Subject = "Raport about bug in LightOT";
+			mail.Body = body;
 		}
 		#endregion
 	}
