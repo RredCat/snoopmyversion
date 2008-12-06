@@ -135,6 +135,19 @@ namespace LiteOT
 				: GetFeatures(data, userId);
 		}
 		/// <summary>
+		/// Gets the defects.
+		/// </summary>
+		/// <param name="data">The data.</param>
+		/// <param name="userId">The user id.</param>
+		/// <param name="projectName"></param>
+		/// <returns></returns>
+		private IEnumerable GetIssues( OTDataDataContext data, Int32 userId, String projectName )
+		{
+			return IssueType.Defect == m_IssueType
+			       	? GetDefects(data, userId, projectName)
+			       	: GetFeatures(data, userId, projectName);
+		}
+		/// <summary>
 		/// Gets the tab info.
 		/// </summary>
 		/// <param name="id">The id.</param>
@@ -227,9 +240,9 @@ namespace LiteOT
 		/// </summary>
 		/// <param name="data">The data.</param>
 		/// <param name="userId">The user id.</param>
-		/// <param name="projectName"></param>
+		/// <param name="projectName">Name of the project.</param>
 		/// <returns></returns>
-		private static IEnumerable GetIssues( OTDataDataContext data, Int32 userId, String projectName )
+		private static IEnumerable GetDefects( OTDataDataContext data, Int32 userId, String projectName )
 		{
 			return ( from defects in data.Defects
 					 join projects in data.Projects
@@ -241,8 +254,34 @@ namespace LiteOT
 					 where ( defects.AssignedToId == userId && projects.Name == projectName )
 					 select new
 					 {
-						 defects.DefectId,
+						 IssueId = defects.DefectId,
 						 defects.Name,
+						 Priority = priorities.Name,
+						 Status = statuses.Name,
+						 ProjectName = projects.Name
+					 } );
+		}
+		/// <summary>
+		/// Gets the features.
+		/// </summary>
+		/// <param name="data">The data.</param>
+		/// <param name="userId">The user id.</param>
+		/// <param name="projectName">Name of the project.</param>
+		/// <returns></returns>
+		private static IEnumerable GetFeatures( OTDataDataContext data, Int32 userId, String projectName )
+		{
+			return ( from features in data.Features
+					 join projects in data.Projects
+						 on features.ProjectId equals projects.ProjectId
+					 join priorities in data.PriorityTypes
+						 on features.PriorityTypeId equals priorities.PriorityTypeId
+					 join statuses in data.StatusTypes
+						 on features.StatusTypeId equals statuses.StatusTypeId
+					 where ( features.AssignedToId == userId && projects.Name == projectName )
+					 select new
+					 {
+						 IssueId = features.FeatureId,
+						 features.Name,
 						 Priority = priorities.Name,
 						 Status = statuses.Name,
 						 ProjectName = projects.Name
