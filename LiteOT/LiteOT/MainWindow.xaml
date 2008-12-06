@@ -8,11 +8,16 @@
 	WindowStartupLocation="CenterScreen"
 	>
 	<Window.Resources>
-
+	
 		<self:RevertBooleanConverter x:Key="RevertBoolean" />
 
-		<Style x:Key="ElementStyle" TargetType="{x:Type FrameworkElement}">
+		<Style x:Key="ElementStyle" TargetType="{x:Type FrameworkElement}" >
 			<Setter Property="Margin" Value="5" />
+		</Style>
+
+		<Style x:Key="ToolButtonStyle" TargetType="{x:Type Border}" >
+			<Setter Property="Height" Value="25" />
+			<Setter Property="Width" Value="35" />
 		</Style>
 
 	</Window.Resources>
@@ -31,36 +36,20 @@
 			<ColumnDefinition Width="*" />
 		</Grid.ColumnDefinitions>
 		<ToolBarTray Background="White" Grid.ColumnSpan="4" >
-			<ToolBar>
-				<Button Content="Refresh" Click="OnRefreshIssueList" />
-				<Button>
-					copy
+			<ToolBar >
+				<Button Click="OnRefreshIssueList" >
+					<Border  Style="{StaticResource ToolButtonStyle}" >
+						<Border.Background>
+							<ImageBrush ImageSource="Resources\reload.png"  />
+						</Border.Background>
+					</Border>
 				</Button>
-				<Button>
-					paste
-				</Button>
-			</ToolBar>
-			<ToolBar>
-				<Button>
-					undo
-				</Button>
-				<Button>
-					redo
-				</Button>
-			</ToolBar>
-			<ToolBar>
-				<Button>
-					paint
-				</Button>
-				<Button>
-					spell
-				</Button>
-				<Separator/>
-				<Button>
-					save
-				</Button>
-				<Button>
-					open
+				<Button Click="OnLogout" >
+					<Border  Style="{StaticResource ToolButtonStyle}" >
+						<Border.Background>
+							<ImageBrush ImageSource="Resources\arrow_down.png"  />
+						</Border.Background>
+					</Border>
 				</Button>
 			</ToolBar>
 		</ToolBarTray>
@@ -74,12 +63,12 @@
 				  SelectionChanged="OnSelectCurrent"
 				  />
 		<RadioButton GroupName="IssueType" Grid.Row="1" Grid.Column="2" IsChecked="True" 
-					 Content="Defect" Checked="OnIssueTypeChecked" Tag="Defect"
+					 Content="Defect" Checked="OnIssueTypeChecked" Tag="0"
 					 Style="{StaticResource ElementStyle}" />
-		<RadioButton GroupName="IssueType" Grid.Row="1" Grid.Column="3" IsEnabled="False" 
-					 Content="Feature" Checked="OnIssueTypeChecked"	Tag="Feature"
+		<RadioButton GroupName="IssueType" Grid.Row="1" Grid.Column="3" 
+					 Content="Feature" Checked="OnIssueTypeChecked"	Tag="1"
 					 Style="{StaticResource ElementStyle}" />
-		<ListView Name="DefectList"
+		<ListView Name="IssueList"
 				  Grid.Row="2" Grid.ColumnSpan="4"
 				  Style="{StaticResource ElementStyle}"
 				  SelectionChanged="OnInfoTabChanged"
@@ -87,7 +76,7 @@
 			<ListView.View>
 				<GridView>
 					<GridViewColumn Header="Id"
-									DisplayMemberBinding="{Binding Path=DefectId}" />
+									DisplayMemberBinding="{Binding Path=IssueId}" />
 					<GridViewColumn Header="Name"
 									DisplayMemberBinding="{Binding Path=Name}" />
 					<GridViewColumn Header="Priority"
@@ -114,7 +103,7 @@
 			<TabItem Header="Notes" Tag="Notes" >
 				<Frame Name="NotesInfo" />
 			</TabItem>
-			<TabItem Header="Replication Propcedures" Tag="RepPropcedures" >
+			<TabItem Name="RepTabItem" Header="Replication Propcedures" Tag="RepPropcedures" >
 				<Frame Name="RepPropceduresInfo" />
 			</TabItem>
 			<TabItem Header="Atachments" Tag="Atachments" >

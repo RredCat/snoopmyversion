@@ -3,9 +3,9 @@
 	public enum IssueType
 	{
 		Defect,
-		Feature,
-		Task,
-		Incident,
-		Project
+		Feature
+		//Task,
+		//Incident,
+		//Project
 	}
 }

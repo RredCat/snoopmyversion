@@ -20,14 +20,14 @@
         <elementListCompartment Id="d4952c06-59c3-4400-94fe-7e4050b9c480" absoluteBounds="2.7649999999999997, 0.96, 1.9700000000000002, 1.5222371419270833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(5 : 1.54111857096354); (4.75 : 1.54111857096354)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5 : 1.54111857096354); (4.75 : 1.54111857096354)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/OTDataDataContext/Defect/Defect_Project" />
       <nodes>
         <classShapeMoniker Id="dd1b7afe-3ddd-426f-bcdf-060e0465dcb6" />
         <classShapeMoniker Id="7a5d4686-0fde-4594-ac5b-831701b7cfd8" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.5 : 2.79111857096354); (5 : 2.79111857096354)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.5 : 2.79111857096354); (5 : 2.79111857096354)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/OTDataDataContext/User/User_Defect" />
       <nodes>
         <classShapeMoniker Id="88bf8f6b-2ef3-4491-bce0-7d29c32a64e4" />
@@ -40,7 +40,7 @@
         <elementListCompartment Id="d2c9eb00-b515-4eb5-86f9-4a68063308d3" absoluteBounds="2.7650000000000006, 3.46, 1.9700000000000002, 0.86484781901041663" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(5 : 3.71242390950521); (4.75 : 3.71242390950521)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5 : 3.71242390950521); (4.75 : 3.71242390950521)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/OTDataDataContext/Defect/Defect_PriorityType" />
       <nodes>
         <classShapeMoniker Id="dd1b7afe-3ddd-426f-bcdf-060e0465dcb6" />
@@ -53,14 +53,14 @@
         <elementListCompartment Id="d3ac9722-bf6e-428f-90ae-6628cea39a59" absoluteBounds="2.7649999999999997, 5.335, 1.9700000000000002, 0.86484781901041663" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(5 : 5.58742390950521); (4.75 : 5.58742390950521)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5 : 5.58742390950521); (4.75 : 5.58742390950521)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/OTDataDataContext/Defect/Defect_StatusType" />
       <nodes>
         <classShapeMoniker Id="dd1b7afe-3ddd-426f-bcdf-060e0465dcb6" />
         <classShapeMoniker Id="33d0524d-93e1-4c25-8332-61653ab53c88" />
       </nodes>
     </associationConnector>
-    <classShape Id="8e220b5d-d542-4535-a5bd-aeb744407705" absoluteBounds="7.25, 5.875, 2, 2.4109318033854166">
+    <classShape Id="8e220b5d-d542-4535-a5bd-aeb744407705" isExpanded="false" absoluteBounds="7.25, 5.875, 2, 0.45">
       <DataClassMoniker Name="/OTDataDataContext/Attachment" />
       <nestedChildShapes>
         <elementListCompartment Id="2acee77e-7e42-486c-832c-ad40822c081f" absoluteBounds="7.2650000000000006, 6.335, 1.9700000000000002, 1.8509318033854165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />

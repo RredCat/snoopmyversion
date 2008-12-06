@@ -28,11 +28,15 @@ namespace LiteOT
 		/// <summary>
 		/// Presents store file name for db data.
 		/// </summary>
-		private readonly string m_StoreFileName = AppDomain.CurrentDomain.FriendlyName + ".dat";
+		private readonly String m_StoreFileName = AppDomain.CurrentDomain.FriendlyName + ".dat";
 		/// <summary>
 		/// Presents store file name for user data.
 		/// </summary>
-		private readonly string m_StoreUserFileName = AppDomain.CurrentDomain.FriendlyName + "User.dat";
+		private readonly String m_StoreUserFileName = AppDomain.CurrentDomain.FriendlyName + "User.dat";
+		/// <summary>
+		/// Presents value that indicates whether need to consider persist state.
+		/// </summary>
+		private readonly Boolean m_IgnorePersistState= false;
 
 		/// <summary>
 		/// Presents Sql server name.
@@ -64,8 +68,9 @@ namespace LiteOT
 		/// <summary>
 		/// Initializes a new instance of the <see cref="AccessWindow"/> class.
 		/// </summary>
-		public AccessWindow()
+		public AccessWindow( Boolean ignorePersistState )
 		{
+			m_IgnorePersistState = ignorePersistState;
 			InitializeComponent();
 		}
 		#endregion
@@ -120,7 +125,7 @@ namespace LiteOT
 			{
 				SetDBInfo();
 			}
-			else
+			else if( !m_IgnorePersistState )
 			{
 				LoadUserData();
 

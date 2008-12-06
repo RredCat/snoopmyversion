@@ -19,16 +19,17 @@ namespace LiteOT
 		[STAThread]
 		public static void Main()
 		{
-			try
-			{
-				bool isUnAauthorized = true;
+			//try
+			//{
+				Boolean isUnAauthorized = true;
+				Boolean isntExit = false;
 
-				while (isUnAauthorized)
+				while( isUnAauthorized || isntExit )
 				{
-					AccessWindow window = new AccessWindow();
+					AccessWindow window = new AccessWindow( isntExit );
 					window.ShowDialog();
 
-					if (true == window.DialogResult)
+					if( true == window.DialogResult )
 					{
 						try
 						{
@@ -38,11 +39,12 @@ namespace LiteOT
 
 							MainWindow mainWindow = new MainWindow( data, userId );
 							mainWindow.ShowDialog();
+							isntExit = mainWindow.DialogResult.Value;
 						}
-						catch (AccessDeniedException)
+						catch( AccessDeniedException )
 						{
 						}
-						catch (SqlException)
+						catch( SqlException )
 						{
 							MessageBox.Show( "SQL exception, try later", "):" );
 						}
@@ -50,13 +52,10 @@ namespace LiteOT
 					else
 						break;
 				}
-			}
-			catch (Exception ex)
-			{
-			}
-			catch
-			{
-			}
+			//}
+			//catch( Exception )
+			//{
+			//}
 		}
 		/// <summary>
 		/// Gets the user id.
@@ -72,12 +71,12 @@ namespace LiteOT
 						 select user.UserId;
 			int count = result.Count();
 
-			if (1 == count)
+			if( 1 == count )
 			{
 				List<Int32> userIds = result.ToList();
 				return userIds[ 0 ];
 			}
-			else if (1 < count)
+			else if( 1 < count )
 			{
 				throw new ApplicationException( "Double row in data base" );
 			}
