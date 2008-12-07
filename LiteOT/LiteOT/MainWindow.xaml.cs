@@ -397,7 +397,7 @@ namespace LiteOT
 		{
 			if( IsInitialized )
 			{
-				RadioButton radio = (RadioButton)sender;
+				FrameworkElement radio = (FrameworkElement)sender;
 
 				if( radio.IsInitialized )
 				{
