@@ -119,9 +119,8 @@
 						</ToolBar>
 					</ToolBarTray>
 					<ListView Name="AttachmentList"
-						  MouseDoubleClick="OnGetAttachment"
-						  Style="{StaticResource ElementStyle}"
-				  >
+						  MouseDoubleClick="OnGetAttachment" TabIndex="0"
+						  Style="{StaticResource ElementStyle}" >
 						<ListView.View>
 							<GridView>
 								<GridViewColumn Header="FileName"

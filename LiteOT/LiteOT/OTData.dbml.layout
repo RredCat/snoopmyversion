@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="OTData">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11.625, 8.5" name="OTData">
   <DataContextMoniker Name="/OTDataDataContext" />
   <nestedChildShapes>
     <classShape Id="88bf8f6b-2ef3-4491-bce0-7d29c32a64e4" absoluteBounds="0.5, 0.5, 2, 3.5613631184895826">
@@ -27,7 +27,7 @@
         <classShapeMoniker Id="7a5d4686-0fde-4594-ac5b-831701b7cfd8" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.5 : 2.79111857096354); (5 : 2.79111857096354)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.5 : 2.79111857096354); (5 : 2.79111857096354)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/OTDataDataContext/User/User_Defect" />
       <nodes>
         <classShapeMoniker Id="88bf8f6b-2ef3-4491-bce0-7d29c32a64e4" />
@@ -60,10 +60,10 @@
         <classShapeMoniker Id="33d0524d-93e1-4c25-8332-61653ab53c88" />
       </nodes>
     </associationConnector>
-    <classShape Id="8e220b5d-d542-4535-a5bd-aeb744407705" isExpanded="false" absoluteBounds="7.25, 5.875, 2, 0.45">
+    <classShape Id="8e220b5d-d542-4535-a5bd-aeb744407705" absoluteBounds="9.375, 0.5, 2, 2.4109318033854166">
       <DataClassMoniker Name="/OTDataDataContext/Attachment" />
       <nestedChildShapes>
-        <elementListCompartment Id="2acee77e-7e42-486c-832c-ad40822c081f" absoluteBounds="7.2650000000000006, 6.335, 1.9700000000000002, 1.8509318033854165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="2acee77e-7e42-486c-832c-ad40822c081f" absoluteBounds="9.39, 0.96, 1.9700000000000002, 1.8509318033854165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
     <classShape Id="08a31248-bb35-4eb3-ab4a-659f722b5efe" absoluteBounds="7.25, 0.5, 2, 5.20483642578125">
