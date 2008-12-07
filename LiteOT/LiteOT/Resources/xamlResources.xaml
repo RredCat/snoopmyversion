@@ -5,7 +5,8 @@
 	xmlns:mwt="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
 	>
 
-	<self:RevertBooleanConverter x:Key="RevertBoolean" />
+	<self:InvertBooleanConverter x:Key="InvertBoolean" />
+	<self:SelectedToVisibilityConverter x:Key="SelectedToVisibility" />
 
 	<Style x:Key="ElementStyle" TargetType="{x:Type FrameworkElement}" >
 		<Setter Property="Margin" Value="5" />

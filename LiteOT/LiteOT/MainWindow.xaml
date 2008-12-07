@@ -27,7 +27,7 @@
 			<ColumnDefinition Width="Auto" />
 		</Grid.ColumnDefinitions>
 	
-		<ToolBarTray Background="White" Grid.ColumnSpan="3" >
+		<ToolBarTray Background="WhiteSmoke" Grid.ColumnSpan="3" >
 			<ToolBar >
 				<Button Click="OnRefreshIssueList" >
 					<Border  Style="{StaticResource ToolButtonStyle}" >
@@ -51,7 +51,7 @@
 				  Checked="OnSelectAll" Unchecked="OnSelectCurrent"
 				  />
 		<ComboBox Name="ProjectBox" Grid.Row="1" Grid.Column="1" Style="{StaticResource ElementStyle}" SelectedIndex="0"
-				  IsEnabled="{Binding Path=IsChecked, ElementName=ProjectCheck, Converter={StaticResource RevertBoolean}}"
+				  IsEnabled="{Binding Path=IsChecked, ElementName=ProjectCheck, Converter={StaticResource InvertBoolean}}"
 				  SelectionChanged="OnSelectCurrent"
 				  />
 		<StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal"
@@ -104,21 +104,36 @@
 				<Frame Name="RepPropceduresInfo" />
 			</TabItem>
 			<TabItem Header="Atachments" Tag="Atachments" >
-				<ListView Name="AttachmentList"
-					  MouseDoubleClick="OnGetAttachment"
-					  Style="{StaticResource ElementStyle}"
+				<DockPanel LastChildFill="True" >
+					<ToolBarTray DockPanel.Dock="Top" Background="WhiteSmoke" Grid.ColumnSpan="3" 
+								 Visibility="{Binding Path=SelectedIndex, ElementName=AttachmentList
+								 , Converter={StaticResource SelectedToVisibility}}" >
+						<ToolBar >
+							<Button Click="OnGetAttachment" >
+								<Border  Style="{StaticResource ToolButtonStyle}" >
+									<Border.Background>
+										<ImageBrush ImageSource="Resources\print.png"  />
+									</Border.Background>
+								</Border>
+							</Button>
+						</ToolBar>
+					</ToolBarTray>
+					<ListView Name="AttachmentList"
+						  MouseDoubleClick="OnGetAttachment"
+						  Style="{StaticResource ElementStyle}"
 				  >
-					<ListView.View>
-						<GridView>
-							<GridViewColumn Header="FileName"
-											DisplayMemberBinding="{Binding Path=FileName}" />
-							<GridViewColumn Header="AttachDate"
-											DisplayMemberBinding="{Binding Path=AttachDate}" />
-							<GridViewColumn Header="Description"
-											DisplayMemberBinding="{Binding Path=Description}"/>
-						</GridView>
-					</ListView.View>
-				</ListView>
+						<ListView.View>
+							<GridView>
+								<GridViewColumn Header="FileName"
+												DisplayMemberBinding="{Binding Path=FileName}" />
+								<GridViewColumn Header="AttachDate"
+												DisplayMemberBinding="{Binding Path=AttachDate}" />
+								<GridViewColumn Header="Description"
+												DisplayMemberBinding="{Binding Path=Description}"/>
+							</GridView>
+						</ListView.View>
+					</ListView>
+				</DockPanel>
 			</TabItem>
 			<!--<TabItem Header="History" Tag="History" ></TabItem>-->
 		</TabControl>

@@ -72,10 +72,23 @@ namespace LiteOT
 					UpdateTextFrame( RepPropceduresInfo, info );
 					break;
 				case ATACHMENTS_NAME:
-					AttachmentList.ItemsSource = GetAttachments( info );
+					UpdateAttachments(info);
 					break;
 				default:
 					throw new NotImplementedException();
+			}
+		}
+		/// <summary>
+		/// Updates the attachments.
+		/// </summary>
+		/// <param name="info">The info.</param>
+		private void UpdateAttachments(object info)
+		{
+			AttachmentList.ItemsSource = GetAttachments( info );
+
+			if( 0 < AttachmentList.Items.Count )
+			{
+				AttachmentList.SelectedIndex = 0;
 			}
 		}
 		private IEnumerable GetAttachments( Object issueID )
@@ -421,7 +434,7 @@ namespace LiteOT
 				RefreshIssueList();
 			}
 		}
-		private void OnGetAttachment(Object sender, MouseButtonEventArgs arg)
+		private void OnGetAttachment(Object sender, EventArgs args)
 		{
 			Object selectedItem = AttachmentList.SelectedItem;
 

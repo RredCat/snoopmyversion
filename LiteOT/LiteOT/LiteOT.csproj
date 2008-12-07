@@ -95,7 +95,8 @@
     <Compile Include="DBSetupWindow.xaml.cs">
       <DependentUpon>DBSetupWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Implementation\Converter\RevertBooleanConverter.cs" />
+    <Compile Include="Implementation\Converter\InvertBooleanConverter.cs" />
+    <Compile Include="Implementation\Converter\SelectedToVisibilityConverter.cs" />
     <Compile Include="Implementation\Exception\AccessDeniedException.cs" />
     <Compile Include="Implementation\PersistState\DBData.cs" />
     <Compile Include="Implementation\PersistState\UserData.cs" />
@@ -153,6 +154,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\arrow_down.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\print.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
