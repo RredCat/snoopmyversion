@@ -67,8 +67,10 @@
 		</StackPanel>
 		<ListView Name="IssueList"
 				  Grid.Row="2" Grid.ColumnSpan="3"
+				  SelectionMode="Single"
 				  Style="{StaticResource ElementStyle}"
 				  SelectionChanged="OnInfoTabChanged"
+				  GridViewColumnHeader.Click="OnSelectColumn"
 				  >
 			<ListView.View>
 				<GridView>
