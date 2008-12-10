@@ -1,7 +1,7 @@
 ﻿<Window x:Class="LiteOT.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title="Light OnTime window Client" WindowState="Maximized"
+    Title="Light OnTime window Client v0.9" WindowState="Maximized"
 	Height="500" Width="750"
 	Icon="Resources\bug.ico"
 	WindowStartupLocation="CenterScreen"
@@ -29,14 +29,14 @@
 	
 		<ToolBarTray Background="WhiteSmoke" Grid.ColumnSpan="3" >
 			<ToolBar >
-				<Button Click="OnRefreshIssueList" >
+				<Button Click="OnRefreshIssueList" ToolTip="Refresh" >
 					<Border  Style="{StaticResource ToolButtonStyle}" >
 						<Border.Background>
 							<ImageBrush ImageSource="Resources\reload.png"  />
 						</Border.Background>
 					</Border>
 				</Button>
-				<Button Click="OnLogout" >
+				<Button Click="OnLogout" ToolTip="Logout" >
 					<Border  Style="{StaticResource ToolButtonStyle}" >
 						<Border.Background>
 							<ImageBrush ImageSource="Resources\arrow_down.png"  />
@@ -109,7 +109,7 @@
 								 Visibility="{Binding Path=SelectedIndex, ElementName=AttachmentList
 								 , Converter={StaticResource SelectedToVisibility}}" >
 						<ToolBar >
-							<Button Click="OnGetAttachment" >
+							<Button Click="OnGetAttachment" ToolTip="Load attachment">
 								<Border  Style="{StaticResource ToolButtonStyle}" >
 									<Border.Background>
 										<ImageBrush ImageSource="Resources\print.png"  />
