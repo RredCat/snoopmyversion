@@ -8,6 +8,7 @@ using System.Windows.Input;
 using System.Data.Linq;
 using System.IO;
 using Microsoft.Win32;
+using System.Diagnostics;
 
 namespace LiteOT
 {
@@ -32,6 +33,8 @@ namespace LiteOT
 		private readonly OTDataDataContext m_Data = null;
 		private readonly Int32 m_UserId;
 		private readonly String m_CurrentDirrectory = Directory.GetCurrentDirectory();
+		private readonly Dictionary<Int32,String> m_PriorityList = new Dictionary<Int32,String>();
+		private readonly Dictionary<Int32, String> m_StatusList = new Dictionary<Int32, String>();
 
 		private IssueType m_IssueType = IssueType.Defect;
 		#endregion
@@ -47,6 +50,28 @@ namespace LiteOT
 			m_Data = data;
 			m_UserId = userId;
 			InitializeComponent();
+			var priorityList = from priorityTypes in data.PriorityTypes
+					select new
+					{
+						priorityTypes.PriorityTypeId,
+						priorityTypes.Name
+					};
+
+			foreach( var val in priorityList )
+			{
+				m_PriorityList.Add( val.PriorityTypeId, val.Name );
+			}
+			var statusList = from statusTypes in data.StatusTypes
+							   select new
+							   {
+								   statusTypes.StatusTypeId,
+								   statusTypes.Name
+							   };
+			foreach( var val in statusList )
+			{
+				m_StatusList.Add( val.StatusTypeId, val.Name );
+			}
+
 			RefreshIssueList();
 			ProjectBox.ItemsSource = GetProjects( m_Data, m_UserId );
 		}
@@ -196,29 +221,42 @@ namespace LiteOT
 				   where features.FeatureId == id
 				   select GetFeatureDescription( features, tag );
 		}
-
+		/// <summary>
+		/// Gets the priority.
+		/// </summary>
+		/// <param name="id">The id.</param>
+		/// <returns></returns>
+		private String GetPriority( Int32 id )
+		{
+			return m_PriorityList[ id ];
+		}
+		/// <summary>
+		/// Gets the status.
+		/// </summary>
+		/// <param name="id">The id.</param>
+		/// <returns></returns>
+		private String GetStatus( Int32 id )
+		{
+			return m_StatusList[ id ];
+		}
 		/// <summary>
 		/// Gets the defects.
 		/// </summary>
 		/// <param name="data">The data.</param>
 		/// <param name="userId">The user id.</param>
 		/// <returns></returns>
-		private static IEnumerable GetDefects( OTDataDataContext data, Int32 userId )
+		private IEnumerable GetDefects( OTDataDataContext data, Int32 userId )
 		{
 			return ( from defects in data.Defects
 					 join projects in data.Projects
 						 on defects.ProjectId equals projects.ProjectId
-					 join priorities in data.PriorityTypes
-						 on defects.PriorityTypeId equals priorities.PriorityTypeId
-					 join statuses in data.StatusTypes
-						 on defects.StatusTypeId equals statuses.StatusTypeId
 					 where defects.AssignedToId == userId
 					 select new
 							 {
 								 IssueId = defects.DefectId,
 								 defects.Name,
-								 Priority = priorities.Name,
-								 Status = statuses.Name,
+								 Priority = GetPriority( defects.PriorityTypeId ),
+								 Status = GetStatus( defects.StatusTypeId ),
 								 ProjectName = projects.Name
 				
 			 } );
@@ -229,22 +267,18 @@ namespace LiteOT
 		/// <param name="data">The data.</param>
 		/// <param name="userId">The user id.</param>
 		/// <returns></returns>
-		private static IEnumerable GetFeatures( OTDataDataContext data, Int32 userId )
+		private IEnumerable GetFeatures( OTDataDataContext data, Int32 userId )
 		{
 			return ( from features in data.Features
 					 join projects in data.Projects
 						 on features.ProjectId equals projects.ProjectId
-					 join priorities in data.PriorityTypes
-						 on features.PriorityTypeId equals priorities.PriorityTypeId
-					 join statuses in data.StatusTypes
-						 on features.StatusTypeId equals statuses.StatusTypeId
 					 where features.AssignedToId == userId
 					 select new
 					 {
 						 IssueId = features.FeatureId,
 						 features.Name,
-						 Priority = priorities.Name,
-						 Status = statuses.Name,
+						 Priority = GetPriority( features.PriorityTypeId ),
+						 Status = GetStatus(features.StatusTypeId),
 						 ProjectName = projects.Name
 					 } );
 		}
@@ -255,22 +289,18 @@ namespace LiteOT
 		/// <param name="userId">The user id.</param>
 		/// <param name="projectName">Name of the project.</param>
 		/// <returns></returns>
-		private static IEnumerable GetDefects( OTDataDataContext data, Int32 userId, String projectName )
+		private  IEnumerable GetDefects( OTDataDataContext data, Int32 userId, String projectName )
 		{
 			return ( from defects in data.Defects
 					 join projects in data.Projects
 						 on defects.ProjectId equals projects.ProjectId
-					 join priorities in data.PriorityTypes
-						 on defects.PriorityTypeId equals priorities.PriorityTypeId
-					 join statuses in data.StatusTypes
-						 on defects.StatusTypeId equals statuses.StatusTypeId
 					 where ( defects.AssignedToId == userId && projects.Name == projectName )
 					 select new
 					 {
 						 IssueId = defects.DefectId,
 						 defects.Name,
-						 Priority = priorities.Name,
-						 Status = statuses.Name,
+						 Priority = GetPriority( defects.PriorityTypeId ),
+						 Status = GetStatus( defects.StatusTypeId ),
 						 ProjectName = projects.Name
 					 } );
 		}
@@ -281,25 +311,22 @@ namespace LiteOT
 		/// <param name="userId">The user id.</param>
 		/// <param name="projectName">Name of the project.</param>
 		/// <returns></returns>
-		private static IEnumerable GetFeatures( OTDataDataContext data, Int32 userId, String projectName )
+		private IEnumerable GetFeatures( OTDataDataContext data, Int32 userId, String projectName )
 		{
 			return ( from features in data.Features
 					 join projects in data.Projects
 						 on features.ProjectId equals projects.ProjectId
-					 join priorities in data.PriorityTypes
-						 on features.PriorityTypeId equals priorities.PriorityTypeId
-					 join statuses in data.StatusTypes
-						 on features.StatusTypeId equals statuses.StatusTypeId
 					 where ( features.AssignedToId == userId && projects.Name == projectName )
 					 select new
 					 {
 						 IssueId = features.FeatureId,
 						 features.Name,
-						 Priority = priorities.Name,
-						 Status = statuses.Name,
+						 Priority = GetPriority( features.PriorityTypeId ),
+						 Status = GetStatus( features.StatusTypeId ),
 						 ProjectName = projects.Name
 					 } );
 		}
+
 		/// <summary>
 		/// Gets the projects.
 		/// </summary>
