@@ -123,7 +123,8 @@ namespace LiteOT
 			Int32 id = Int32.Parse( issueID.ToString() );
 
 			return from attachments in m_Data.Attachments
-				   where (attachments.SourceType == (int)m_IssueType && attachments.SourceId == id)
+				   where (attachments.SourceType == (Int32)m_IssueType
+						&& attachments.SourceId == id)
 				   select new
 				   {
 					   attachments.AttachmentId,
@@ -528,6 +529,64 @@ namespace LiteOT
 				}
 			}
 		}
+		private void OnGetAttachments( Object sender, EventArgs args )
+		{
+			Object selectedItem = IssueList.SelectedItem;
+
+			if( null != selectedItem )
+			{
+				var item = Utility.Cast( selectedItem, new
+				{
+					IssueId = 0,
+					Name = String.Empty,
+					Priority = String.Empty,
+					Status = String.Empty,
+					ProjectName = String.Empty
+				} );
+
+				var attachs = from attachments in m_Data.Attachments
+							  where (attachments.SourceType == (Int32)m_IssueType
+								   && attachments.SourceId == item.IssueId)
+							  select new
+									{
+										attachments.FileData,
+										attachments.FileName
+									};
+
+				if( 0 < attachs.Count() )
+				{
+					SaveFileDialog saveFileDialog = new SaveFileDialog
+					{
+						Filter = "All files (*.*)|*.*",
+						RestoreDirectory = true,
+					};
+
+					foreach( var attach in attachs )
+					{
+						saveFileDialog.FileName = attach.FileName;
+						
+						if( true == saveFileDialog.ShowDialog() )
+						{
+							Stream stream;
+
+							if( (stream = saveFileDialog.OpenFile()) != null )
+							{
+								BinaryWriter binaryWriter = new BinaryWriter( stream );
+								byte[] b = attach.FileData.ToArray();
+
+								for( int i = 0, cnt = b.Count(); i < cnt; ++i )
+								{
+									binaryWriter.Write( b[ i ] );
+								}
+
+								binaryWriter.Close();
+								stream.Close();
+							}
+						}
+					}
+				}
+			}
+		}
 		private void OnRefreshIssueList( Object sender, EventArgs args )
 		{
 			SelectCurrent();
@@ -536,9 +595,11 @@ namespace LiteOT
 		{
 			DialogResult = true;
 		}
+		#endregion
+
 		GridViewColumnHeader m_LastHeader = null;
 		ListSortDirection m_LastDirection = ListSortDirection.Ascending;
-
+		
 		private void OnSelectColumn( object sender, RoutedEventArgs e )
 		{
 			GridViewColumnHeader headerClicked = e.OriginalSource as GridViewColumnHeader;
@@ -577,6 +638,5 @@ namespace LiteOT
 			dataView.SortDescriptions.Add( sd );
 			dataView.Refresh();
 		}
-		#endregion
 	}
 }

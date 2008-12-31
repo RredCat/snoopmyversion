@@ -118,6 +118,13 @@
 									</Border.Background>
 								</Border>
 							</Button>
+							<Button Click="OnGetAttachments" ToolTip="Load all attachments">
+								<Border  Style="{StaticResource ToolButtonStyle}" >
+									<Border.Background>
+										<ImageBrush ImageSource="Resources\print.png"  />
+									</Border.Background>
+								</Border>
+							</Button>
 						</ToolBar>
 					</ToolBarTray>
 					<ListView Name="AttachmentList"
