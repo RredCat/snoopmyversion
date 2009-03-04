@@ -26,8 +26,7 @@ namespace LiteOT.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=www3.syncfusion.com,8754;Initial Catalog=ontime_es;Persist Security I" +
-            "nfo=True;User ID=ontime_es_user")]
+        [global::System.Configuration.DefaultSettingValueAttribute("your_connecting_string")]
         public string ontime_esConnectionString {
             get {
                 return ((string)(this["ontime_esConnectionString"]));

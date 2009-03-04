@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Database Name="ontime_es" Class="OTDataDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=www3.syncfusion.com,8754;Initial Catalog=ontime_es;Persist Security Info=True;User ID=ontime_es_user" SettingsObjectName="LiteOT.Properties.Settings" SettingsPropertyName="ontime_esConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="your_connecting_string" SettingsObjectName="LiteOT.Properties.Settings" SettingsPropertyName="ontime_esConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Users" Member="Users">
     <Type Name="User">
       <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
