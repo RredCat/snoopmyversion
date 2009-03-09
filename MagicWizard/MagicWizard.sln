@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MagicWizard", "MagicWizard\MagicWizard.csproj", "{252F4894-10A8-44E0-A9A5-57E07B60C274}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MagicWizardSample", "MagicWizardSample\MagicWizardSample.csproj", "{8CDD8CDD-BC07-4BCE-A15F-6DA0ACEED1B7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{252F4894-10A8-44E0-A9A5-57E07B60C274}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{252F4894-10A8-44E0-A9A5-57E07B60C274}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{252F4894-10A8-44E0-A9A5-57E07B60C274}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{252F4894-10A8-44E0-A9A5-57E07B60C274}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CDD8CDD-BC07-4BCE-A15F-6DA0ACEED1B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CDD8CDD-BC07-4BCE-A15F-6DA0ACEED1B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CDD8CDD-BC07-4BCE-A15F-6DA0ACEED1B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CDD8CDD-BC07-4BCE-A15F-6DA0ACEED1B7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
