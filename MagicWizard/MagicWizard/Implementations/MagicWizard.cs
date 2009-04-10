@@ -19,13 +19,13 @@ namespace Miracle
 			AllowsTransparency = true;
 			WindowStyle = WindowStyle.None;
 			WindowStartupLocation = WindowStartupLocation.CenterScreen;
-			MouseLeftButtonDown += new MouseButtonEventHandler( OnMouseLeftButtonDown );
 		}
 		#endregion
 
 		#region Implementation
-		private void OnMouseLeftButtonDown( object sender, MouseButtonEventArgs e )
+		protected override void OnMouseLeftButtonDown( MouseButtonEventArgs e )
 		{
+			base.OnMouseLeftButtonDown( e );
 			DragMove();
 		}
 		#endregion
