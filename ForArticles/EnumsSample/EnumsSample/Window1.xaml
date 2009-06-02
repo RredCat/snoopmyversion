@@ -3,7 +3,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:System="clr-namespace:System;assembly=mscorlib"
 	xmlns:local="clr-namespace:EnumSample"
-    Title="Window1" Height="300" Width="300"
+    Title="Attribute Sample"
+	SizeToContent="WidthAndHeight"
 	WindowStartupLocation="CenterScreen" >
 
 	<Window.Resources>
@@ -16,18 +17,34 @@
 				<x:Type TypeName="local:MyEnum"/>
 			</ObjectDataProvider.MethodParameters>
 		</ObjectDataProvider>
+
+		<Style TargetType="{x:Type ComboBox}" >
+			<Setter Property="Margin" Value="0,0,0,10" />
+		</Style>
+		<Style x:Key="TextStyle" TargetType="{x:Type TextBlock}" >
+			<Setter Property="Margin" Value="5,0,5,5" />
+		</Style>
 	</Window.Resources>
 	
-	<StackPanel>
-		<ComboBox ItemsSource="{Binding Source={StaticResource myEnum}}" />
-		<ComboBox ItemsSource="{Binding Source={StaticResource myEnum}}" >
+	<StackPanel Margin="10" >
+		<TextBlock Text="Enum fields are converted to String.&#x0A;(ToString() method is implicity called.)"
+			Style="{StaticResource TextStyle}" />
+		<ComboBox ItemsSource="{Binding Source={StaticResource myEnum}}"
+			SelectedIndex="1" />
+		<TextBlock Text="We use converter for present these values."
+			Style="{StaticResource TextStyle}" />
+		<ComboBox ItemsSource="{Binding Source={StaticResource myEnum}}"
+			SelectedIndex="1" >
 			<ComboBox.ItemTemplate>
 				<DataTemplate>
 					<TextBlock Text="{Binding Converter={StaticResource SimpleConverter}}" />
 				</DataTemplate>
 			</ComboBox.ItemTemplate>
 		</ComboBox>
-		<ComboBox ItemsSource="{Binding Source={StaticResource myEnum}}" >
+		<TextBlock Text="We extract a present value from attribute of enum values.&#x0A;So we willn't need to reimplement this&#x0A;if chage enum field's count or order."
+			Style="{StaticResource TextStyle}" />
+		<ComboBox ItemsSource="{Binding Source={StaticResource myEnum}}"
+			SelectedIndex="1" >
 			<ComboBox.ItemTemplate>
 				<DataTemplate>
 					<TextBlock Text="{Binding Converter={StaticResource AttributeConverter}}" />

@@ -1,6 +1,5 @@
 ﻿namespace EnumSample
 {
-	[Test]
 	public enum MyEnum
 	{
 		[ViewEnum( "My Value 1" )]

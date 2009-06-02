@@ -5,18 +5,27 @@ namespace EnumSample
 	[AttributeUsage( AttributeTargets.Field )]
 	public class ViewEnumAttribute : Attribute
 	{
-		public ViewEnumAttribute( String text )
+		#region Initialization
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ViewEnumAttribute"/> class.
+		/// </summary>
+		/// <param name="view">The view.</param>
+		public ViewEnumAttribute( String view )
 		{
-			Text = text;
+			View = view;
 		}
-		public String Text
+		#endregion
+
+		#region Properties
+		/// <summary>
+		/// Gets or sets the view.
+		/// </summary>
+		/// <value>The view.</value>
+		public String View
 		{
 			get;
 			private set;
 		}
-	}
-	[AttributeUsage( AttributeTargets.Enum )]
-	public class TestAttribute : Attribute
-	{
+		#endregion
 	}
 }
