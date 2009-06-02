@@ -5,7 +5,7 @@ using System.Windows.Data;
 
 namespace EnumSample
 {
-	public sealed class AttributeConverter:IValueConverter
+	public sealed class AttributeConverter : IValueConverter
 	{
 		#region IValueConverter Members
 		/// <summary>
@@ -20,7 +20,7 @@ namespace EnumSample
 		/// </returns>
 		public object Convert( object value, Type targetType, object parameter, CultureInfo culture )
 		{
-			return GetEnumView(value.GetType(),value.ToString());
+			return GetEnumView( value.GetType(), value.ToString() );
 		}
 		/// <summary>
 		/// Does nothing.

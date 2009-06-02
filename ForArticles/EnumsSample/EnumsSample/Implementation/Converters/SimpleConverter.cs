@@ -27,7 +27,7 @@ namespace EnumSample
 		{
 			MyEnum enumValue = (MyEnum)value;
 
-			switch ( enumValue )
+			switch( enumValue )
 			{
 				case MyEnum.MyEnumValue1:
 					return c_VIEW_1;
