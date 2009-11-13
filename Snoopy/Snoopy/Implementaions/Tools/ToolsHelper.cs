@@ -1,41 +1,15 @@
-﻿using System;
-using System.Windows.Navigation;
-using mshtml;
+﻿using mshtml;
 
 namespace Snoopy
 {
-	/// <summary>
-	/// Interaction logic for MainWindow.xaml
-	/// </summary>
-	public partial class MainWindow
+	public static class ToolsHelper
 	{
 		#region Constants
-		private const string c_URI = @"http://scarab/SoftServe.Silverlight.PhotoBrowser.Web/SoftServe.Silverlight.BrowserPage.aspx";
 		private const string c_TYPE = @"application/x-silverlight-2";
 		#endregion
 
-		#region Initialization
-		/// <summary>
-		/// Initializes a new instance of the <see cref="MainWindow"/> class.
-		/// </summary>
-		public MainWindow()
-		{
-			InitializeComponent();
-			xBrowser.LoadCompleted += new LoadCompletedEventHandler( OnBrowserLoadCompleted );
-			xBrowser.Source = new Uri( c_URI, UriKind.Absolute );
-		}
-		#endregion
-
-		#region Implementation
-		private void OnBrowserLoadCompleted( object sender, NavigationEventArgs e )
-		{
-			var document = (HTMLDocumentClass )xBrowser.Document;
-			//var silver = (HTMLObjectElementClass)document.getElementById( "xSilverHost" );
-			var silverObject = GetSilverlightObject( document );
-			var sChild = silverObject.children;
-		}
-
-		private static HTMLObjectElementClass GetSilverlightObject( HTMLDocumentClass document )
+		#region Public methods
+		public static HTMLObjectElementClass GetSilverlightObject( HTMLDocumentClass document )
 		{
 			HTMLObjectElementClass result = null;
 
@@ -57,6 +31,14 @@ namespace Snoopy
 
 			return result;
 		}
+		#endregion
+
+		#region Implementation
+		/// <summary>
+		/// Gets the silverlight object.
+		/// </summary>
+		/// <param name="node">The node.</param>
+		/// <returns></returns>
 		private static HTMLObjectElementClass GetSilverlightObject( IHTMLDOMNode node )
 		{
 			var item = node.firstChild;
