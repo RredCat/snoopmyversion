@@ -1,0 +1,124 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="MSThemeCompatible" content="yes">
+	<meta http-equiv="Content-Type" content="text/html; charset=Unicode" />
+	<title>iTV Watcher</title>
+	<link href="css/ClipSlides.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+	<table border="1" style="position:absolute; left:0;top:0;" width="130"
+	frame="above">
+<tr height="105"><td>
+<OBJECT id="VIDEO" width="127"  Height="110" 
+	style="position:absolute; left:1;top:0;"
+	CLASSID="CLSID:6BF52A52-394A-11d3-B153-00C04F79FAA6"
+	type="application/x-oleobject">
+	<PARAM NAME="URL" VALUE="http://wwitv.com/t1/b3277.asx">
+	<PARAM NAME="SendPlayStateChangeEvents" VALUE="True">
+	<PARAM NAME="AutoStart" VALUE="True">
+	<PARAM name="uiMode" value="none">
+	<PARAM name="PlayCount" value="9999">
+	<PARAM name="Volume" value="50">
+</OBJECT>
+</td></tr>
+<tr width="110"><td align="center">
+<select name="select_id" lenght="5" onchange="mSubmit(this);">
+<option value="0">Eurosport</option>
+<option value="1">Music Plus</option>
+<option value="2">RTR Planeta</option>
+<option value="3">TV RBK-TV</option>
+<option value="4">UA TV - Kultura </option>
+<option value="5">TV UTR</option>
+<option value="6">TV Rustavi 2</option>
+<option value="7">Gospel music</option>
+<option value="8">Music clips.</option>
+<option value="9">Rock music.</option>
+<option value="10">Sony Music</option>
+<option value="11">Paradise Fm</option>
+<option value="12">WHL Hockey</option>
+<option value="13">Music Plus </option>
+<option value="0">Eurosport</option>
+</select>
+</td></tr>
+<tr width="130"><td align="Center">
+<INPUT TYPE="image" SRC="img\p.gif" OnClick="StartMeUp()" >
+<INPUT TYPE="image" SRC="img\s.gif" OnClick="ShutMeDown()">
+<INPUT TYPE="image" SRC="img\plus.gif" OnClick="VolumPlus()">
+<INPUT TYPE="image" SRC="img\minus.gif" OnClick="VolumMinus()">
+</td></tr>
+</table>
+<SCRIPT>
+<!--
+function StartMeUp ()
+{
+	VIDEO.controls.play();
+}
+
+function ShutMeDown ()
+{
+	VIDEO.controls.stop();
+}
+
+function VolumPlus ()
+{
+	VIDEO.settings.Volume+=10;
+}
+
+function VolumMinus ()
+{
+	VIDEO.settings.Volume-=10;
+}
+
+function mSubmit(Select)
+{
+	var sentValue = Select.options[Select.selectedIndex].value;
+	
+	switch(sentValue) {
+    case '0':  VIDEO.URL="http://wwitv.com/t1/b3277.asx";
+		VIDEO.controls.play();
+		break
+    case '1': VIDEO.URL="http://wwitv.com/t1/8210.asx";
+		VIDEO.controls.play();
+		break 
+	case '2': VIDEO.URL="mms://video.rfn.ru/rtr-planeta_64";
+		VIDEO.controls.play();
+		break 
+	case '3': VIDEO.URL="mms://tv.gldn.net/rbc";
+		VIDEO.controls.play();
+		break  
+	case '4': VIDEO.URL="http://www.kulturatv.kiev.ua/Kultura-EU.asx";
+		VIDEO.controls.play();
+		break  
+	case '5': VIDEO.URL="http://www.utr.kiev.ua/UTR-US.asx";
+		VIDEO.controls.play();
+		break   		
+    case '6': VIDEO.URL="mms://rustavi.avstream.com/rustavilb";
+		VIDEO.controls.play();
+		break 
+	case '7': VIDEO.URL="http://wwitv.com/t1/b2614.asx";
+		VIDEO.controls.play();
+		break 
+	case '8': VIDEO.URL="http://wwitv.com/t1/8400.asx";
+		VIDEO.controls.play();
+		break
+	case '9': VIDEO.URL="http://wwitv.com/t1/7998.asx";
+		VIDEO.controls.play();
+		break
+	case '10': VIDEO.URL="mms://morrich.gekimedia.net/MainStream500";
+		VIDEO.controls.play();
+		break
+	case '11': VIDEO.URL="http://paradisefm.net/pvision/paradisetv.asx";
+		VIDEO.controls.play();
+		break	
+	case '12': VIDEO.URL="http://a1729.l2168647534.c21686.g.lm.akamaistream.net/D/1729/21686/v0001/reflector:41709%2041709&akcp=21686&akserial=1729&fp=v001%20-";
+		VIDEO.controls.play();
+		break
+	case '13': VIDEO.URL="mms://musicplus-musicplustv.wm.llnwd.net/musicplus_musicplustv";
+		VIDEO.controls.play();
+		break		
+   }
+}
+-->
+</SCRIPT>
+</html>

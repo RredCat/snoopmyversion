@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<gadget>
+  <name>iTV Watcher</name>
+  <namespace>RredCat.Gadgets.Watcher</namespace>
+  <version>1.2.0.0</version>
+  <author name="RredCat" />
+  <copyright>© 2007</copyright>
+  <description>iTV Watcher - A watcher for internet TV</description>
+  <icons>
+    <icon height="71" width="71" src="icon.png"/>
+  </icons>
+  <hosts>
+    <host name="sidebar">
+      <base type="HTML" apiVersion="1.0.0" src="Default.html"/>
+      <permissions>Full</permissions>
+      <platform minPlatformVersion="1.0"/>
+    </host>
+  </hosts>
+</gadget>

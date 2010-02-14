@@ -1,0 +1,150 @@
+﻿	<Canvas
+	xmlns="http://schemas.microsoft.com/client/2007"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	Width="110" Height="123" Cursor="Arrow" Background="Black"
+	>
+	
+	<Canvas.Resources>
+    <Storyboard  x:Name="showList">
+      <DoubleAnimation Storyboard.TargetName="playList" Storyboard.TargetProperty="(Canvas.Top)"
+                       To="5" Duration="0:0:1" />
+    </Storyboard>
+	<Storyboard  x:Name="hideList">
+      <DoubleAnimation Storyboard.TargetName="playList" Storyboard.TargetProperty="(Canvas.Top)"
+                       To="-120" Duration="0:0:1" />
+    </Storyboard>
+  </Canvas.Resources>
+	
+	<Rectangle Stroke="Silver" Width="114" Height="124.333" RadiusX="10" RadiusY="10" StrokeThickness="3" 
+				Cursor="Arrow" Canvas.Top="-1.5" Canvas.Left="-2" >
+		<Rectangle.Fill>
+			<LinearGradientBrush EndPoint="0.498,1.12" StartPoint="0.502,-0.12">
+				<GradientStop Color="#FF515151" Offset="0"/>
+				<GradientStop Color="#FFD1D1D1" Offset="1"/>
+			</LinearGradientBrush>
+		</Rectangle.Fill>
+	</Rectangle>			
+
+	<MediaElement x:Name="mediaElement"  Width="98.665" Height="88" Canvas.Left="5.335" Canvas.Top="6"
+	 				Source="mms://video.rfn.ru/rtr-planeta_64" Cursor="Arrow" MediaFailed="eventhandlerFunction"
+					MediaEnded="eventhandlerFunction"
+	/>	
+	 
+	 <Canvas x:Name="commandPanel" Width="107" Height="20" Canvas.Top="98" Cursor="Arrow" Background="Transparent" Canvas.Left="0.999" >
+	 
+		 <Canvas x:Name="playCanvas" MouseLeftButtonDown="media_begin" Canvas.Top="4" Canvas.Left="0.669" Cursor="Arrow" 
+		 			Opacity=".5" MouseEnter="buttonMouseEnter" MouseLeave="buttonMouseLeave" Background="Transparent" >
+		  <Rectangle Width="15" Height="13" RadiusX="5" RadiusY="5"
+		  	Stroke="Black" StrokeThickness="1" Cursor="Hand"
+		   >
+	      	<Rectangle.Fill>
+				<LinearGradientBrush EndPoint="0,0" StartPoint="1,0">
+					<GradientStop Color="#FF0000FF" Offset="0"/>
+					<GradientStop Color="#FFC0C0C0" Offset="0.5"/>
+					<GradientStop Color="#FF0000FF" Offset="1"/>
+				</LinearGradientBrush>
+			</Rectangle.Fill>
+		</Rectangle>
+		  
+		  <Path x:Name="playIcon" Width="8" Height="8" Fill="White" Canvas.Left="3.67" Canvas.Top="2.334" Cursor="Hand"
+	              Data="F1 M 0,8.60958L 0,0.0640488C 0.153442,-0.0215225 0.402069,-0.0212784 0.555511,0.0643539L 7.93384,
+	                4.18197C 8.08676,4.2673 8.08728,4.40609 7.93385,4.49172L 0.555542,8.60934C 0.402069,8.69497 0.152924,
+	                8.69497 0,8.60958 Z "/>
+		</Canvas>
+	
+		<Canvas x:Name="pauseCanvas" MouseLeftButtonDown="media_pause"  Canvas.Left="20.673" Canvas.Top="4" Cursor="Arrow" 
+					Opacity=".5" MouseEnter="buttonMouseEnter" MouseLeave="buttonMouseLeave" Background="Transparent" >
+			<Rectangle Width="15" Height="13" RadiusX="5" RadiusY="5" Stroke="Black" StrokeThickness="1"
+					Cursor="Hand" >
+			<Rectangle.Fill>
+				<LinearGradientBrush EndPoint="0,0" StartPoint="1,0">
+					<GradientStop Color="#FF0000FF" Offset="0"/>
+					<GradientStop Color="#FFC0C0C0" Offset="0.5"/>
+					<GradientStop Color="#FF0000FF" Offset="1"/>
+				</LinearGradientBrush>
+			</Rectangle.Fill>
+		</Rectangle>
+						
+			<Path x:Name="pauseIcon" Fill="White" Canvas.Left="2.835" Canvas.Top="2.667" Cursor="Hand"
+	              Data="F1 M 2,0 l 2.5,0 0,8.6 -2.5,0 Z M 6,0 l 2.5,0 0,8.6 -2.5,0 Z" Width="8" Height="8"  />
+		</Canvas>
+	        
+		<Canvas x:Name="decButton" MouseLeftButtonDown="media_volume_dec" Canvas.Left="65.174" Canvas.Top="4" Cursor="Arrow"
+					Opacity=".5" MouseEnter="buttonMouseEnter" MouseLeave="buttonMouseLeave" Background="Transparent" >
+	    	<Rectangle Width="15" Height="13" RadiusX="5" RadiusY="5" Stroke="Black" StrokeThickness="1" 
+					Cursor="Hand" Canvas.Left="0.333" >
+			 <Rectangle.Fill>
+				<LinearGradientBrush EndPoint="0,0" StartPoint="1,0">
+					<GradientStop Color="#FF0000FF" Offset="0"/>
+					<GradientStop Color="#FFC0C0C0" Offset="0.5"/>
+					<GradientStop Color="#FF0000FF" Offset="1"/>
+				</LinearGradientBrush>
+			</Rectangle.Fill>
+		</Rectangle>
+	
+			<Rectangle Fill="White" Width="9.5" Height="2.75" RadiusX=".5" RadiusY=".5" Canvas.Left="3.418" Canvas.Top="5.334" 
+					Cursor="Hand" />
+	    </Canvas>
+	
+	    <Canvas x:Name="incButton" MouseLeftButtonDown="media_volume_inc" Canvas.Left="88.174" Canvas.Top="4" Cursor="Arrow"
+				Opacity=".5" MouseEnter="buttonMouseEnter" MouseLeave="buttonMouseLeave" Background="Transparent" >
+	    	<Rectangle Width="15" Height="13" RadiusX="5" RadiusY="5" Stroke="Black" StrokeThickness="1"
+				Cursor="Hand" >
+			<Rectangle.Fill>
+				<LinearGradientBrush EndPoint="0,0" StartPoint="1,0">
+					<GradientStop Color="#FF0000FF" Offset="0"/>
+					<GradientStop Color="#FFC0C0C0" Offset="0.5"/>
+					<GradientStop Color="#FF0000FF" Offset="1"/>
+				</LinearGradientBrush>
+			</Rectangle.Fill>
+		</Rectangle>
+	
+	          <Rectangle Fill="White" Width="2.75" Height="9.5"  RadiusX=".5" RadiusY=".5" 
+	                     Canvas.Left="6.081" Canvas.Top="1.581" Cursor="Hand"
+	                     />
+	          <Rectangle Fill="White" Width="9.5" Height="2.75" RadiusX=".5" RadiusY=".5" 
+	                     Canvas.Left="2.749" Canvas.Top="5.163" Cursor="Hand"
+	                     />
+	        </Canvas>
+	 
+	 	<Canvas x:Name="showButton" Cursor="Arrow" Opacity=".5" MouseLeftButtonDown="showMouseLeftButtonDown"
+				 Background="Transparent" Canvas.Left="42.507" Canvas.Top="4" >
+	 		<Rectangle Width="15" Height="13" RadiusX="5" RadiusY="5"
+	 			Stroke="Black" StrokeThickness="1" Cursor="Hand"
+		   >
+	 			<Rectangle.Fill>
+	 				<LinearGradientBrush EndPoint="0,0" StartPoint="0,1">
+	 					<GradientStop Color="#FFC0C0C0" Offset="0"/>
+	 					<GradientStop Color="#FF0000FF" Offset="0.5"/>
+	 					<GradientStop Color="#FFC0C0C0" Offset="1"/>
+	 				</LinearGradientBrush>
+	 			</Rectangle.Fill>
+	 		</Rectangle>
+	
+	 		<Rectangle Fill="White" Width="9.5" Height="2.5" RadiusX=".5" RadiusY=".5" Canvas.Left="3.085" Canvas.Top="2.501" 
+	 			Cursor="Hand" />
+	
+	 		<Rectangle Fill="White" Width="9.5" Height="2.5" RadiusX=".5" RadiusY=".5" Canvas.Left="3.085" Canvas.Top="7.501" 
+	 			Cursor="Hand" />
+	 	</Canvas>
+	
+	 </Canvas>
+	 
+	 <Canvas x:Name="playList" Height="96" Width="100" Opacity="0.5" Canvas.Top="-102"
+	 		Cursor="Arrow" Background="Transparent" Canvas.Left="7"
+	  >
+	  	<Rectangle Width="100" Height="97.367" RadiusX="15" RadiusY="15" Stroke="Black" StrokeThickness="1" Cursor="Arrow" Canvas.Top="-0.5" >
+			<Rectangle.Fill>
+				<LinearGradientBrush EndPoint="0.498,1.12" StartPoint="0.502,-0.12">
+					<GradientStop Color="#FFD1D1D1" Offset="0"/>
+					<GradientStop Color="#FF515151" Offset="1"/>
+			</LinearGradientBrush>
+			</Rectangle.Fill>
+		</Rectangle>
+		<TextBlock x:Name="textBox1" Text="РТР Планета." Canvas.Left="16.5" Canvas.Top="1.5" Cursor="Hand" MouseLeftButtonDown="textMouseLeftButtonDown" FontSize="10" />
+		<TextBlock x:Name="textBox2" Text="ТВ РБК-ТВ." Canvas.Left="16.5" Canvas.Top="21.5" Cursor="Hand" MouseLeftButtonDown="textMouseLeftButtonDown" FontSize="10" />
+		<TextBlock x:Name="textBox3" Text="ТВ УТР." Canvas.Left="16.5" Canvas.Top="41.5" Cursor="Hand" MouseLeftButtonDown="textMouseLeftButtonDown" FontSize="10" />
+		<TextBlock x:Name="textBox4" Text="ТВ Рустави 2." Canvas.Left="16.5" Canvas.Top="61.5" Cursor="Hand" MouseLeftButtonDown="textMouseLeftButtonDown" FontSize="10" />
+		<TextBlock x:Name="textBox5" Text="ТВ Чудо Канал." Canvas.Left="16.5" Canvas.Top="81.5" Cursor="Hand" MouseLeftButtonDown="textMouseLeftButtonDown" FontSize="10" />	
+	</Canvas>
+</Canvas>
