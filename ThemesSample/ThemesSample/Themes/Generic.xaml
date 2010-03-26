@@ -1,0 +1,75 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:local="clr-namespace:ThemesSample" 
+    xmlns:themes="clr-namespace:Miracle.Silverlight.Themes;assembly=Miracle.Silverlight.Themes" 
+    >
+
+	<themes:ThemeConverter x:Key="ThemeConverter" />
+	
+	<Style TargetType="local:HeaderedListBox">
+		<Setter Property="Padding" Value="1"/>
+		<Setter Property="TabNavigation" Value="Once" />
+		<Setter Property="themes:ThemesManager.ThemeState" Value="Hold" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="local:HeaderedListBox">
+					<Border
+						xmlns:themes="clr-namespace:Miracle.Silverlight.Themes;assembly=Miracle.Silverlight.Themes"
+						Background="{Binding
+							Path=(themes:ThemesManager.Theme)
+							, RelativeSource={RelativeSource TemplatedParent}
+							, Converter={StaticResource ThemeConverter}
+							, ConverterParameter=Background}"
+						BorderBrush="{Binding
+							Path=(themes:ThemesManager.Theme)
+							, RelativeSource={RelativeSource TemplatedParent}
+							, Converter={StaticResource ThemeConverter}
+							, ConverterParameter=BorderBrush}"
+						CornerRadius="{Binding
+							Path=(themes:ThemesManager.Theme)
+							, RelativeSource={RelativeSource TemplatedParent}
+							, Converter={StaticResource ThemeConverter}
+							, ConverterParameter=CornerRadius}"
+						BorderThickness="1">
+						<Grid>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="25"/>
+								<RowDefinition Height="*" />
+							</Grid.RowDefinitions>
+							<Border
+								CornerRadius="{Binding
+									Path=(themes:ThemesManager.Theme)
+									, RelativeSource={RelativeSource TemplatedParent}
+									, Converter={StaticResource ThemeConverter}
+									, ConverterParameter=CornerRadius}"
+								Background="WhiteSmoke" >
+								<TextBlock
+									VerticalAlignment="Center"
+									TextAlignment="Center"
+									Foreground="{Binding
+										Path=(themes:ThemesManager.Theme)
+										, RelativeSource={RelativeSource TemplatedParent}
+										, Converter={StaticResource ThemeConverter}
+										, ConverterParameter=AlternativeForeground}"
+									Text="{TemplateBinding Header}" />
+							</Border>
+							<ScrollViewer
+								Grid.Row="1"
+								x:Name="ScrollViewer"
+								Foreground="{Binding
+										Path=(themes:ThemesManager.Theme)
+										, RelativeSource={RelativeSource TemplatedParent}
+										, Converter={StaticResource ThemeConverter}
+										, ConverterParameter=Foreground}"
+								TabNavigation="{TemplateBinding TabNavigation}">
+								<ItemsPresenter />
+							</ScrollViewer>
+						</Grid>
+					</Border>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+</ResourceDictionary>
