@@ -11,6 +11,7 @@
 		<SolidColorBrush x:Key="GrayBrush" Color="Gray" />
 		<SolidColorBrush x:Key="WhiteSmokeBrush" Color="WhiteSmoke" />
 		<SolidColorBrush x:Key="BlackBrush" Color="Black" />
+		<SolidColorBrush x:Key="BrownBrush" Color="Brown" />
 		
 		<Style x:Key="ThemesManagerStyle" TargetType="themes:ThemesManager" >
 			<Setter Property="Themes" >
@@ -24,6 +25,7 @@
 									<themes:PairKeyValue Key="Foreground" Value="{StaticResource YellowBrush}" />
 									<themes:PairKeyValue Key="AlternativeForeground" Value="{StaticResource RedBrush}" />
 									<themes:PairKeyValue Key="CornerRadius" Value="5" />
+									<themes:PairKeyValue Key="SelectedBackground" Value="{StaticResource BrownBrush}" />
 								</themes:DictionaryList>
 							</themes:PairKeyValue.Value>
 						</themes:PairKeyValue>
@@ -35,6 +37,7 @@
 									<themes:PairKeyValue Key="Foreground" Value="{StaticResource WhiteSmokeBrush}" />
 									<themes:PairKeyValue Key="AlternativeForeground" Value="{StaticResource BlackBrush}" />
 									<themes:PairKeyValue Key="CornerRadius" Value="0" />
+									<themes:PairKeyValue Key="SelectedBackground" Value="{StaticResource BlackBrush}" />
 								</themes:DictionaryList>
 							</themes:PairKeyValue.Value>
 						</themes:PairKeyValue>
