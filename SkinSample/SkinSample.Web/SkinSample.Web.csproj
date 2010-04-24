@@ -8,10 +8,10 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ThemesSample.Web</RootNamespace>
-    <AssemblyName>ThemesSample.Web</AssemblyName>
+    <RootNamespace>SkinSample.Web</RootNamespace>
+    <AssemblyName>SkinSample.Web</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-    <SilverlightApplicationList>{4EC0511F-9650-4F1B-B9BE-A7F6E0D0B5AD}|..\ThemesSample\ThemesSample.csproj|ClientBin|False</SilverlightApplicationList>
+    <SilverlightApplicationList>{4EC0511F-9650-4F1B-B9BE-A7F6E0D0B5AD}|..\SkinSample\SkinSample.csproj|ClientBin|False</SilverlightApplicationList>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -54,9 +54,9 @@
     <Reference Include="System.Web.Mobile" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ClientBin\ThemesSample.xap" />
+    <Content Include="ClientBin\SkinSample.xap" />
     <Content Include="Silverlight.js" />
-    <Content Include="ThemesSampleTestPage.aspx" />
+    <Content Include="SkinSampleTestPage.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

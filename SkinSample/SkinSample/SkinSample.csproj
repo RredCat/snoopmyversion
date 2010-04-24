@@ -8,17 +8,17 @@
     <ProjectTypeGuids>{A1591282-1198-4647-A2B1-27E5FF5F6F3B};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ThemesSample</RootNamespace>
-    <AssemblyName>ThemesSample</AssemblyName>
+    <RootNamespace>SkinSample</RootNamespace>
+    <AssemblyName>SkinSample</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <SilverlightApplication>true</SilverlightApplication>
     <SupportedCultures>
     </SupportedCultures>
     <XapOutputs>true</XapOutputs>
     <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
-    <XapFilename>ThemesSample.xap</XapFilename>
+    <XapFilename>SkinSample.xap</XapFilename>
     <SilverlightManifestTemplate>Properties\AppManifest.xml</SilverlightManifestTemplate>
-    <SilverlightAppEntry>ThemesSample.App</SilverlightAppEntry>
+    <SilverlightAppEntry>SkinSample.App</SilverlightAppEntry>
     <TestPageFileName>TestPage.html</TestPageFileName>
     <CreateTestPage>true</CreateTestPage>
     <ValidateXaml>true</ValidateXaml>
@@ -87,9 +87,9 @@
     <None Include="Properties\AppManifest.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Miracle.Silverlight.Themes\Miracle.Silverlight.Themes.csproj">
+    <ProjectReference Include="..\Miracle.Silverlight.Skin\Miracle.Silverlight.Skin.csproj">
       <Project>{E92F287F-089D-449A-860A-37B3480AB19E}</Project>
-      <Name>Miracle.Silverlight.Themes</Name>
+      <Name>Miracle.Silverlight.Skin</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\v3.0\Microsoft.Silverlight.CSharp.targets" />

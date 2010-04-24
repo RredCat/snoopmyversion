@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThemesSample", "ThemesSample\ThemesSample.csproj", "{4EC0511F-9650-4F1B-B9BE-A7F6E0D0B5AD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkinSample", "SkinSample\SkinSample.csproj", "{4EC0511F-9650-4F1B-B9BE-A7F6E0D0B5AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThemesSample.Web", "ThemesSample.Web\ThemesSample.Web.csproj", "{1FCDBFB5-C717-4CB0-9B7D-55E66D8BA314}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkinSample.Web", "SkinSample.Web\SkinSample.Web.csproj", "{1FCDBFB5-C717-4CB0-9B7D-55E66D8BA314}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Miracle.Silverlight.Themes", "Miracle.Silverlight.Themes\Miracle.Silverlight.Themes.csproj", "{E92F287F-089D-449A-860A-37B3480AB19E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Miracle.Silverlight.Skin", "Miracle.Silverlight.Skin\Miracle.Silverlight.Skin.csproj", "{E92F287F-089D-449A-860A-37B3480AB19E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

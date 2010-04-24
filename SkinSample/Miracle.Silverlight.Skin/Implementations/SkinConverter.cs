@@ -1,11 +1,11 @@
 using System;
 using System.Globalization;
 using System.Windows.Data;
-using ThemeDictionary = System.Collections.Generic.Dictionary<string, object>;
+using SkinDictionary = System.Collections.Generic.Dictionary<string, object>;
 
-namespace Miracle.Silverlight.Themes
+namespace Miracle.Silverlight.Skin
 {
-	public class ThemeConverter : IValueConverter
+	public class SkinConverter : IValueConverter
 	{
 		#region Public methods
 		/// <summary>
@@ -23,7 +23,7 @@ namespace Miracle.Silverlight.Themes
 			if ( null == value )
 				return null;
 
-			var dictionary = (ThemeDictionary)value;
+			var dictionary = (SkinDictionary)value;
 			var key = parameter.ToString();
 
 			if ( !dictionary.ContainsKey( key ) )

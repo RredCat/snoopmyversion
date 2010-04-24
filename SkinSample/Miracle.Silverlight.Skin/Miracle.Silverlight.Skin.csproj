@@ -8,8 +8,8 @@
     <ProjectTypeGuids>{A1591282-1198-4647-A2B1-27E5FF5F6F3B};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Miracle.Silverlight.Themes</RootNamespace>
-    <AssemblyName>Miracle.Silverlight.Themes</AssemblyName>
+    <RootNamespace>Miracle.Silverlight.Skin</RootNamespace>
+    <AssemblyName>Miracle.Silverlight.Skin</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <SilverlightApplication>false</SilverlightApplication>
     <ValidateXaml>true</ValidateXaml>
@@ -48,9 +48,9 @@
   <ItemGroup>
     <Compile Include="Implementations\DictionaryList.cs" />
     <Compile Include="Implementations\PairKeyValue.cs" />
-    <Compile Include="Implementations\ThemeConverter.cs" />
-    <Compile Include="Implementations\ThemeStateMode.cs" />
-    <Compile Include="Implementations\ThemesManager.cs" />
+    <Compile Include="Implementations\SkinConverter.cs" />
+    <Compile Include="Implementations\SkinStateMode.cs" />
+    <Compile Include="Implementations\SkinManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\v3.0\Microsoft.Silverlight.CSharp.targets" />

@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace ThemesSample
+namespace SkinSample
 {
 	public class HeaderedListBox :ListBox
 	{

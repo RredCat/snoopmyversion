@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Windows;
-using Miracle.Silverlight.Themes;
+using Miracle.Silverlight.Skin;
 
-namespace ThemesSample
+namespace SkinSample
 {
 	public partial class App
 	{
@@ -17,7 +17,7 @@ namespace ThemesSample
 
 		private void Application_Startup( object sender, StartupEventArgs e )
 		{
-			ThemesManager.Instance.Style = (Style)Current.Resources[ "ThemesManagerStyle" ];
+			SkinManager.Instance.Style = (Style)Current.Resources[ "SkinManagerStyle" ];
 			RootVisual = new MainPage();
 		}
 

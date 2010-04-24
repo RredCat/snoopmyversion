@@ -1,11 +1,14 @@
 ﻿using System.Windows.Controls;
-using Miracle.Silverlight.Themes;
+using Miracle.Silverlight.Skin;
 
-namespace ThemesSample
+namespace SkinSample
 {
 	public partial class MainPage
 	{
 		#region Initialization
+		/// <summary>
+		/// Initializes a new instance of the <see cref="MainPage"/> class.
+		/// </summary>
 		public MainPage()
 		{
 			InitializeComponent();
@@ -15,10 +18,15 @@ namespace ThemesSample
 		#endregion
 
 		#region Implementations
+		/// <summary>
+		/// Called when [selection changed].
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="e">The <see cref="System.Windows.Controls.SelectionChangedEventArgs"/> instance containing the event data.</param>
 		private void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			var combo = (ComboBox)sender;
-			ThemesManager.Instance.CurrentThemeName = combo.SelectedItem.ToString();
+			SkinManager.Instance.CurrentSkinName = combo.SelectedItem.ToString();
 		}
 		#endregion
 	}

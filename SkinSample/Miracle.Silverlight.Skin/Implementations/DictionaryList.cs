@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Windows.Markup;
 
-namespace Miracle.Silverlight.Themes
+namespace Miracle.Silverlight.Skin
 {
 	[ContentProperty( "Itmes" )]
 	public class DictionaryList : Dictionary<string, object>
@@ -14,6 +14,9 @@ namespace Miracle.Silverlight.Themes
 		#endregion
 
 		#region Initializations
+		/// <summary>
+		/// Initializes a new instance of the <see cref="DictionaryList"/> class.
+		/// </summary>
 		public DictionaryList()
 		{
 			m_list.CollectionChanged += new NotifyCollectionChangedEventHandler( OnCollectionChanged );
@@ -50,23 +53,6 @@ namespace Miracle.Silverlight.Themes
 				Add( item.Key, item.Value );
 			}
 		}
-		/// <summary>
-		/// Gets the <see cref="System.Object"/> with the specified key.
-		/// </summary>
-		/// <value></value>
-		//public new object this[ string key ]
-		//{
-		//    get
-		//    {
-		//        if ( ContainsKey( key ) )
-		//        {
-		//            PairKeyValue entry = (PairKeyValue)base[ key ];
-		//            return entry.Value;
-		//        }
-
-		//        return null;
-		//    }
-		//}
 		#endregion
 	}
 }

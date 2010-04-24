@@ -1,6 +1,6 @@
 using System;
 
-namespace Miracle.Silverlight.Themes
+namespace Miracle.Silverlight.Skin
 {
 	public class PairKeyValue
 	{
