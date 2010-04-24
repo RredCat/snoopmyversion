@@ -105,7 +105,7 @@
 			<Setter.Value>
 				<ControlTemplate TargetType="local:HeaderedListBox">
 					<Border
-						xmlns:Skins="clr-namespace:Miracle.Silverlight.Skin;assembly=Miracle.Silverlight.Skin"
+						xmlns:skin="clr-namespace:Miracle.Silverlight.Skin;assembly=Miracle.Silverlight.Skin"
 						Background="{Binding
 							Path=(skin:SkinManager.Skin)
 							, RelativeSource={RelativeSource TemplatedParent}
