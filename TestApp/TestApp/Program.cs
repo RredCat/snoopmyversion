@@ -21,11 +21,16 @@ namespace TestApp
 			//var target = 100;
 			var sw = new Stopwatch();
 
-			var list1 = GetLists( list ).Select( p => p.List ).ToList();
-			var l = new List<List<int>>();
-			//l.Concat<List<int>>( (from n in list1
-			//        select n.))
+			var result = new List<List<int>>();
+			var n1 = ( from lists in GetLists( list )
+					   select ( from keyList in lists
+								select keyList.List ).ToList() ).ToList();
 
+			foreach (var n in n1)
+			{
+				result.AddRange( n );
+			}
+		
 			var i = GetResult( list, target );
 
 			//foreach (var list1 in lists)
@@ -48,18 +53,15 @@ namespace TestApp
 		/// </summary>
 		/// <param name="list">The list.</param>
 		/// <returns></returns>
-		private static List<KeyBlock> GetLists( IList<int> list )
+		private static List<List<KeyList>> GetLists( IList<int> list )
 		{
-			var result = new List<KeyBlock>();
-			var first = new KeyBlock
+			var result = new List<List<KeyList>>();
+			var first = new List<KeyList>
 			{
-				List = new List<KeyList>
+				new KeyList
 				{
-					new KeyList
-					{
-						Key = 0,
-						List = new List<int>{list[0]},
-					},
+					Key = 0,
+					List = new List<int>{list[0]},
 				},
 			};
 			result.Add( first );
@@ -80,11 +82,11 @@ namespace TestApp
 		/// <param name="value">The value.</param>
 		/// <param name="replication">The replication.</param>
 		/// <returns></returns>
-		private static KeyBlock GetNewKeyBlock( int value, KeyBlock replication )
+		private static List<KeyList> GetNewKeyBlock( int value, IEnumerable<KeyList> replication )
 		{
-			var result = new KeyBlock();
+			var result = new List<KeyList>();
 
-			foreach ( var list in replication.List )
+			foreach ( var list in replication )
 			{
 				PrepareCommonCase( list, value, result );
 				PrepareIncreaseCase( list, value, result );
@@ -99,7 +101,7 @@ namespace TestApp
 		/// <param name="list">The list.</param>
 		/// <param name="value">The value.</param>
 		/// <param name="result">The result.</param>
-		private static void PrepareMixedIncreaseCase( KeyList list, int value, KeyBlock result )
+		private static void PrepareMixedIncreaseCase( KeyList list, int value, ICollection<KeyList> result )
 		{
 			foreach ( var item in list.List )
 			{
@@ -118,7 +120,7 @@ namespace TestApp
 				keyList.List.Add( keyValue );
 				keyList.List.AddRange( mixedList );
 
-				result.List.Add( keyList );
+				result.Add( keyList );
 			}
 		}
 		/// <summary>
@@ -127,12 +129,12 @@ namespace TestApp
 		/// <param name="list">The list.</param>
 		/// <param name="value">The value.</param>
 		/// <param name="result">The result.</param>
-		private static void PrepareIncreaseCase( KeyList list, int value, KeyBlock result )
+		private static void PrepareIncreaseCase( KeyList list, int value, ICollection<KeyList> result )
 		{
 			var genericKeyList = new KeyList();
 			genericKeyList.List.Add( value );
 			genericKeyList.List.AddRange( list.List );
-			result.List.Add( genericKeyList );
+			result.Add( genericKeyList );
 		}
 		/// <summary>
 		/// Prepares the common case.
@@ -140,7 +142,7 @@ namespace TestApp
 		/// <param name="list">The list.</param>
 		/// <param name="value">The value.</param>
 		/// <param name="result">The result.</param>
-		private static void PrepareCommonCase( KeyList list, int value, KeyBlock result )
+		private static void PrepareCommonCase( KeyList list, int value, ICollection<KeyList> result )
 		{
 			var tempList = new List<int>();
 			tempList.AddRange( list.List );
@@ -149,7 +151,7 @@ namespace TestApp
 			tempList.RemoveAt( key );
 			tempList.Insert( key, value );
 
-			result.List.Add( new KeyList
+			result.Add( new KeyList
 								{
 									Key = key,
 									List = tempList,
