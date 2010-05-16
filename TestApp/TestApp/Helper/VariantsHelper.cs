@@ -24,7 +24,7 @@ namespace TestApp
 				result.AddRange( exp );
 			}
 
-			return result;
+			return result.OrderBy( p => p.Count ).ToList();
 		}
 		/// <summary>
 		/// Gets all variants list.
@@ -59,7 +59,7 @@ namespace TestApp
 				}
 			} while ( 0 < --depth );
 
-			return result;
+			return result.OrderBy( p => p.Count ).ToList();
 		}
 		#endregion
 
