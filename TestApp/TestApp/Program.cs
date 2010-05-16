@@ -35,16 +35,29 @@ namespace TestApp
 
 			foreach ( var res in inputVarinats )
 			{
+				Console.WriteLine( "Count {0}", res.Key );
+
 				foreach ( var item in res )
-					Console.Write( "{0},", item );
-				Console.WriteLine();
+				{
+					foreach ( var it in item )
+						Console.Write( "{0},", it );
+
+					Console.WriteLine();
+				}
 			}
 
+			//List<KeyList<List<T>>>();
 			foreach ( var res in operationVarinats )
 			{
-				foreach ( var item in res )
-					Console.Write( "{0},", item );
-				Console.WriteLine();
+				Console.WriteLine( "Count {0}", res.Key );
+
+				foreach ( var item in res.List )
+				{
+					foreach ( var it in item )
+						Console.Write( "{0},", it );
+					
+					Console.WriteLine();
+				}
 			}
 
 			sw.Stop();

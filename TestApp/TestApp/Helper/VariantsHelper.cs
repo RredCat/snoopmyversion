@@ -12,7 +12,7 @@ namespace TestApp
 		/// <typeparam name="T"></typeparam>
 		/// <param name="list">The list.</param>
 		/// <returns></returns>
-		public static List<List<T>> GetVariantsList<T>( IList<T> list )
+		public static List<IGrouping<int, List<T>>> GetVariantsList<T>( IList<T> list )
 		{
 			var result = new List<List<T>>();
 			var resultExpr = ( from lists in GetLists( list )
@@ -24,7 +24,7 @@ namespace TestApp
 				result.AddRange( exp );
 			}
 
-			return result.OrderBy( p => p.Count ).ToList();
+			return result.GroupBy( fuckList => fuckList.Count ).ToList();
 		}
 		/// <summary>
 		/// Gets all variants list.
@@ -33,33 +33,50 @@ namespace TestApp
 		/// <param name="list">The list.</param>
 		/// <param name="depth">The depth.</param>
 		/// <returns></returns>
-		public static List<List<T>> GetAllVariantsList<T>( List<T> list, int depth )
+		public static List<KeyList<List<T>>> GetAllVariantsList<T>( List<T> list, int depth )
 		{
-			var result = new List<List<T>>();
+			var result = new List<KeyList<List<T>>>();
+			var currentResult = new List<List<T>>();
+			
 			depth -= 2;
+			int key = 1;
 
 			foreach (var item in list)
 			{
-				result.Add( new List<T> { item } );
+				currentResult.Add( new List<T> { item } );
 			}
+
+			result.Add( new KeyList<List<T>>
+			{
+				Key = key,
+				List = currentResult,
+			} );
 
 			do
 			{
-				var tempReslut = new List<List<T>>();
-				tempReslut.AddRange( result );
+				var previousResult = new List<List<T>>();
+				previousResult.AddRange( currentResult );
+				currentResult = new List<List<T>>();
 
 				foreach ( var item in list )
 				{
-					foreach ( var res in tempReslut )
+					foreach ( var res in previousResult )
 					{
 						var temp = new List<T> { item };
 						temp.AddRange( res );
-						result.Add( temp );
+						currentResult.Add( temp );
 					}
 				}
+				
+				result.Add( new KeyList<List<T>>
+				{
+					Key = ++key,
+					List = currentResult,
+				} );
+
 			} while ( 0 < --depth );
 
-			return result.OrderBy( p => p.Count ).ToList();
+			return result;
 		}
 		#endregion
 

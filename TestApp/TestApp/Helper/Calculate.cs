@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace TestApp.Helper
 {
@@ -14,6 +16,7 @@ namespace TestApp.Helper
 			Value = value;
 			IsSingle = true;
 			IsCorrect = true;
+			Range = 1;
 		}
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Calculate"/> class.
@@ -24,19 +27,11 @@ namespace TestApp.Helper
 		{
 			FirstCalc = first;
 			SecondCalc = second;
+			Range = first.Range + second.Range;
 		}
 		#endregion
 
 		#region Properties
-		/// <summary>
-		/// Gets or sets the mode.
-		/// </summary>
-		/// <value>The mode.</value>
-		public OperationMode Mode
-		{
-			get;
-			set;
-		}
 		/// <summary>
 		/// Gets or sets a value indicating whether this instance is single.
 		/// </summary>
@@ -84,24 +79,36 @@ namespace TestApp.Helper
 			get;
 			private set;
 		}
+		/// <summary>
+		/// Gets or sets the range.
+		/// </summary>
+		/// <value>The range.</value>
+		public int Range
+		{
+			get;
+			private set;
+		}
 		#endregion
 
 		#region Public methods
 		/// <summary>
 		/// Calculates the value.
 		/// </summary>
-		public void CalculateValue()
+		/// <param name="modeList">The mode list.</param>
+		public void CalculateValue( List<OperationMode> modeList )
 		{
 			if ( IsSingle )
 				return;
 
-			FirstCalc.CalculateValue();
-			SecondCalc.CalculateValue();
+			var childMode = modeList.Take( modeList.Count ).ToList();
+
+			FirstCalc.CalculateValue( childMode );
+			SecondCalc.CalculateValue( childMode );
 
 			if ( FirstCalc.IsCorrect
 				&& SecondCalc.IsCorrect )
 			{
-				switch ( Mode )
+				switch ( modeList.Last() )
 				{
 					case OperationMode.Add:
 						Value = FirstCalc.Value + SecondCalc.Value;
@@ -122,7 +129,7 @@ namespace TestApp.Helper
 						IsCorrect = first % second == 0;
 						break;
 					default:
-						throw new NotImplementedException( Mode.ToString() );
+						throw new NotImplementedException( modeList.Last().ToString() );
 				}
 			}
 			else
