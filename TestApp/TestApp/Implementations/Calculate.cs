@@ -1,18 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace TestApp
 {
 	public class Calculate
 	{
+		#region Private fields
+		private OperationMode _mode;
+		#endregion
+
 		#region Initializations
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Calculate"/> class.
 		/// </summary>
 		public Calculate()
 		{
-			Range = 1;
+			//Range = 1;
 			IsSingle = true;
 			IsCorrect = true;
 		}
@@ -25,20 +28,11 @@ namespace TestApp
 		{
 			FirstCalc = first;
 			SecondCalc = second;
-			Range = first.Range + second.Range;
+			//Range = first.Range + second.Range;
 		}
 		#endregion
 
 		#region Properties
-		/// <summary>
-		/// Gets or sets the mode.
-		/// </summary>
-		/// <value>The mode.</value>
-		public OperationMode Mode
-		{
-			get;
-			set;
-		}
 		/// <summary>
 		/// Gets or sets a value indicating whether this instance is single.
 		/// </summary>
@@ -114,13 +108,13 @@ namespace TestApp
 
 			FirstCalc.CalculateValue( inputList, modeList );
 			SecondCalc.CalculateValue( inputList, modeList );
-			Mode = modeList[ 0 ];
+			_mode = modeList[ 0 ];
 			modeList.RemoveAt( 0 );
 
 			if ( FirstCalc.IsCorrect
 				&& SecondCalc.IsCorrect )
 			{
-				switch ( Mode )
+				switch ( _mode )
 				{
 					case OperationMode.Add:
 						Value = FirstCalc.Value + SecondCalc.Value;
@@ -141,19 +135,25 @@ namespace TestApp
 						IsCorrect = first % second == 0;
 						break;
 					default:
-						throw new NotImplementedException( Mode.ToString() );
+						throw new NotImplementedException( _mode.ToString() );
 				}
 			}
 			else
 				IsCorrect = false;
 		}
+		/// <summary>
+		/// Gets the exspretion.
+		/// </summary>
+		/// <returns></returns>
 		public string GetExspretion()
 		{
 			if ( IsSingle )
 				return Value.ToString();
 
 			var mode = GetReadableMode();
-			return string.Format( "({0}{1}{2})", FirstCalc.Value, mode, SecondCalc.Value );
+			var firstExp = FirstCalc.GetExspretion();
+			var secondExp = SecondCalc.GetExspretion();
+			return string.Format( "({0}{1}{2})", firstExp, mode, secondExp );
 		}
 		#endregion
 
@@ -164,7 +164,7 @@ namespace TestApp
 		/// <returns></returns>
 		private string GetReadableMode()
 		{
-			switch ( Mode )
+			switch ( _mode )
 			{
 				case OperationMode.Add:
 					return "+";
@@ -175,7 +175,7 @@ namespace TestApp
 				case OperationMode.Div:
 					return "/";
 				default:
-					throw new NotImplementedException( Mode.ToString() );
+					throw new NotImplementedException( _mode.ToString() );
 			}
 		}
 		#endregion

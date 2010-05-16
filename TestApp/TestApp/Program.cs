@@ -14,19 +14,19 @@ namespace TestApp
 		/// <remarks>string[] args</remarks>
 		static void Main()
 		{
-			var inputList = new List<int> { 1, 2,3 };
+			var inputList = new List<int> { 1, 2, 3 };
+			var target = 7;
 			//var list = new List<int> { 1, 3, 7, 10, 25, 50 };
 			//var target = 765;
-			var target = 3;
 			//var list = new List<int> { 3, 19, 45, 21, 10, 4, 7 };
 			//var target = 100;
-			
-			//if ( inputList.Contains( target ) )
-			//{
-			//    Console.WriteLine( "Input list contains target" );
-			//    Console.ReadKey();
-			//    return;
-			//}
+
+			if ( inputList.Contains( target ) )
+			{
+				Console.WriteLine( "Input list contains target" );
+				Console.ReadKey();
+				return;
+			}
 
 			var sw = new Stopwatch();
 
@@ -40,34 +40,10 @@ namespace TestApp
 			var inputVarinats = VariantsHelper.GetVariantsList( inputList );
 			var operationVarinats = VariantsHelper.GetAllVariantsList( operationList, count );
 
-			//foreach ( var res in inputVarinats )
-			//{
-			//    Console.WriteLine( "Count {0}", res.Key );
-
-			//    foreach ( var item in res )
-			//    {
-			//        foreach ( var it in item )
-			//            Console.Write( "{0},", it );
-
-			//        Console.WriteLine();
-			//    }
-			//}
-
-			//foreach ( var res in operationVarinats )
-			//{
-			//    Console.WriteLine( "Count {0}", res.Key );
-
-			//    foreach ( var item in res.List )
-			//    {
-			//        foreach ( var it in item )
-			//            Console.Write( "{0},", it );
-					
-			//        Console.WriteLine();
-			//    }
-			//}
+			PrintInputVarinats(inputVarinats);
+			PrintOperationVarinats(operationVarinats);
 
 			var structure = GetStructure( count);
-
 			var calculate = Caluclate(structure, inputVarinats, operationVarinats, target);
 
 			if ( null == calculate )
@@ -90,19 +66,81 @@ namespace TestApp
 		private static List<KeyList<Calculate>> GetStructure( int depth )
 		{
 			var result = new List<KeyList<Calculate>>();
-			var cf = new Calculate();
-			var cs = new Calculate();
-			var c = new Calculate( cf, cs );
+			
+			var c21 = new Calculate();
+			var c22 = new Calculate();
+			var c2 = new Calculate( c21, c22 );
 
-			var first = new KeyList<Calculate>()
+			var two = new KeyList<Calculate>
 			{
 				Key = 2,
-				List = new List<Calculate> { c },
+				List = new List<Calculate> { c2 },
 			};
-			result.Add( first );
+			result.Add( two );
+
+			var c31 = new Calculate();
+			var c32 = new Calculate();
+			var c33 = new Calculate();
+			var c312 = new Calculate( c31, c32 );
+
+			var c3a = new Calculate( c33, c312 );
+			var c3b = new Calculate( c312, c33 );
+
+			var three = new KeyList<Calculate>
+			{
+				Key = 3,
+				List = new List<Calculate> { c3a, c3b },
+			};
+			result.Add( three );
 
 			return result;
 		}
+		/// <summary>
+		/// Prints the operation varinats.
+		/// </summary>
+		/// <param name="operationVarinats">The operation varinats.</param>
+		private static void PrintOperationVarinats( IEnumerable<KeyList<List<OperationMode>>> operationVarinats )
+		{
+			foreach ( var res in operationVarinats )
+			{
+				Console.WriteLine( "Count {0}", res.Key );
+
+				foreach ( var item in res.List )
+				{
+					foreach ( var it in item )
+						Console.Write( "{0},", it );
+
+					Console.WriteLine();
+				}
+			}
+		}
+		/// <summary>
+		/// Prints the input varinats.
+		/// </summary>
+		/// <param name="inputVarinats">The input varinats.</param>
+		private static void PrintInputVarinats( IEnumerable<IGrouping<int, List<int>>> inputVarinats )
+		{
+			foreach ( var res in inputVarinats )
+			{
+				Console.WriteLine( "Count {0}", res.Key );
+
+				foreach ( var item in res )
+				{
+					foreach ( var it in item )
+						Console.Write( "{0},", it );
+
+					Console.WriteLine();
+				}
+			}
+		}
+		/// <summary>
+		/// Caluclates the specified structure.
+		/// </summary>
+		/// <param name="structure">The structure.</param>
+		/// <param name="inputVarinats">The input varinats.</param>
+		/// <param name="operationVarinats">The operation varinats.</param>
+		/// <param name="target">The target.</param>
+		/// <returns></returns>
 		private static Calculate Caluclate( IEnumerable<KeyList<Calculate>> structure
 			, IEnumerable<IGrouping<int, List<int>>> inputVarinats
 			, IEnumerable<KeyList<List<OperationMode>>> operationVarinats
@@ -111,16 +149,20 @@ namespace TestApp
 			foreach ( var list in structure )
 			{
 				var key = list.Key;
-				var input = inputVarinats.Where( p => p.Key == key ).Select( p => p.ToList() ).ToList()[ 0 ];
-				var operation = operationVarinats.Where( p => p.Key == key ).Select( p => p.List ).ToList()[ 0 ];
+				var input = inputVarinats.Where( p => p.Key == key )
+					.Select( p => p.ToList() ).ToList()[ 0 ];
+				var operation = operationVarinats.Where( p => p.Key == key )
+					.Select( p => p.List ).ToList()[ 0 ];
 
 				foreach ( var calculate in list.List )
 				{
 					foreach ( var inp in input )
 					{
-						foreach ( var operat in operation )
+						foreach ( var ope in operation )
 						{
-							calculate.CalculateValue( inp, operat );
+							var inpParam = new List<int>( inp );
+							var opeParam = new List<OperationMode>( ope );
+							calculate.CalculateValue( inpParam, opeParam );
 
 							if ( calculate.IsCorrect
 								&& calculate.Value == target )
