@@ -26,6 +26,41 @@ namespace TestApp
 
 			return result;
 		}
+		/// <summary>
+		/// Gets all variants list.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="list">The list.</param>
+		/// <param name="depth">The depth.</param>
+		/// <returns></returns>
+		public static List<List<T>> GetAllVariantsList<T>( List<T> list, int depth )
+		{
+			var result = new List<List<T>>();
+			depth -= 2;
+
+			foreach (var item in list)
+			{
+				result.Add( new List<T> { item } );
+			}
+
+			do
+			{
+				var tempReslut = new List<List<T>>();
+				tempReslut.AddRange( result );
+
+				foreach ( var item in list )
+				{
+					foreach ( var res in tempReslut )
+					{
+						var temp = new List<T> { item };
+						temp.AddRange( res );
+						result.Add( temp );
+					}
+				}
+			} while ( 0 < --depth );
+
+			return result;
+		}
 		#endregion
 
 		#region Impelmentations

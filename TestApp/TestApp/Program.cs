@@ -21,7 +21,7 @@ namespace TestApp
 			//var list = new List<int> { 3, 19, 45, 21, 10, 4, 7 };
 			//var target = 100;
 			var sw = new Stopwatch();
-
+			int cnt = inputList.Count;
 			var operationList = new List<OperationMode> {
 				OperationMode.Add,
 				OperationMode.Sub,
@@ -29,7 +29,7 @@ namespace TestApp
 				OperationMode.Div, };
 
 			var inputVarinats = VariantsHelper.GetVariantsList( inputList );
-			var operationVarinats = VariantsHelper.GetVariantsList( operationList );
+			var operationVarinats = VariantsHelper.GetAllVariantsList( operationList, cnt );
 			
 			var i = GetResult( inputList, target );
 
