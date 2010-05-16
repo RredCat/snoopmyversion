@@ -38,7 +38,7 @@ namespace TestApp
 				Console.ReadKey();
 				return;
 			}
-
+			
 			var sw = new Stopwatch();
 
 			int count = inputList.Count;

@@ -32,20 +32,6 @@ namespace TestApp
 			_firstCalc = first ?? new Calculate();
 			_secondCalc = second ?? new Calculate();
 		}
-		public Calculate Left
-		{
-			get
-			{
-				return _firstCalc;
-			}
-		}
-		public Calculate Right
-		{
-			get
-			{
-				return _secondCalc;
-			}
-		}
 		#endregion
 
 		#region Properties
@@ -86,10 +72,10 @@ namespace TestApp
 				return;
 			}
 
-			_firstCalc.CalculateValue( inputList, modeList );
-			_secondCalc.CalculateValue( inputList, modeList );
 			_mode = modeList[ 0 ];
 			modeList.RemoveAt( 0 );
+			_firstCalc.CalculateValue( inputList, modeList );
+			_secondCalc.CalculateValue( inputList, modeList );
 
 			if ( _firstCalc.IsCorrect
 				&& _secondCalc.IsCorrect )
@@ -133,6 +119,7 @@ namespace TestApp
 			var mode = GetReadableMode();
 			var firstExp = _firstCalc.GetExspretion();
 			var secondExp = _secondCalc.GetExspretion();
+			
 			return string.Format( "({0}{1}{2})", firstExp, mode, secondExp );
 		}
 		#endregion
