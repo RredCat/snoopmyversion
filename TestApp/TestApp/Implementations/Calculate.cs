@@ -6,7 +6,7 @@ namespace TestApp
 	public class Calculate
 	{
 		#region Private fields
-		private readonly bool _isSingle;
+		//private readonly bool _isSingle;
 		private readonly Calculate _firstCalc;
 		private readonly Calculate _secondCalc;
 		
@@ -17,11 +17,11 @@ namespace TestApp
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Calculate"/> class.
 		/// </summary>
-		public Calculate()
-		{
-			_isSingle = true;
-			IsCorrect = true;
-		}
+		//public Calculate()
+		//{
+		//    _isSingle = true;
+		//    IsCorrect = true;
+		//}
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Calculate"/> class.
 		/// </summary>
@@ -31,6 +31,31 @@ namespace TestApp
 		{
 			_firstCalc = first;
 			_secondCalc = second;
+
+			//if ( null != first && null != second )
+			//{
+			//    _firstCalc = first;
+			//    _secondCalc = second;
+			//}
+			//else
+			//{
+			//    _isSingle = true;
+			//    IsCorrect = true;
+			//}
+		}
+		public Calculate Left
+		{
+			get
+			{
+				return _firstCalc;
+			}
+		}
+		public Calculate Right
+		{
+			get
+			{
+				return _secondCalc;
+			}
 		}
 		#endregion
 
@@ -65,7 +90,7 @@ namespace TestApp
 		/// <param name="modeList">The mode list.</param>
 		public void CalculateValue( List<int> inputList, List<OperationMode> modeList )
 		{
-			if ( _isSingle )
+			if ( IsSingle() )
 			{
 				Value = inputList[ 0 ];
 				inputList.RemoveAt( 0 );
@@ -113,7 +138,7 @@ namespace TestApp
 		/// <returns></returns>
 		public string GetExspretion()
 		{
-			if ( _isSingle )
+			if ( IsSingle() )
 				return Value.ToString();
 
 			var mode = GetReadableMode();
@@ -145,5 +170,11 @@ namespace TestApp
 			}
 		}
 		#endregion
+
+		private bool IsSingle()
+		{
+			return null == _firstCalc
+				|| null == _secondCalc;
+		}
 	}
 }

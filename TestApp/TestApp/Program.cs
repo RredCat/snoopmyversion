@@ -44,10 +44,22 @@ namespace TestApp
 				OperationMode.Mul,
 				OperationMode.Div, };
 
+			//foreach ( var t in CalculateHelper.GetAllTrees( 2 ) )
+			//    Console.WriteLine( CalculateHelper.BinaryTreeString( t ) );
+			//Console.ReadKey();
+
 			var inputVarinats = VariantsHelper.GetVariantsList( inputList );
 			var operationVarinats = VariantsHelper.GetAllVariantsList( operationList, count );
-
 			var structure = CalculateHelper.GetStructure( count );
+
+			foreach ( var keyList in structure )
+			{
+				Console.WriteLine( keyList.Key );
+
+				foreach ( var t in keyList.List )
+					Console.WriteLine( CalculateHelper.BinaryTreeString( t ) );
+			}
+			
 			var calculate = Caluclate(structure, inputVarinats, operationVarinats, target);
 
 			if ( null == calculate )
