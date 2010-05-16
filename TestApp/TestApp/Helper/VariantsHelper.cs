@@ -37,22 +37,21 @@ namespace TestApp
 		{
 			var result = new List<KeyList<List<T>>>();
 			var currentResult = new List<List<T>>();
-			
-			depth -= 2;
-			int key = 1;
 
 			foreach (var item in list)
 			{
 				currentResult.Add( new List<T> { item } );
 			}
-
+			
+			int key = 2;
 			result.Add( new KeyList<List<T>>
 			{
 				Key = key,
 				List = currentResult,
 			} );
+			--depth;
 
-			do
+			while ( 0 < --depth )
 			{
 				var previousResult = new List<List<T>>();
 				previousResult.AddRange( currentResult );
@@ -73,8 +72,7 @@ namespace TestApp
 					Key = ++key,
 					List = currentResult,
 				} );
-
-			} while ( 0 < --depth );
+			}
 
 			return result;
 		}

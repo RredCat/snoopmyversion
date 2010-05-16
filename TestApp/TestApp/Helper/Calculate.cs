@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace TestApp.Helper
+namespace TestApp
 {
 	public class Calculate
 	{
@@ -10,13 +10,11 @@ namespace TestApp.Helper
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Calculate"/> class.
 		/// </summary>
-		/// <param name="value">The value.</param>
-		public Calculate( int value )
+		public Calculate()
 		{
-			Value = value;
+			Range = 1;
 			IsSingle = true;
 			IsCorrect = true;
-			Range = 1;
 		}
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Calculate"/> class.
@@ -32,6 +30,15 @@ namespace TestApp.Helper
 		#endregion
 
 		#region Properties
+		/// <summary>
+		/// Gets or sets the mode.
+		/// </summary>
+		/// <value>The mode.</value>
+		public OperationMode Mode
+		{
+			get;
+			set;
+		}
 		/// <summary>
 		/// Gets or sets a value indicating whether this instance is single.
 		/// </summary>
@@ -94,21 +101,26 @@ namespace TestApp.Helper
 		/// <summary>
 		/// Calculates the value.
 		/// </summary>
+		/// <param name="inputList">The input list.</param>
 		/// <param name="modeList">The mode list.</param>
-		public void CalculateValue( List<OperationMode> modeList )
+		public void CalculateValue( List<int> inputList, List<OperationMode> modeList )
 		{
 			if ( IsSingle )
+			{
+				Value = inputList[ 0 ];
+				inputList.RemoveAt( 0 );
 				return;
+			}
 
-			var childMode = modeList.Take( modeList.Count ).ToList();
-
-			FirstCalc.CalculateValue( childMode );
-			SecondCalc.CalculateValue( childMode );
+			FirstCalc.CalculateValue( inputList, modeList );
+			SecondCalc.CalculateValue( inputList, modeList );
+			Mode = modeList[ 0 ];
+			modeList.RemoveAt( 0 );
 
 			if ( FirstCalc.IsCorrect
 				&& SecondCalc.IsCorrect )
 			{
-				switch ( modeList.Last() )
+				switch ( Mode )
 				{
 					case OperationMode.Add:
 						Value = FirstCalc.Value + SecondCalc.Value;
@@ -129,11 +141,42 @@ namespace TestApp.Helper
 						IsCorrect = first % second == 0;
 						break;
 					default:
-						throw new NotImplementedException( modeList.Last().ToString() );
+						throw new NotImplementedException( Mode.ToString() );
 				}
 			}
 			else
 				IsCorrect = false;
+		}
+		public string GetExspretion()
+		{
+			if ( IsSingle )
+				return Value.ToString();
+
+			var mode = GetReadableMode();
+			return string.Format( "({0}{1}{2})", FirstCalc.Value, mode, SecondCalc.Value );
+		}
+		#endregion
+
+		#region Implementations
+		/// <summary>
+		/// Gets the readable mode.
+		/// </summary>
+		/// <returns></returns>
+		private string GetReadableMode()
+		{
+			switch ( Mode )
+			{
+				case OperationMode.Add:
+					return "+";
+				case OperationMode.Sub:
+					return "-";
+				case OperationMode.Mul:
+					return "*";
+				case OperationMode.Div:
+					return "/";
+				default:
+					throw new NotImplementedException( Mode.ToString() );
+			}
 		}
 		#endregion
 	}
