@@ -45,7 +45,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helper\Calculate.cs" />
     <Compile Include="Helper\KeyList.cs" />
+    <Compile Include="Helper\Operation.cs" />
+    <Compile Include="Helper\VariantsHelper.cs" />
+    <Compile Include="Helper\_enums.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

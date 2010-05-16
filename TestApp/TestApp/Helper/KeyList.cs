@@ -2,16 +2,16 @@ using System.Collections.Generic;
 
 namespace TestApp
 {
-	public class KeyList
+	public class KeyList<T>
 	{
 		#region Initializations
 		/// <summary>
-		/// Initializes a new instance of the <see cref="KeyList"/> class.
+		/// Initializes a new instance of the <see cref="KeyList&lt;T&gt;"/> class.
 		/// </summary>
 		public KeyList()
 		{
 			Key = 0;
-			List = new List<int>();
+			List = new List<T>();
 		}
 		#endregion
 
@@ -29,7 +29,11 @@ namespace TestApp
 		/// Gets or sets the list.
 		/// </summary>
 		/// <value>The list.</value>
-		public List<int> List { get; set; }
+		public List<T> List
+		{
+			get;
+			set;
+		}
 		#endregion
 	}
 }
