@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 
 namespace TestApp
 {
@@ -40,6 +41,7 @@ namespace TestApp
 			}
 			
 			var sw = new Stopwatch();
+			sw.Start();
 
 			int count = inputList.Count;
 			var operationList = new List<OperationMode> {
@@ -52,6 +54,7 @@ namespace TestApp
 			var operationVarinats = VariantsHelper.GetAllVariantsList( operationList, count );
 			var structure = CalculateHelper.GetStructure( count );
 			var calculate = Caluclate(structure, inputVarinats, operationVarinats, target);
+			
 
 			if ( null == calculate )
 			{
@@ -68,6 +71,18 @@ namespace TestApp
 				Console.WriteLine( "Target {0}; Expression: {1};", target, expression );
 				Console.ReadKey();
 			}
+
+			sw.Reset();
+			sw.Start();
+			var list = CaluclateAsync( structure, inputVarinats, operationVarinats, target );
+			sw.Stop();
+
+			foreach (var item in list)
+			{
+				Console.WriteLine( item );
+			}
+			Console.WriteLine( "Time: {0}", sw.ElapsedMilliseconds );
+			Console.ReadKey();
 		}
 		#endregion
 
@@ -114,6 +129,46 @@ namespace TestApp
 			}
 
 			return null;
+		}
+		private static List<string> CaluclateAsync( IList<KeyList<Calculate>> structure
+			, IEnumerable<IGrouping<int, List<int>>> inputVarinats
+			, IEnumerable<KeyList<List<OperationMode>>> operationVarinats
+			, int target )
+		{
+			var result = new List<string>();
+			int calculations = structure.Count();
+			ManualResetEvent[] doneEvents = new ManualResetEvent[ calculations ];
+			var fibArray = new List<CalculateAsync>( calculations );
+
+			for ( int i = 0; i < calculations; i++ )
+			{
+				var list = structure[ i ];
+				var key = list.Key;
+				var input = inputVarinats.Where( p => p.Key == key )
+					.Select( p => p.ToList() ).ToList()[ 0 ];
+				var operation = operationVarinats.Where( p => p.Key == key )
+					.Select( p => p.List ).ToList()[ 0 ];
+
+				doneEvents[ i ] = new ManualResetEvent( false );
+				CalculateAsync calc = new CalculateAsync( list, input, operation, target, doneEvents[ i ] );
+				fibArray.Add( calc );
+				ThreadPool.QueueUserWorkItem( calc.ThreadPoolCallback, i );
+			}
+
+			WaitHandle.WaitAll( doneEvents );
+			Console.WriteLine( "Calculation is completed." );
+
+			for ( int i = 0; i < calculations; i++ )
+			{
+				CalculateAsync calc = fibArray[ i ];
+
+				if ( 0 != calc.Results.Count )
+				{
+					result.AddRange( calc.Results );
+				}
+			}
+
+			return result;
 		}
 		#endregion
 	}

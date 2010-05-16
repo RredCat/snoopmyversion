@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Implementations\Calculate.cs" />
+    <Compile Include="Implementations\CalculateAsync.cs" />
     <Compile Include="Implementations\Helper\CalculateHelper.cs" />
     <Compile Include="Implementations\KeyList.cs" />
     <Compile Include="Implementations\Helper\VariantsHelper.cs" />
