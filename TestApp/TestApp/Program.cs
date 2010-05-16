@@ -14,12 +14,19 @@ namespace TestApp
 		/// <remarks>string[] args</remarks>
 		static void Main()
 		{
-			var inputList = new List<int> { 1, 2, 3 };
-			var target = 7;
+			var inputList = new List<int> { 1, 2, 3, 4 };
+			var target = 21;
 			//var list = new List<int> { 1, 3, 7, 10, 25, 50 };
 			//var target = 765;
 			//var list = new List<int> { 3, 19, 45, 21, 10, 4, 7 };
 			//var target = 100;
+
+			if ( 2 > inputList.Count )
+			{
+				Console.WriteLine( "Input list is too short" );
+				Console.ReadKey();
+				return;
+			}
 
 			if ( inputList.Contains( target ) )
 			{
@@ -40,16 +47,15 @@ namespace TestApp
 			var inputVarinats = VariantsHelper.GetVariantsList( inputList );
 			var operationVarinats = VariantsHelper.GetAllVariantsList( operationList, count );
 
-			PrintInputVarinats(inputVarinats);
-			PrintOperationVarinats(operationVarinats);
-
 			var structure = CalculateHelper.GetStructure( count );
 			var calculate = Caluclate(structure, inputVarinats, operationVarinats, target);
 
 			if ( null == calculate )
 			{
 				sw.Stop();
+				Console.WriteLine( "Time: {0}", sw.ElapsedMilliseconds );
 				Console.WriteLine( "Not found.." );
+				Console.ReadKey();
 			}
 			else
 			{
@@ -63,44 +69,6 @@ namespace TestApp
 		#endregion
 
 		#region Implementations
-		/// <summary>
-		/// Prints the operation varinats.
-		/// </summary>
-		/// <param name="operationVarinats">The operation varinats.</param>
-		private static void PrintOperationVarinats( IEnumerable<KeyList<List<OperationMode>>> operationVarinats )
-		{
-			foreach ( var res in operationVarinats )
-			{
-				Console.WriteLine( "Count {0}", res.Key );
-
-				foreach ( var item in res.List )
-				{
-					foreach ( var it in item )
-						Console.Write( "{0},", it );
-
-					Console.WriteLine();
-				}
-			}
-		}
-		/// <summary>
-		/// Prints the input varinats.
-		/// </summary>
-		/// <param name="inputVarinats">The input varinats.</param>
-		private static void PrintInputVarinats( IEnumerable<IGrouping<int, List<int>>> inputVarinats )
-		{
-			foreach ( var res in inputVarinats )
-			{
-				Console.WriteLine( "Count {0}", res.Key );
-
-				foreach ( var item in res )
-				{
-					foreach ( var it in item )
-						Console.Write( "{0},", it );
-
-					Console.WriteLine();
-				}
-			}
-		}
 		/// <summary>
 		/// Caluclates the specified structure.
 		/// </summary>
