@@ -43,7 +43,7 @@ namespace TestApp
 			PrintInputVarinats(inputVarinats);
 			PrintOperationVarinats(operationVarinats);
 
-			var structure = GetStructure( count);
+			var structure = CalculateHelper.GetStructure( count );
 			var calculate = Caluclate(structure, inputVarinats, operationVarinats, target);
 
 			if ( null == calculate )
@@ -63,38 +63,6 @@ namespace TestApp
 		#endregion
 
 		#region Implementations
-		private static List<KeyList<Calculate>> GetStructure( int depth )
-		{
-			var result = new List<KeyList<Calculate>>();
-			
-			var c21 = new Calculate();
-			var c22 = new Calculate();
-			var c2 = new Calculate( c21, c22 );
-
-			var two = new KeyList<Calculate>
-			{
-				Key = 2,
-				List = new List<Calculate> { c2 },
-			};
-			result.Add( two );
-
-			var c31 = new Calculate();
-			var c32 = new Calculate();
-			var c33 = new Calculate();
-			var c312 = new Calculate( c31, c32 );
-
-			var c3a = new Calculate( c33, c312 );
-			var c3b = new Calculate( c312, c33 );
-
-			var three = new KeyList<Calculate>
-			{
-				Key = 3,
-				List = new List<Calculate> { c3a, c3b },
-			};
-			result.Add( three );
-
-			return result;
-		}
 		/// <summary>
 		/// Prints the operation varinats.
 		/// </summary>

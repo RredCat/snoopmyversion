@@ -6,6 +6,10 @@ namespace TestApp
 	public class Calculate
 	{
 		#region Private fields
+		private readonly bool _isSingle;
+		private readonly Calculate _firstCalc;
+		private readonly Calculate _secondCalc;
+		
 		private OperationMode _mode;
 		#endregion
 
@@ -15,8 +19,7 @@ namespace TestApp
 		/// </summary>
 		public Calculate()
 		{
-			//Range = 1;
-			IsSingle = true;
+			_isSingle = true;
 			IsCorrect = true;
 		}
 		/// <summary>
@@ -26,22 +29,12 @@ namespace TestApp
 		/// <param name="second">The second.</param>
 		public Calculate( Calculate first, Calculate second )
 		{
-			FirstCalc = first;
-			SecondCalc = second;
-			//Range = first.Range + second.Range;
+			_firstCalc = first;
+			_secondCalc = second;
 		}
 		#endregion
 
 		#region Properties
-		/// <summary>
-		/// Gets or sets a value indicating whether this instance is single.
-		/// </summary>
-		/// <value><c>true</c> if this instance is single; otherwise, <c>false</c>.</value>
-		public bool IsSingle
-		{
-			get;
-			private set;
-		}
 		/// <summary>
 		/// Gets or sets a value indicating whether this instance is correct.
 		/// </summary>
@@ -54,37 +47,10 @@ namespace TestApp
 			private set;
 		}
 		/// <summary>
-		/// Gets or sets the first calc.
-		/// </summary>
-		/// <value>The first calc.</value>
-		public Calculate FirstCalc
-		{
-			get;
-			private set;
-		}
-		/// <summary>
-		/// Gets or sets the second calc.
-		/// </summary>
-		/// <value>The second calc.</value>
-		public Calculate SecondCalc
-		{
-			get;
-			private set;
-		}
-		/// <summary>
 		/// Gets or sets the value.
 		/// </summary>
 		/// <value>The value.</value>
 		public int Value
-		{
-			get;
-			private set;
-		}
-		/// <summary>
-		/// Gets or sets the range.
-		/// </summary>
-		/// <value>The range.</value>
-		public int Range
 		{
 			get;
 			private set;
@@ -99,38 +65,38 @@ namespace TestApp
 		/// <param name="modeList">The mode list.</param>
 		public void CalculateValue( List<int> inputList, List<OperationMode> modeList )
 		{
-			if ( IsSingle )
+			if ( _isSingle )
 			{
 				Value = inputList[ 0 ];
 				inputList.RemoveAt( 0 );
 				return;
 			}
 
-			FirstCalc.CalculateValue( inputList, modeList );
-			SecondCalc.CalculateValue( inputList, modeList );
+			_firstCalc.CalculateValue( inputList, modeList );
+			_secondCalc.CalculateValue( inputList, modeList );
 			_mode = modeList[ 0 ];
 			modeList.RemoveAt( 0 );
 
-			if ( FirstCalc.IsCorrect
-				&& SecondCalc.IsCorrect )
+			if ( _firstCalc.IsCorrect
+				&& _secondCalc.IsCorrect )
 			{
 				switch ( _mode )
 				{
 					case OperationMode.Add:
-						Value = FirstCalc.Value + SecondCalc.Value;
+						Value = _firstCalc.Value + _secondCalc.Value;
 						IsCorrect = true;
 						break;
 					case OperationMode.Sub:
-						Value = FirstCalc.Value - SecondCalc.Value;
+						Value = _firstCalc.Value - _secondCalc.Value;
 						IsCorrect = 0 < Value;
 						break;
 					case OperationMode.Mul:
-						Value = FirstCalc.Value * SecondCalc.Value;
+						Value = _firstCalc.Value * _secondCalc.Value;
 						IsCorrect = true;
 						break;
 					case OperationMode.Div:
-						var first = FirstCalc.Value;
-						var second = SecondCalc.Value;
+						var first = _firstCalc.Value;
+						var second = _secondCalc.Value;
 						Value = first / second;
 						IsCorrect = first % second == 0;
 						break;
@@ -147,12 +113,12 @@ namespace TestApp
 		/// <returns></returns>
 		public string GetExspretion()
 		{
-			if ( IsSingle )
+			if ( _isSingle )
 				return Value.ToString();
 
 			var mode = GetReadableMode();
-			var firstExp = FirstCalc.GetExspretion();
-			var secondExp = SecondCalc.GetExspretion();
+			var firstExp = _firstCalc.GetExspretion();
+			var secondExp = _secondCalc.GetExspretion();
 			return string.Format( "({0}{1}{2})", firstExp, mode, secondExp );
 		}
 		#endregion
