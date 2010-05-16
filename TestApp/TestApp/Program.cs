@@ -14,12 +14,16 @@ namespace TestApp
 		/// <remarks>string[] args</remarks>
 		static void Main()
 		{
-			var inputList = new List<int> { 1, 2, 3, 4 };
-			var target = 21;
-			//var list = new List<int> { 1, 3, 7, 10, 25, 50 };
+			//var inputList = new List<int> { 1, 2, };
+			//var target = 3;
+			//var inputList = new List<int> { 1, 2, 3, };
+			//var target = 7;
+			//var inputList = new List<int> { 1, 2, 3, 4, };
+			//var target = 21;
+			//var inputList = new List<int> { 1, 3, 7, 10, 25, 50, };
 			//var target = 765;
-			//var list = new List<int> { 3, 19, 45, 21, 10, 4, 7 };
-			//var target = 100;
+			var inputList = new List<int> { 3, 19, 45, 21, 10, 4, 7, };
+			var target = 100;
 
 			if ( 2 > inputList.Count )
 			{
@@ -44,22 +48,9 @@ namespace TestApp
 				OperationMode.Mul,
 				OperationMode.Div, };
 
-			//foreach ( var t in CalculateHelper.GetAllTrees( 2 ) )
-			//    Console.WriteLine( CalculateHelper.BinaryTreeString( t ) );
-			//Console.ReadKey();
-
 			var inputVarinats = VariantsHelper.GetVariantsList( inputList );
 			var operationVarinats = VariantsHelper.GetAllVariantsList( operationList, count );
 			var structure = CalculateHelper.GetStructure( count );
-
-			foreach ( var keyList in structure )
-			{
-				Console.WriteLine( keyList.Key );
-
-				foreach ( var t in keyList.List )
-					Console.WriteLine( CalculateHelper.BinaryTreeString( t ) );
-			}
-			
 			var calculate = Caluclate(structure, inputVarinats, operationVarinats, target);
 
 			if ( null == calculate )
