@@ -1,0 +1,1 @@
+It is my version of snoop and some staff for my blogs
